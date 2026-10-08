@@ -9,7 +9,7 @@
                initial-scale=1.0,
                maximum-scale=1.0">
 
-<title>Nokia Browser</title>
+<title>Nokia Mini Browser</title>
 
 <style>
 
@@ -28,7 +28,7 @@ body {
 
 .main {
     width: 100%;
-    padding: 26px 12px 18px 12px;
+    padding: 24px 12px 20px 12px;
 }
 
 
@@ -40,7 +40,7 @@ body {
     letter-spacing: -4px;
     line-height: 1;
     white-space: nowrap;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
 }
 
 .blue {
@@ -76,9 +76,6 @@ body {
 
     padding: 0 10px;
 }
-
-
-/* Search Input */
 
 #search {
     width: 100%;
@@ -117,8 +114,6 @@ body {
     margin-left: 5px;
 
     order: 2;
-
-    cursor: pointer;
 }
 
 .search-button svg {
@@ -130,41 +125,90 @@ body {
     stroke-width: 2.5;
 }
 
-.search-button:active svg {
-    stroke: #fff;
-}
-
 
 /* Clock */
 
 #clock {
     font-size: 20px;
-    color: #fff;
-
-    margin-top: 18px;
+    margin-top: 16px;
 }
 
 
-/* Nokia Area */
+/* Sections */
 
-.nokia-box {
+.section {
     margin-top: 18px;
-
-    padding-top: 12px;
-
     border-top: 1px solid #222;
+    padding-top: 12px;
 }
 
-.nokia-title {
+.section-title {
     font-size: 13px;
-
-    color: #777;
-
-    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 9px;
 }
 
-.info {
-    margin-top: 5px;
+
+/* Buttons */
+
+.item {
+    width: 100%;
+    min-height: 40px;
+
+    margin: 5px 0;
+
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    background: #111;
+    color: #ddd;
+
+    font-size: 14px;
+
+    text-align: left;
+
+    padding: 8px 10px;
+
+    cursor: pointer;
+}
+
+.item:active {
+    background: #222;
+}
+
+
+/* Favorite Add */
+
+.add-favorite {
+    margin-top: 8px;
+
+    width: 100%;
+    height: 40px;
+
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    background: #111;
+    color: #aaa;
+
+    font-size: 13px;
+}
+
+
+/* Clear */
+
+.clear {
+    color: #777;
+    font-size: 11px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+
+/* Lite */
+
+.lite {
+    margin-top: 18px;
 
     font-size: 10px;
 
@@ -191,7 +235,7 @@ body {
     </div>
 
 
-    <!-- Search Box -->
+    <!-- Search -->
 
     <div class="search-box">
 
@@ -208,7 +252,6 @@ body {
             class="search-button"
             onclick="openSearch()"
             aria-label="Search">
-
 
             <svg viewBox="0 0 24 24">
 
@@ -227,7 +270,6 @@ body {
 
             </svg>
 
-
         </button>
 
 
@@ -241,18 +283,70 @@ body {
     </div>
 
 
-    <!-- Nokia -->
+    <!-- History -->
 
-    <div class="nokia-box">
+    <div class="section">
 
-        <div class="nokia-title">
-            NOKIA 3210 4G
+        <div class="section-title">
+            🕘 HISTORY
         </div>
 
-        <div class="info">
-            MINI BROWSER
+        <div id="history">
+            <div style="color:#555;font-size:11px;">
+                No history
+            </div>
         </div>
 
+        <div
+            class="clear"
+            onclick="clearHistory()">
+
+            Clear History
+
+        </div>
+
+    </div>
+
+
+    <!-- Favorites -->
+
+    <div class="section">
+
+        <div class="section-title">
+            ⭐ FAVORITES
+        </div>
+
+        <div id="favorites">
+            <div style="color:#555;font-size:11px;">
+                No favorites
+            </div>
+        </div>
+
+
+        <button
+            class="add-favorite"
+            onclick="addFavorite()">
+
+            + Add current address to Favorites
+
+        </button>
+
+
+        <div
+            class="clear"
+            onclick="clearFavorites()">
+
+            Clear Favorites
+
+        </div>
+
+    </div>
+
+
+    <!-- Lite -->
+
+    <div class="lite">
+        NOKIA 3210 4G • LITE MODE
     </div>
 
 
@@ -263,7 +357,29 @@ body {
 <script>
 
 
-/* Search / Open Website */
+/* =========================
+   Storage
+========================= */
+
+var historyList =
+    JSON.parse(
+        localStorage.getItem(
+            "nokia_history"
+        ) || "[]"
+    );
+
+
+var favorites =
+    JSON.parse(
+        localStorage.getItem(
+            "nokia_favorites"
+        ) || "[]"
+    );
+
+
+/* =========================
+   Search
+========================= */
 
 function openSearch() {
 
@@ -272,20 +388,19 @@ function openSearch() {
             "search"
         ).value;
 
-
     text =
         text.replace(
             /^\s+|\s+$/g,
             ""
         );
 
-
     if (text == "") {
         return;
     }
 
 
-    /* Website */
+    addHistory(text);
+
 
     var isWebsite =
         text.indexOf(".") > 0 ||
@@ -312,9 +427,6 @@ function openSearch() {
 
     } else {
 
-
-        /* Google Search */
-
         window.location.href =
             "https://www.google.com/search?q=" +
             encodeURIComponent(text);
@@ -324,20 +436,270 @@ function openSearch() {
 }
 
 
-/* Enter Key */
+/* =========================
+   Enter
+========================= */
 
 function searchKey(event) {
 
     if (event.keyCode == 13) {
-
         openSearch();
-
     }
 
 }
 
 
-/* Clock */
+/* =========================
+   History
+========================= */
+
+function addHistory(text) {
+
+    var newList = [];
+
+    newList.push(text);
+
+
+    for (
+        var i = 0;
+        i < historyList.length;
+        i++
+    ) {
+
+        if (
+            historyList[i] != text
+        ) {
+
+            newList.push(
+                historyList[i]
+            );
+
+        }
+
+    }
+
+
+    historyList =
+        newList.slice(0, 5);
+
+
+    localStorage.setItem(
+        "nokia_history",
+        JSON.stringify(historyList)
+    );
+
+
+    showHistory();
+
+}
+
+
+function showHistory() {
+
+    var box =
+        document.getElementById(
+            "history"
+        );
+
+
+    if (
+        historyList.length == 0
+    ) {
+
+        box.innerHTML =
+            '<div style="color:#555;font-size:11px;">No history</div>';
+
+        return;
+    }
+
+
+    var html = "";
+
+
+    for (
+        var i = 0;
+        i < historyList.length;
+        i++
+    ) {
+
+        var value =
+            historyList[i]
+            .replace(/"/g, "&quot;");
+
+
+        html +=
+            '<div class="item" onclick="useItem(\'' +
+            value.replace(/'/g, "\\'") +
+            '\')">' +
+            value +
+            '</div>';
+
+    }
+
+
+    box.innerHTML = html;
+
+}
+
+
+function useItem(text) {
+
+    document.getElementById(
+        "search"
+    ).value = text;
+
+    openSearch();
+
+}
+
+
+function clearHistory() {
+
+    historyList = [];
+
+    localStorage.removeItem(
+        "nokia_history"
+    );
+
+    showHistory();
+
+}
+
+
+/* =========================
+   Favorites
+========================= */
+
+function addFavorite() {
+
+    var text =
+        document.getElementById(
+            "search"
+        ).value;
+
+    text =
+        text.replace(
+            /^\s+|\s+$/g,
+            ""
+        );
+
+
+    if (text == "") {
+        return;
+    }
+
+
+    for (
+        var i = 0;
+        i < favorites.length;
+        i++
+    ) {
+
+        if (
+            favorites[i] == text
+        ) {
+
+            return;
+
+        }
+
+    }
+
+
+    favorites.push(text);
+
+
+    favorites =
+        favorites.slice(0, 5);
+
+
+    localStorage.setItem(
+        "nokia_favorites",
+        JSON.stringify(favorites)
+    );
+
+
+    showFavorites();
+
+}
+
+
+function showFavorites() {
+
+    var box =
+        document.getElementById(
+            "favorites"
+        );
+
+
+    if (
+        favorites.length == 0
+    ) {
+
+        box.innerHTML =
+            '<div style="color:#555;font-size:11px;">No favorites</div>';
+
+        return;
+
+    }
+
+
+    var html = "";
+
+
+    for (
+        var i = 0;
+        i < favorites.length;
+        i++
+    ) {
+
+        var value =
+            favorites[i]
+            .replace(/"/g, "&quot;");
+
+
+        html +=
+            '<div class="item" onclick="useFavorite(\'' +
+            value.replace(/'/g, "\\'") +
+            '\')">' +
+            "⭐ " + value +
+            '</div>';
+
+    }
+
+
+    box.innerHTML = html;
+
+}
+
+
+function useFavorite(text) {
+
+    document.getElementById(
+        "search"
+    ).value = text;
+
+    openSearch();
+
+}
+
+
+function clearFavorites() {
+
+    favorites = [];
+
+    localStorage.removeItem(
+        "nokia_favorites"
+    );
+
+    showFavorites();
+
+}
+
+
+/* =========================
+   Clock
+========================= */
 
 function updateClock() {
 
@@ -371,11 +733,17 @@ function updateClock() {
 
 updateClock();
 
-
 setInterval(
     updateClock,
     1000
 );
+
+
+/* Initial display */
+
+showHistory();
+
+showFavorites();
 
 </script>
 
