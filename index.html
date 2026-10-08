@@ -71,13 +71,17 @@ button:active {
     font-size: 10px;
     color: #666;
 }
+
+.icon {
+    margin-right: 6px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-    GOOGLE HUB
+    🌐 GOOGLE HUB
 </div>
 
 <div class="clock" id="clock">
@@ -85,67 +89,67 @@ button:active {
 </div>
 
 <div class="status">
-    Nokia 3210 4G • TA-1618
+    📱 Nokia 3210 4G • TA-1618
 </div>
 
 <div class="container">
 
     <div class="section">
-        GOOGLE
+        🔎 GOOGLE
     </div>
 
     <button onclick="openSite('https://www.google.com/search')">
-        Google Search
+        🔍 Google Search
     </button>
 
     <button onclick="openSite('https://images.google.com')">
-        Google Images
+        🖼️ Google Images
     </button>
 
     <button onclick="openSite('https://news.google.com')">
-        Google News
+        📰 Google News
     </button>
 
     <button onclick="openSite('https://translate.google.com')">
-        Google Translate
+        🌐 Google Translate
     </button>
 
     <button onclick="openSite('https://www.google.com/search?q=weather')">
-        Google Weather
+        🌤️ Google Weather
     </button>
 
     <div class="section">
-        WEB
+        🌍 WEB
     </div>
 
     <button onclick="openSite('https://www.wikipedia.org')">
-        Wikipedia
+        📚 Wikipedia
     </button>
 
     <button onclick="openBrowser()">
-        Open Website
+        🔗 Open Website
     </button>
 
     <button onclick="searchWeb()">
-        Web Search
+        🔎 Web Search
     </button>
 
     <div class="section">
-        CONTROLS
+        ⚙️ CONTROLS
     </div>
 
     <button onclick="refreshPage()">
-        Refresh
+        🔄 Refresh
     </button>
 
     <button onclick="goBack()">
-        Back
+        ◀️ Back
     </button>
 
 </div>
 
 <div class="footer">
-    Google Hub v3
+    ⭐ Google Hub v3
 </div>
 
 <script>
@@ -156,7 +160,7 @@ function openSite(url) {
 
 function openBrowser() {
 
-    var site = prompt("Website:");
+    var site = prompt("🌐 Website:");
 
     if (!site) {
         return;
@@ -173,7 +177,7 @@ function openBrowser() {
 
 function searchWeb() {
 
-    var query = prompt("Search:");
+    var query = prompt("🔎 Search:");
 
     if (!query) {
         return;
