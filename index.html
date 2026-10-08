@@ -1,56 +1,132 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0">
 
 <title>Google Hub</title>
 
 <style>
 
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background:#111;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-    padding:10px;
+    margin: 0;
+    padding: 12px;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
 h1 {
-    font-size:22px;
+    font-size: 24px;
+    margin: 8px 0 12px 0;
 }
 
 #clock {
-    font-size:18px;
-    margin:10px;
+    font-size: 20px;
+    margin-bottom: 8px;
 }
+
+.info {
+    font-size: 15px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+
+/* ورودی‌ها */
 
 input {
-    width:90%;
-    padding:10px;
-    margin:5px;
-    box-sizing:border-box;
+    display: block;
+    width: 100%;
+    height: 48px;
+
+    padding: 8px 12px;
+    margin: 8px 0;
+
+    background: #1d1d1d;
+    color: white;
+
+    border: 1px solid #555;
+    border-radius: 7px;
+
+    font-size: 16px;
 }
 
+
+/* دکمه‌ها */
+
 button {
-    width:90%;
-    padding:10px;
-    margin:5px;
-    background:#222;
-    color:white;
-    border:1px solid #555;
-    border-radius:5px;
+    display: block;
+
+    width: 100%;
+    height: 50px;
+
+    margin: 9px 0;
+
+    background: #222;
+    color: white;
+
+    border: 1px solid #666;
+    border-radius: 7px;
+
+    font-size: 17px;
+    font-weight: bold;
+}
+
+button:active {
+    background: #444;
+}
+
+
+/* جداکننده */
+
+.line {
+    height: 1px;
+    background: #333;
+    margin: 16px 0;
+}
+
+
+/* پایین صفحه */
+
+.footer {
+    margin-top: 18px;
+    color: #666;
+    font-size: 12px;
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <h1>🌐 GOOGLE HUB</h1>
 
-<div id="clock">00:00:00</div>
 
-<p>Nokia 3210 4G</p>
+<div id="clock">
+    00:00:00
+</div>
+
+
+<div class="info">
+    📱 Nokia 3210 4G
+</div>
+
+
+<div class="line"></div>
 
 
 <!-- Google Search -->
@@ -62,8 +138,11 @@ button {
 >
 
 <button onclick="searchGoogle()">
-    🔎 Search
+    🔎 Search Google
 </button>
+
+
+<div class="line"></div>
 
 
 <!-- Website -->
@@ -79,35 +158,53 @@ button {
 </button>
 
 
+<div class="line"></div>
+
+
 <!-- Google -->
 
 <button onclick="openGoogle()">
-    Google
+    🔵 Google
 </button>
 
 
 <!-- Wikipedia -->
 
 <button onclick="openWikipedia()">
-    Wikipedia
+    📚 Wikipedia
 </button>
 
 
 <!-- Back -->
 
 <button onclick="goBack()">
-    ◀ Back
+    ◀️ Back
 </button>
+
+
+<div class="footer">
+    Google Hub
+</div>
+
 
 
 <script>
 
+
+/* =====================
+   Google Search
+===================== */
+
 function searchGoogle() {
 
     var text =
-        document.getElementById("search").value;
+        document.getElementById(
+            "search"
+        ).value;
 
-    if (text == "") return;
+    if (text == "") {
+        return;
+    }
 
     window.location.href =
         "https://www.google.com/search?q=" +
@@ -115,24 +212,37 @@ function searchGoogle() {
 }
 
 
+/* =====================
+   Open Website
+===================== */
+
 function openWebsite() {
 
     var url =
-        document.getElementById("url").value;
+        document.getElementById(
+            "url"
+        ).value;
 
-    if (url == "") return;
+    if (url == "") {
+        return;
+    }
 
     if (
         url.indexOf("http://") != 0 &&
         url.indexOf("https://") != 0
     ) {
 
-        url = "https://" + url;
+        url =
+            "https://" + url;
     }
 
     window.location.href = url;
 }
 
+
+/* =====================
+   Google
+===================== */
 
 function openGoogle() {
 
@@ -141,6 +251,10 @@ function openGoogle() {
 }
 
 
+/* =====================
+   Wikipedia
+===================== */
+
 function openWikipedia() {
 
     window.location.href =
@@ -148,13 +262,19 @@ function openWikipedia() {
 }
 
 
+/* =====================
+   Back
+===================== */
+
 function goBack() {
 
     history.back();
 }
 
 
-/* Clock */
+/* =====================
+   Clock
+===================== */
 
 function updateClock() {
 
@@ -164,15 +284,27 @@ function updateClock() {
     var m = now.getMinutes();
     var s = now.getSeconds();
 
-    if (h < 10) h = "0" + h;
-    if (m < 10) m = "0" + m;
-    if (s < 10) s = "0" + s;
+    if (h < 10) {
+        h = "0" + h;
+    }
 
-    document.getElementById("clock").innerHTML =
+    if (m < 10) {
+        m = "0" + m;
+    }
+
+    if (s < 10) {
+        s = "0" + s;
+    }
+
+    document.getElementById(
+        "clock"
+    ).innerHTML =
         h + ":" + m + ":" + s;
 }
 
+
 updateClock();
+
 
 setInterval(
     updateClock,
@@ -180,6 +312,7 @@ setInterval(
 );
 
 </script>
+
 
 </body>
 </html>
