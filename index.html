@@ -28,7 +28,7 @@ body {
 
 
 /* =========================
-   Nokia Header
+   Header
 ========================= */
 
 .nokia-header {
@@ -37,27 +37,7 @@ body {
     width: 100%;
     height: 38px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 12px;
-
     border-bottom: 1px solid #222;
-
-    color: #aaa;
-
-    font-size: 11px;
-    letter-spacing: 1px;
-}
-
-.nokia-brand {
-    color: #fff;
-    font-weight: bold;
-}
-
-.network {
-    color: #666;
 }
 
 
@@ -72,22 +52,19 @@ body {
     top: 6px;
     right: 10px;
 
-    width: 25px;
+    width: 105px;
     height: 25px;
 
     padding: 0;
 
     border: 1px solid #444;
-    border-radius: 4px;
+    border-radius: 5px;
 
     background: #111;
 
     color: #777;
 
     font-size: 8px;
-    font-weight: bold;
-
-    line-height: 23px;
 
     text-align: center;
 }
@@ -236,6 +213,10 @@ body {
     stroke-width: 2.5;
 }
 
+.search-button:active svg {
+    stroke: #fff;
+}
+
 
 /* =========================
    Clock
@@ -353,6 +334,10 @@ body {
     font-size: 12px;
 }
 
+.add-favorite:active {
+    background: #222;
+}
+
 
 /* =========================
    Clear
@@ -372,14 +357,15 @@ body {
    Lite Mode
 ========================= */
 
-body.lite-mode .section,
-body.lite-mode .status {
+body.lite-mode .section {
+    display: none;
+}
 
+body.lite-mode .status {
     display: none;
 }
 
 body.lite-mode .main {
-
     padding-top: 30px;
 }
 
@@ -407,27 +393,16 @@ body.lite-mode .main {
 <body>
 
 
-<!-- Nokia Header -->
+<!-- Header -->
 
 <div class="nokia-header">
-
-    <div class="nokia-brand">
-        NOKIA
-    </div>
-
-    <div class="network">
-        4G
-    </div>
-
-
-    <!-- Lite -->
 
     <button
         id="liteButton"
         class="lite-button"
         onclick="toggleLite()">
 
-        LITE
+        Toggle Lite Mode
 
     </button>
 
@@ -929,9 +904,6 @@ function applyLite() {
         button.className =
             "lite-button on";
 
-        button.innerHTML =
-            "ON";
-
     } else {
 
         document.body.className =
@@ -939,9 +911,6 @@ function applyLite() {
 
         button.className =
             "lite-button";
-
-        button.innerHTML =
-            "LITE";
 
     }
 
@@ -1003,7 +972,6 @@ function updateClock() {
 
 
 updateClock();
-
 
 setInterval(
     updateClock,
