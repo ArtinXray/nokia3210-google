@@ -20,21 +20,59 @@
 body {
     margin: 0;
     padding: 12px;
+
     background: #111;
     color: white;
+
     font-family: Arial, sans-serif;
     text-align: center;
 }
+
+
+/* عنوان */
 
 h1 {
     font-size: 24px;
     margin: 8px 0 12px 0;
 }
 
+
+/* لوگوی Google */
+
+.google-icon {
+    display: inline-block;
+
+    font-size: 27px;
+    font-weight: bold;
+
+    font-family: Arial, sans-serif;
+
+    margin-right: 6px;
+
+    background: linear-gradient(
+        45deg,
+        #4285F4,
+        #34A853,
+        #FBBC05,
+        #EA4335
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+/* ساعت */
+
 #clock {
     font-size: 20px;
     margin-bottom: 8px;
 }
+
+
+/* اطلاعات گوشی */
 
 .info {
     font-size: 15px;
@@ -43,14 +81,25 @@ h1 {
 }
 
 
-/* ورودی‌ها */
+/* جداکننده */
+
+.line {
+    height: 1px;
+    background: #333;
+    margin: 16px 0;
+}
+
+
+/* ورودی */
 
 input {
     display: block;
+
     width: 100%;
     height: 48px;
 
     padding: 8px 12px;
+
     margin: 8px 0;
 
     background: #1d1d1d;
@@ -63,7 +112,7 @@ input {
 }
 
 
-/* دکمه‌ها */
+/* دکمه */
 
 button {
     display: block;
@@ -83,17 +132,9 @@ button {
     font-weight: bold;
 }
 
+
 button:active {
     background: #444;
-}
-
-
-/* جداکننده */
-
-.line {
-    height: 1px;
-    background: #333;
-    margin: 16px 0;
 }
 
 
@@ -101,7 +142,9 @@ button:active {
 
 .footer {
     margin-top: 18px;
+
     color: #666;
+
     font-size: 12px;
 }
 
@@ -113,13 +156,22 @@ button:active {
 <body>
 
 
-<h1>🌐 GOOGLE HUB</h1>
+<!-- عنوان -->
 
+<h1>
+    <span class="google-icon">G</span>
+    GOOGLE HUB
+</h1>
+
+
+<!-- ساعت -->
 
 <div id="clock">
     00:00:00
 </div>
 
+
+<!-- گوشی -->
 
 <div class="info">
     📱 Nokia 3210 4G
@@ -129,7 +181,7 @@ button:active {
 <div class="line"></div>
 
 
-<!-- Google Search -->
+<!-- جستجوی گوگل -->
 
 <input
     id="search"
@@ -145,7 +197,7 @@ button:active {
 <div class="line"></div>
 
 
-<!-- Website -->
+<!-- باز کردن سایت -->
 
 <input
     id="url"
@@ -191,9 +243,9 @@ button:active {
 <script>
 
 
-/* =====================
+/* =========================
    Google Search
-===================== */
+========================= */
 
 function searchGoogle() {
 
@@ -212,9 +264,9 @@ function searchGoogle() {
 }
 
 
-/* =====================
+/* =========================
    Open Website
-===================== */
+========================= */
 
 function openWebsite() {
 
@@ -240,9 +292,9 @@ function openWebsite() {
 }
 
 
-/* =====================
+/* =========================
    Google
-===================== */
+========================= */
 
 function openGoogle() {
 
@@ -251,9 +303,9 @@ function openGoogle() {
 }
 
 
-/* =====================
+/* =========================
    Wikipedia
-===================== */
+========================= */
 
 function openWikipedia() {
 
@@ -262,9 +314,9 @@ function openWikipedia() {
 }
 
 
-/* =====================
+/* =========================
    Back
-===================== */
+========================= */
 
 function goBack() {
 
@@ -272,9 +324,9 @@ function goBack() {
 }
 
 
-/* =====================
+/* =========================
    Clock
-===================== */
+========================= */
 
 function updateClock() {
 
@@ -283,6 +335,7 @@ function updateClock() {
     var h = now.getHours();
     var m = now.getMinutes();
     var s = now.getSeconds();
+
 
     if (h < 10) {
         h = "0" + h;
@@ -295,6 +348,7 @@ function updateClock() {
     if (s < 10) {
         s = "0" + s;
     }
+
 
     document.getElementById(
         "clock"
