@@ -20,30 +20,21 @@
 body {
     margin: 0;
     padding: 0;
-
     background: #000;
     color: #fff;
-
     font-family: Arial, sans-serif;
-
     text-align: center;
 }
 
 
-/* =========================
-   Nokia Header
-========================= */
+/* Nokia Header */
 
 .nokia-header {
-
     width: 100%;
-
     height: 38px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
     padding: 0 12px;
@@ -53,42 +44,31 @@ body {
     color: #aaa;
 
     font-size: 11px;
-
     letter-spacing: 1px;
 }
-
 
 .nokia-brand {
     color: #fff;
     font-weight: bold;
 }
 
-
 .network {
     color: #666;
 }
 
 
-/* =========================
-   Main
-========================= */
+/* Main */
 
 .main {
-
     width: 100%;
-
     padding: 22px 12px 18px 12px;
 }
 
 
-/* =========================
-   Google Logo
-========================= */
+/* Google Logo */
 
 .logo {
-
     font-size: 46px;
-
     font-weight: bold;
 
     letter-spacing: -4px;
@@ -99,7 +79,6 @@ body {
 
     margin-bottom: 25px;
 }
-
 
 .blue {
     color: #4285F4;
@@ -118,49 +97,37 @@ body {
 }
 
 
-/* =========================
-   Search
-========================= */
+/* Search */
 
 .search-box {
-
     width: 100%;
-
     height: 48px;
 
     border: 1px solid #555;
-
     border-radius: 24px;
 
     background: #181818;
 
     display: flex;
-
     align-items: center;
 
     padding: 0 10px;
 }
 
-
 #search {
-
     width: 100%;
-
     height: 42px;
 
     border: none;
-
     outline: none;
 
     font-size: 16px;
 
     background: transparent;
-
     color: #fff;
 
     order: 1;
 }
-
 
 #search::placeholder {
     color: #888;
@@ -170,68 +137,43 @@ body {
 /* Search Button */
 
 .search-button {
-
     width: 34px;
-
     height: 34px;
 
     border: none;
-
     background: transparent;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     padding: 0;
-
     margin-left: 5px;
 
     order: 2;
 }
 
-
 .search-button svg {
-
     width: 21px;
-
     height: 21px;
 
     fill: none;
-
     stroke: #aaa;
-
     stroke-width: 2.5;
 }
 
 
-.search-button:active svg {
-    stroke: #fff;
-}
-
-
-/* =========================
-   Clock
-========================= */
+/* Clock */
 
 #clock {
-
     font-size: 20px;
-
     margin-top: 15px;
-
-    color: #fff;
 }
 
 
-/* =========================
-   Nokia Status
-========================= */
+/* Status */
 
 .status {
-
     margin-top: 8px;
 
     font-size: 10px;
@@ -242,12 +184,9 @@ body {
 }
 
 
-/* =========================
-   Sections
-========================= */
+/* Sections */
 
 .section {
-
     margin-top: 18px;
 
     border-top: 1px solid #222;
@@ -255,9 +194,7 @@ body {
     padding-top: 12px;
 }
 
-
 .section-title {
-
     font-size: 12px;
 
     color: #888;
@@ -268,12 +205,9 @@ body {
 }
 
 
-/* =========================
-   History / Favorites Items
-========================= */
+/* Items */
 
 .item {
-
     width: 100%;
 
     min-height: 38px;
@@ -301,18 +235,14 @@ body {
     text-overflow: ellipsis;
 }
 
-
 .item:active {
     background: #202020;
 }
 
 
-/* =========================
-   Favorite Button
-========================= */
+/* Favorite Button */
 
 .add-favorite {
-
     width: 100%;
 
     height: 40px;
@@ -331,17 +261,9 @@ body {
 }
 
 
-.add-favorite:active {
-    background: #222;
-}
-
-
-/* =========================
-   Clear
-========================= */
+/* Clear */
 
 .clear {
-
     margin-top: 7px;
 
     color: #666;
@@ -350,19 +272,75 @@ body {
 }
 
 
-/* =========================
-   Lite
-========================= */
+/* Lite Button */
 
-.lite {
+.lite-button {
 
-    margin-top: 20px;
+    width: 100%;
 
-    padding-top: 10px;
+    height: 38px;
 
-    border-top: 1px solid #151515;
+    margin-top: 18px;
 
-    color: #3f3f3f;
+    border: 1px solid #333;
+
+    border-radius: 8px;
+
+    background: #111;
+
+    color: #aaa;
+
+    font-size: 12px;
+}
+
+.lite-button:active {
+    background: #222;
+}
+
+
+/* Lite Status */
+
+.lite-status {
+
+    margin-top: 6px;
+
+    font-size: 9px;
+
+    color: #444;
+
+    letter-spacing: 1px;
+}
+
+
+/* Lite Mode */
+
+body.lite-mode .section {
+    display: none;
+}
+
+body.lite-mode .status {
+    display: none;
+}
+
+body.lite-mode .main {
+    padding-top: 30px;
+}
+
+body.lite-mode .logo {
+    margin-bottom: 30px;
+}
+
+body.lite-mode .lite-button {
+    margin-top: 25px;
+}
+
+
+/* Footer */
+
+.footer {
+    margin-top: 12px;
+
+    color: #333;
 
     font-size: 9px;
 
@@ -408,7 +386,6 @@ body {
 
     <div class="search-box">
 
-
         <input
             id="search"
             type="text"
@@ -421,7 +398,6 @@ body {
             class="search-button"
             onclick="openSearch()"
             aria-label="Search">
-
 
             <svg viewBox="0 0 24 24">
 
@@ -440,9 +416,7 @@ body {
 
             </svg>
 
-
         </button>
-
 
     </div>
 
@@ -467,15 +441,7 @@ body {
             🕘 HISTORY
         </div>
 
-
-        <div id="history">
-
-            <div style="color:#444;font-size:11px;">
-                No history
-            </div>
-
-        </div>
-
+        <div id="history"></div>
 
         <div
             class="clear"
@@ -496,15 +462,7 @@ body {
             ⭐ FAVORITES
         </div>
 
-
-        <div id="favorites">
-
-            <div style="color:#444;font-size:11px;">
-                No favorites
-            </div>
-
-        </div>
-
+        <div id="favorites"></div>
 
         <button
             class="add-favorite"
@@ -513,7 +471,6 @@ body {
             + Add current address to Favorites
 
         </button>
-
 
         <div
             class="clear"
@@ -526,12 +483,28 @@ body {
     </div>
 
 
-    <!-- Lite -->
+    <!-- Lite Button -->
 
-    <div class="lite">
+    <button
+        class="lite-button"
+        onclick="toggleLite()">
 
-        NOKIA 3210 4G • MINI BROWSER • LITE
+        ⚡ Toggle Lite Mode
 
+    </button>
+
+
+    <div
+        id="liteStatus"
+        class="lite-status">
+
+        LITE MODE: OFF
+
+    </div>
+
+
+    <div class="footer">
+        NOKIA 3210 4G • MINI BROWSER
     </div>
 
 
@@ -560,6 +533,12 @@ var favorites =
             "nokia_favorites"
         ) || "[]"
     );
+
+
+var liteMode =
+    localStorage.getItem(
+        "nokia_lite"
+    ) === "true";
 
 
 /* =========================
@@ -623,16 +602,12 @@ function openSearch() {
 }
 
 
-/* =========================
-   Enter
-========================= */
+/* Enter */
 
 function searchKey(event) {
 
     if (event.keyCode == 13) {
-
         openSearch();
-
     }
 
 }
@@ -884,6 +859,53 @@ function clearFavorites() {
 
 
 /* =========================
+   Lite Mode
+========================= */
+
+function applyLite() {
+
+    if (liteMode) {
+
+        document.body.className =
+            "lite-mode";
+
+        document.getElementById(
+            "liteStatus"
+        ).innerHTML =
+            "LITE MODE: ON";
+
+    } else {
+
+        document.body.className =
+            "";
+
+        document.getElementById(
+            "liteStatus"
+        ).innerHTML =
+            "LITE MODE: OFF";
+
+    }
+
+}
+
+
+function toggleLite() {
+
+    liteMode = !liteMode;
+
+
+    localStorage.setItem(
+        "nokia_lite",
+        liteMode
+    );
+
+
+    applyLite();
+
+}
+
+
+/* =========================
    Clock
 ========================= */
 
@@ -938,6 +960,8 @@ setInterval(
 showHistory();
 
 showFavorites();
+
+applyLite();
 
 </script>
 
