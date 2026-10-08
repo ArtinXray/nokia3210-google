@@ -37,22 +37,7 @@ body {
 .main {
     width: 100%;
 
-    padding: 12px;
-}
-
-
-/* =========================
-   Clock
-========================= */
-
-#clock {
-    font-size: 20px;
-
-    color: #fff;
-
-    margin-top: 3px;
-
-    margin-bottom: 22px;
+    padding: 30px 12px 20px 12px;
 }
 
 
@@ -73,7 +58,7 @@ body {
 
     white-space: nowrap;
 
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 }
 
 .blue {
@@ -113,8 +98,6 @@ body {
     align-items: center;
 
     padding: 0 14px;
-
-    margin-bottom: 16px;
 }
 
 
@@ -150,32 +133,15 @@ body {
 
 
 /* =========================
-   Buttons
+   Clock
 ========================= */
 
-button {
-    height: 44px;
-
-    padding: 0 15px;
-
-    margin: 5px 3px;
-
-    background: #303134;
+#clock {
+    font-size: 20px;
 
     color: #fff;
 
-    border: 1px solid #303134;
-
-    border-radius: 4px;
-
-    font-size: 14px;
-}
-
-
-button:active {
-    background: #454545;
-
-    border-color: #5f6368;
+    margin-top: 18px;
 }
 
 
@@ -184,24 +150,11 @@ button:active {
 ========================= */
 
 .info {
-    margin-top: 20px;
+    margin-top: 6px;
 
     font-size: 12px;
 
     color: #777;
-}
-
-
-/* =========================
-   Footer
-========================= */
-
-.footer {
-    margin-top: 25px;
-
-    font-size: 11px;
-
-    color: #666;
 }
 
 </style>
@@ -213,13 +166,6 @@ button:active {
 
 
 <div class="main">
-
-
-<!-- Clock -->
-
-<div id="clock">
-    00:00:00
-</div>
 
 
 <!-- Google Logo -->
@@ -247,27 +193,17 @@ button:active {
 </div>
 
 
-<!-- Buttons -->
+<!-- Clock -->
 
-<button onclick="searchGoogle()">
-    Google Search
-</button>
-
-
-<button onclick="luckySearch()">
-    I'm Feeling Lucky
-</button>
+<div id="clock">
+    00:00:00
+</div>
 
 
 <!-- Phone -->
 
 <div class="info">
     Nokia 3210 4G
-</div>
-
-
-<div class="footer">
-    Google
 </div>
 
 
@@ -279,7 +215,7 @@ button:active {
 
 
 /* =========================
-   Google Search
+   Search
 ========================= */
 
 function searchGoogle() {
@@ -306,7 +242,7 @@ function searchGoogle() {
 
 
 /* =========================
-   Enter
+   Enter Key
 ========================= */
 
 function searchKey(event) {
@@ -317,34 +253,6 @@ function searchKey(event) {
 
         searchGoogle();
     }
-}
-
-
-/* =========================
-   I'm Feeling Lucky
-========================= */
-
-function luckySearch() {
-
-    var text =
-        document.getElementById(
-            "search"
-        ).value;
-
-    text =
-        text.replace(
-            /^\s+|\s+$/g,
-            ""
-        );
-
-    if (text == "") {
-        return;
-    }
-
-    window.location.href =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(text) +
-        "&btnI=1";
 }
 
 
