@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Google Hub</title>
+<title>Google Hub v5</title>
 
 <style>
 * {
@@ -77,11 +77,6 @@ input {
     font-size: 14px;
 }
 
-.smallButton {
-    display: inline-block;
-    width: 48%;
-}
-
 .item {
     text-align: left;
     padding: 9px;
@@ -105,6 +100,14 @@ input {
 
 .hidden {
     display: none;
+}
+
+.favoriteForm {
+    background: #181818;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 8px;
 }
 </style>
 </head>
@@ -150,12 +153,36 @@ input {
     </div>
 
     <button onclick="showFavorites()">
-        ⭐ Open Favorites
+        ⭐ Go to Favorites
     </button>
 
-    <button onclick="addFavorite()">
+    <button onclick="showFavoriteForm()">
         ➕ Add Favorite
     </button>
+
+    <div id="favoriteForm" class="favoriteForm hidden">
+
+        <input
+            id="favoriteName"
+            type="text"
+            placeholder="Favorite name"
+        >
+
+        <input
+            id="favoriteURL"
+            type="text"
+            placeholder="Website URL"
+        >
+
+        <button onclick="saveFavorite()">
+            💾 Save Favorite
+        </button>
+
+        <button onclick="cancelFavorite()">
+            ❌ Cancel
+        </button>
+
+    </div>
 
 
     <!-- BROWSER -->
@@ -280,15 +307,13 @@ input {
 </div>
 
 <div class="footer">
-    ⭐ Google Hub v4
+    ⭐ Google Hub v5
 </div>
 
 
 <script>
 
-/* =========================
-   CLOCK
-========================= */
+/* CLOCK */
 
 function updateClock() {
 
@@ -305,21 +330,15 @@ setInterval(updateClock, 1000);
 updateClock();
 
 
-/* =========================
-   OPEN WEBSITE
-========================= */
+/* OPEN SITE */
 
 function openSite(url) {
-
-    saveHistory(url);
 
     window.location.href = url;
 }
 
 
-/* =========================
-   GOOGLE SEARCH
-========================= */
+/* GOOGLE SEARCH */
 
 function googleSearch() {
 
@@ -334,8 +353,6 @@ function googleSearch() {
         "https://www.google.com/search?q=" +
         encodeURIComponent(query);
 
-    saveHistory(url);
-
     window.location.href = url;
 }
 
@@ -348,9 +365,7 @@ function searchKey(event) {
 }
 
 
-/* =========================
-   BROWSER
-========================= */
+/* BROWSER */
 
 function openURL() {
 
@@ -368,8 +383,6 @@ function openURL() {
         url = "https://" + url;
     }
 
-    saveHistory(url);
-
     window.location.href = url;
 }
 
@@ -382,45 +395,85 @@ function urlKey(event) {
 }
 
 
-/* =========================
-   FAVORITES
-========================= */
+/* FAVORITE FORM */
+
+function showFavoriteForm() {
+
+    hidePanels();
+
+    document.getElementById(
+        "favoriteForm"
+    ).classList.remove("hidden");
+
+    document.getElementById(
+        "favoriteName"
+    ).focus();
+}
+
+
+function cancelFavorite() {
+
+    document.getElementById(
+        "favoriteForm"
+    ).classList.add("hidden");
+}
+
+
+/* FAVORITES STORAGE */
 
 function getFavorites() {
 
-    var data =
-        localStorage.getItem("googleHubFavorites");
+    try {
 
-    if (!data) {
+        var data =
+            localStorage.getItem("googleHubFavorites");
+
+        if (!data) {
+            return [];
+        }
+
+        return JSON.parse(data);
+
+    } catch (e) {
+
         return [];
     }
-
-    return JSON.parse(data);
 }
 
 
-function saveFavorites(list) {
+function saveFavoriteData(list) {
 
-    localStorage.setItem(
-        "googleHubFavorites",
-        JSON.stringify(list)
-    );
+    try {
+
+        localStorage.setItem(
+            "googleHubFavorites",
+            JSON.stringify(list)
+        );
+
+        return true;
+
+    } catch (e) {
+
+        return false;
+    }
 }
 
 
-function addFavorite() {
+/* SAVE FAVORITE */
+
+function saveFavorite() {
 
     var name =
-        prompt("Favorite name:");
-
-    if (!name) {
-        return;
-    }
+        document.getElementById(
+            "favoriteName"
+        ).value.trim();
 
     var url =
-        prompt("Website URL:");
+        document.getElementById(
+            "favoriteURL"
+        ).value.trim();
 
-    if (!url) {
+    if (!name || !url) {
         return;
     }
 
@@ -438,11 +491,27 @@ function addFavorite() {
         url: url
     });
 
-    saveFavorites(list);
+    if (!saveFavoriteData(list)) {
+        return;
+    }
 
-    alert("Favorite saved!");
+    document.getElementById(
+        "favoriteName"
+    ).value = "";
+
+    document.getElementById(
+        "favoriteURL"
+    ).value = "";
+
+    document.getElementById(
+        "favoriteForm"
+    ).classList.add("hidden");
+
+    showFavorites();
 }
 
+
+/* SHOW FAVORITES */
 
 function showFavorites() {
 
@@ -459,7 +528,7 @@ function showFavorites() {
     if (list.length === 0) {
 
         html =
-            '<div class="item">No favorites yet.</div>';
+            '<div class="item">⭐ No favorites yet.</div>';
 
     } else {
 
@@ -482,37 +551,48 @@ function showFavorites() {
 }
 
 
-/* =========================
-   HISTORY
-========================= */
+/* HISTORY */
 
 function getHistory() {
 
-    var data =
-        localStorage.getItem("googleHubHistory");
+    try {
 
-    if (!data) {
+        var data =
+            localStorage.getItem("googleHubHistory");
+
+        if (!data) {
+            return [];
+        }
+
+        return JSON.parse(data);
+
+    } catch (e) {
+
         return [];
     }
-
-    return JSON.parse(data);
 }
 
 
 function saveHistory(url) {
 
-    var list = getHistory();
+    try {
 
-    list.unshift(url);
+        var list = getHistory();
 
-    if (list.length > 20) {
-        list = list.slice(0, 20);
+        list.unshift(url);
+
+        if (list.length > 20) {
+            list = list.slice(0, 20);
+        }
+
+        localStorage.setItem(
+            "googleHubHistory",
+            JSON.stringify(list)
+        );
+
+    } catch (e) {
+        /* Ignore storage errors */
     }
-
-    localStorage.setItem(
-        "googleHubHistory",
-        JSON.stringify(list)
-    );
 }
 
 
@@ -531,7 +611,7 @@ function showHistory() {
     if (list.length === 0) {
 
         html =
-            '<div class="item">History is empty.</div>';
+            '<div class="item">🕘 History is empty.</div>';
 
     } else {
 
@@ -556,17 +636,17 @@ function showHistory() {
 
 function clearHistory() {
 
-    localStorage.removeItem(
-        "googleHubHistory"
-    );
+    try {
+        localStorage.removeItem(
+            "googleHubHistory"
+        );
+    } catch (e) {}
 
-    alert("History cleared!");
+    showHistory();
 }
 
 
-/* =========================
-   PANELS
-========================= */
+/* PANELS */
 
 function hidePanels() {
 
@@ -580,9 +660,7 @@ function hidePanels() {
 }
 
 
-/* =========================
-   CONTROLS
-========================= */
+/* CONTROLS */
 
 function refreshPage() {
     location.reload();
