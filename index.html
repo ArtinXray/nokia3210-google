@@ -33,9 +33,11 @@ body {
 
 .nokia-header {
     width: 100%;
-    height: 38px;
+    height: 58px;
 
-    border-bottom: 1px solid #222;
+    padding: 5px 10px;
+
+    background: #000;
 }
 
 
@@ -44,36 +46,36 @@ body {
 ========================= */
 
 .lite-button {
+
     width: 100%;
-    height: 38px;
+    height: 48px;
 
     margin: 0;
     padding: 0;
 
-    border: none;
-    border-bottom: 1px solid #333;
-
-    border-radius: 0;
+    border: 1px solid #fff;
+    border-radius: 24px;
 
     background: #111;
 
-    color: #777;
+    color: #fff;
 
     font-size: 14px;
+    font-weight: normal;
 
     text-align: center;
 }
 
 .lite-button:active {
     background: #222;
-    color: #fff;
 }
 
 .lite-button.on {
-    background: #1a1a1a;
+    background: #222;
+
     color: #fff;
 
-    border-bottom-color: #666;
+    border-color: #fff;
 }
 
 
@@ -93,6 +95,7 @@ body {
 ========================= */
 
 .logo {
+
     font-size: 46px;
 
     font-weight: bold;
@@ -128,6 +131,7 @@ body {
 ========================= */
 
 .search-box {
+
     width: 100%;
     height: 48px;
 
@@ -144,6 +148,7 @@ body {
 }
 
 #search {
+
     width: 100%;
     height: 42px;
 
@@ -153,6 +158,7 @@ body {
     font-size: 16px;
 
     background: transparent;
+
     color: #fff;
 
     order: 1;
@@ -168,6 +174,7 @@ body {
 ========================= */
 
 .search-button {
+
     width: 34px;
     height: 34px;
 
@@ -188,6 +195,7 @@ body {
 }
 
 .search-button svg {
+
     width: 21px;
     height: 21px;
 
@@ -208,6 +216,7 @@ body {
 ========================= */
 
 #clock {
+
     font-size: 20px;
 
     margin-top: 15px;
@@ -221,6 +230,7 @@ body {
 ========================= */
 
 .status {
+
     margin-top: 8px;
 
     font-size: 10px;
@@ -236,6 +246,7 @@ body {
 ========================= */
 
 .section {
+
     margin-top: 18px;
 
     border-top: 1px solid #222;
@@ -244,6 +255,7 @@ body {
 }
 
 .section-title {
+
     font-size: 12px;
 
     color: #888;
@@ -255,10 +267,11 @@ body {
 
 
 /* =========================
-   Items
+   History / Favorites
 ========================= */
 
 .item {
+
     width: 100%;
 
     min-height: 38px;
@@ -296,6 +309,7 @@ body {
 ========================= */
 
 .add-favorite {
+
     width: 100%;
 
     height: 40px;
@@ -323,6 +337,7 @@ body {
 ========================= */
 
 .clear {
+
     margin-top: 7px;
 
     color: #666;
@@ -353,6 +368,7 @@ body.lite-mode .main {
 ========================= */
 
 .footer {
+
     margin-top: 20px;
 
     color: #333;
@@ -370,7 +386,7 @@ body.lite-mode .main {
 <body>
 
 
-<!-- Full Width Lite Button -->
+<!-- Lite Mode -->
 
 <div class="nokia-header">
 
@@ -608,7 +624,9 @@ function openSearch() {
 function searchKey(event) {
 
     if (event.keyCode == 13) {
+
         openSearch();
+
     }
 
 }
