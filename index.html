@@ -1,197 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
 
 <title>Google Hub</title>
 
 <style>
 
 body {
-    margin: 0;
-    padding: 0;
-    background: #101010;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
+    background:#101010;
+    color:white;
+    font-family:Arial,sans-serif;
+    text-align:center;
+    margin:0;
+    padding:10px;
 }
 
-.header {
-    background: #202020;
-    padding: 10px;
-    font-size: 19px;
-    font-weight: bold;
-    border-bottom: 1px solid #444;
+h1 {
+    font-size:22px;
+    margin:8px 0;
 }
 
-.clock {
-    padding: 5px;
-    font-size: 14px;
-    color: #ddd;
+#clock {
+    font-size:18px;
+    margin:5px;
 }
 
 .status {
-    font-size: 10px;
-    color: #777;
-}
-
-.container {
-    padding: 7px;
-}
-
-.section {
-    margin-top: 12px;
-    margin-bottom: 5px;
-    text-align: left;
-    color: #999;
-    font-size: 11px;
+    font-size:13px;
+    color:#aaa;
+    margin-bottom:12px;
 }
 
 input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    margin: 5px 0;
-
-    background: #181818;
-    color: white;
-
-    border: 1px solid #555;
-    border-radius: 5px;
-
-    font-size: 14px;
+    width:90%;
+    padding:10px;
+    margin:5px 0;
+    background:#181818;
+    color:white;
+    border:1px solid #444;
+    border-radius:6px;
+    box-sizing:border-box;
 }
 
 button {
-    width: 100%;
-    box-sizing: border-box;
-
-    margin: 6px 0;
-    padding: 10px;
-
-    background: #202020;
-    color: white;
-
-    border: 1px solid #555;
-    border-radius: 5px;
-
-    font-size: 15px;
+    width:90%;
+    padding:10px;
+    margin:5px;
+    background:#202020;
+    color:white;
+    border:1px solid #555;
+    border-radius:6px;
+    font-size:14px;
 }
 
 button:active {
-    background: #444;
+    background:#444;
+}
+
+a {
+    display:block;
+    color:#66aaff;
+    text-decoration:none;
+    padding:10px;
+    background:#181818;
+    border-radius:6px;
+}
+
+.section {
+    margin-top:15px;
+    padding-top:10px;
+    border-top:1px solid #333;
 }
 
 .panel {
-    margin-top: 8px;
-    padding: 7px;
-
-    background: #151515;
-
-    border: 1px solid #444;
-    border-radius: 5px;
+    display:none;
 }
 
 .item {
-    margin: 5px 0;
-    padding: 9px;
-
-    background: #1c1c1c;
-
-    border: 1px solid #444;
-    border-radius: 5px;
-
-    text-align: left;
-
-    font-size: 13px;
-}
-
-.item a {
-    color: white;
-    text-decoration: none;
+    background:#181818;
+    border:1px solid #333;
+    border-radius:7px;
+    padding:8px;
+    margin:7px 0;
 }
 
 .delete {
-    float: right;
-    width: auto;
-    margin: 0;
-    padding: 3px 7px;
-    font-size: 11px;
+    width:100%;
+    margin-top:7px;
+    background:#301818;
+    border:1px solid #663333;
 }
 
 .message {
-    padding: 10px;
-    color: #aaa;
-    font-size: 12px;
-}
-
-.hidden {
-    display: none;
+    color:#aaa;
+    padding:15px;
 }
 
 .footer {
-    margin: 16px 0;
-    color: #666;
-    font-size: 10px;
+    color:#666;
+    font-size:11px;
+    margin-top:20px;
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<h1>🌐 GOOGLE HUB</h1>
 
-<div class="header">
-    🌐 GOOGLE HUB
-</div>
-
-
-<div id="clock" class="clock">
-    --:--
-</div>
-
+<div id="clock">00:00:00</div>
 
 <div class="status">
-    📱 Nokia 3210 4G • TA-1618
+📱 Nokia 3210 4G • TA-1618
 </div>
 
 
-<div class="container">
-
-
-<!-- =========================
-     SEARCH
-========================= -->
+<!-- SEARCH -->
 
 <div class="section">
-    🔎 SEARCH
-</div>
+
+<h3>🔎 Search</h3>
 
 <input
-    id="searchBox"
+    id="searchInput"
     type="text"
     placeholder="Search Google..."
 >
 
-<button onclick="searchGoogle()">
-    🔍 Search Google
+<button onclick="googleSearch()">
+    🔎 Google Search
 </button>
 
+</div>
 
-<!-- =========================
-     FAVORITES
-========================= -->
+
+<!-- FAVORITES -->
 
 <div class="section">
-    ⭐ FAVORITES
-</div>
+
+<h3>⭐ Favorites</h3>
 
 <button onclick="openFavorites()">
     ⭐ Go to Favorites
@@ -201,22 +150,19 @@ button:active {
     ➕ Add Favorite
 </button>
 
-
-<!-- ADD FAVORITE -->
-
-<div
-    id="favoriteForm"
-    class="panel hidden"
->
-
-<div class="section">
-    ⭐ NEW FAVORITE
 </div>
+
+
+<!-- FAVORITE FORM -->
+
+<div id="favoriteForm" class="panel">
+
+<h3>➕ Add Favorite</h3>
 
 <input
     id="favoriteName"
     type="text"
-    placeholder="Favorite name"
+    placeholder="Name"
 >
 
 <input
@@ -226,7 +172,7 @@ button:active {
 >
 
 <button onclick="saveFavorite()">
-    💾 Save Favorite
+    💾 Save
 </button>
 
 <button onclick="cancelFavorite()">
@@ -236,94 +182,83 @@ button:active {
 </div>
 
 
-<!-- FAVORITES LIST -->
+<!-- FAVORITES PANEL -->
 
-<div
-    id="favoritesPanel"
-    class="panel hidden"
->
+<div id="favoritesPanel" class="panel">
 
-<div class="section">
-    ⭐ SAVED FAVORITES
-</div>
+<h3>⭐ My Favorites</h3>
 
 <div id="favoritesList"></div>
 
-<button onclick="closeFavorites()">
-    ◀ Back
+<button onclick="closePanels()">
+    🔙 Back
 </button>
 
 </div>
 
 
-<!-- =========================
-     BROWSER
-========================= -->
+<!-- BROWSER -->
 
 <div class="section">
-    🌐 BROWSER
-</div>
+
+<h3>🌐 Browser</h3>
 
 <input
-    id="urlBox"
+    id="urlInput"
     type="text"
-    placeholder="Enter website..."
+    placeholder="https://example.com"
 >
 
-<button onclick="goWebsite()">
-    🚀 Go
+<button onclick="openURL()">
+    🌐 Go
 </button>
 
-
-<!-- =========================
-     GOOGLE
-========================= -->
-
-<div class="section">
-    🔵 GOOGLE
 </div>
 
-<button onclick="go('https://www.google.com')">
-    🔍 Google Search
-</button>
 
-<button onclick="go('https://images.google.com')">
+<!-- GOOGLE -->
+
+<div class="section">
+
+<h3>🔵 Google</h3>
+
+<button onclick="openSite('https://www.google.com/search?tbm=isch&q=')">
     🖼️ Google Images
 </button>
 
-<button onclick="go('https://news.google.com')">
+<button onclick="openSite('https://news.google.com/')">
     📰 Google News
 </button>
 
-<button onclick="go('https://translate.google.com')">
-    🌐 Google Translate
+<button onclick="openSite('https://translate.google.com/')">
+    🌍 Google Translate
 </button>
 
-<button onclick="go('https://www.google.com/search?q=weather')">
+<button onclick="openSite('https://www.google.com/search?q=weather')">
     🌤️ Google Weather
 </button>
 
-
-<!-- =========================
-     OTHER
-========================= -->
-
-<div class="section">
-    🌍 OTHER
 </div>
 
-<button onclick="go('https://www.wikipedia.org')">
-    📚 Wikipedia
+
+<!-- WIKIPEDIA -->
+
+<div class="section">
+
+<h3>📚 Wikipedia</h3>
+
+<button onclick="openSite('https://www.wikipedia.org/')">
+    📖 Wikipedia
 </button>
 
+</div>
 
-<!-- =========================
-     HISTORY
-========================= -->
+
+<!-- HISTORY -->
 
 <div class="section">
-    🕘 HISTORY
-</div>
+
+<h3>🕘 History</h3>
 
 <button onclick="openHistory()">
     🕘 View History
@@ -333,71 +268,60 @@ button:active {
     🗑️ Clear History
 </button>
 
-
-<div
-    id="historyPanel"
-    class="panel hidden"
->
-
-<div class="section">
-    🕘 BROWSING HISTORY
 </div>
+
+
+<!-- HISTORY PANEL -->
+
+<div id="historyPanel" class="panel">
+
+<h3>🕘 Browsing History</h3>
 
 <div id="historyList"></div>
 
-<button onclick="closeHistory()">
-    ◀ Back
+<button onclick="closePanels()">
+    🔙 Back
 </button>
 
 </div>
 
 
-<!-- =========================
-     CONTROLS
-========================= -->
+<!-- CONTROLS -->
 
 <div class="section">
-    ⚙️ CONTROLS
-</div>
+
+<h3>⚙️ Controls</h3>
 
 <button onclick="location.reload()">
     🔄 Refresh
 </button>
 
-<button onclick="goBack()">
+<button onclick="history.back()">
     ◀️ Back
 </button>
-
 
 </div>
 
 
 <div class="footer">
-    ⭐ Google Hub v8
+⭐ Google Hub v9
 </div>
 
 
 <script>
 
 
-/* =====================================
-   FAVORITES
-   Memory only - no localStorage
-===================================== */
+/* =========================
+   DATA
+========================= */
 
 var favorites = [];
-
-
-/* =====================================
-   HISTORY
-===================================== */
-
 var historyList = [];
 
 
-/* =====================================
+/* =========================
    CLOCK
-===================================== */
+========================= */
 
 function updateClock() {
 
@@ -407,43 +331,22 @@ function updateClock() {
     var m = now.getMinutes();
     var s = now.getSeconds();
 
-    if (h < 10) {
-        h = "0" + h;
-    }
-
-    if (m < 10) {
-        m = "0" + m;
-    }
-
-    if (s < 10) {
-        s = "0" + s;
-    }
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = "0" + m;
+    if (s < 10) s = "0" + s;
 
     document.getElementById("clock").innerHTML =
         h + ":" + m + ":" + s;
 }
 
-
-/*
-   Update immediately
-*/
-
 updateClock();
 
-
-/*
-   Update every second
-*/
-
-setInterval(
-    updateClock,
-    1000
-);
+setInterval(updateClock,1000);
 
 
-/* =====================================
-   HIDE PANELS
-===================================== */
+/* =========================
+   PANELS
+========================= */
 
 function hidePanels() {
 
@@ -461,87 +364,97 @@ function hidePanels() {
 }
 
 
-/* =====================================
-   OPEN WEBSITE
-===================================== */
+function closePanels() {
 
-function go(url) {
+    hidePanels();
 
-    addHistory(url);
-
-    window.location.href = url;
 }
 
 
-/* =====================================
+/* =========================
    GOOGLE SEARCH
-===================================== */
+========================= */
 
-function searchGoogle() {
+function googleSearch() {
 
-    var text =
+    var q =
         document.getElementById(
-            "searchBox"
+            "searchInput"
         ).value;
 
-    text =
-        text.replace(
-            /^\s+|\s+$/g,
-            ""
-        );
+    q = q.replace(
+        /^\s+|\s+$/g,
+        ""
+    );
 
-    if (text == "") {
-        return;
-    }
+    if (q == "") return;
 
     var url =
         "https://www.google.com/search?q=" +
-        encodeURIComponent(text);
+        encodeURIComponent(q);
 
-    addHistory(url);
+    addHistory(
+        q,
+        url
+    );
 
     window.location.href = url;
 }
 
 
-/* =====================================
-   BROWSER
-===================================== */
+/* =========================
+   OPEN URL
+========================= */
 
-function goWebsite() {
+function openURL() {
 
     var url =
         document.getElementById(
-            "urlBox"
+            "urlInput"
         ).value;
 
-    url =
-        url.replace(
-            /^\s+|\s+$/g,
-            ""
-        );
+    url = url.replace(
+        /^\s+|\s+$/g,
+        ""
+    );
 
-    if (url == "") {
-        return;
-    }
+    if (url == "") return;
 
     if (
         url.indexOf("http://") != 0 &&
         url.indexOf("https://") != 0
     ) {
-        url =
-            "https://" + url;
+
+        url = "https://" + url;
     }
 
-    addHistory(url);
+    addHistory(
+        url,
+        url
+    );
 
     window.location.href = url;
 }
 
 
-/* =====================================
-   FAVORITE FORM
-===================================== */
+/* =========================
+   OPEN SITE
+========================= */
+
+function openSite(url) {
+
+    addHistory(
+        url,
+        url
+    );
+
+    window.location.href = url;
+}
+
+
+/* =========================
+   FAVORITES
+========================= */
 
 function newFavorite() {
 
@@ -569,10 +482,6 @@ function cancelFavorite() {
 }
 
 
-/* =====================================
-   SAVE FAVORITE
-===================================== */
-
 function saveFavorite() {
 
     var name =
@@ -585,59 +494,44 @@ function saveFavorite() {
             "favoriteURL"
         ).value;
 
+    name = name.replace(
+        /^\s+|\s+$/g,
+        ""
+    );
 
-    name =
-        name.replace(
-            /^\s+|\s+$/g,
-            ""
-        );
+    url = url.replace(
+        /^\s+|\s+$/g,
+        ""
+    );
 
-    url =
-        url.replace(
-            /^\s+|\s+$/g,
-            ""
-        );
+    if (name == "") return;
 
-
-    if (name == "") {
-        return;
-    }
-
-    if (url == "") {
-        return;
-    }
-
+    if (url == "") return;
 
     if (
         url.indexOf("http://") != 0 &&
         url.indexOf("https://") != 0
     ) {
-        url =
-            "https://" + url;
+
+        url = "https://" + url;
     }
 
-
     favorites.push({
-
-        name: name,
-
-        url: url
-
+        name:name,
+        url:url
     });
-
 
     document.getElementById(
         "favoriteForm"
     ).style.display = "none";
 
-
     openFavorites();
 }
 
 
-/* =====================================
-   OPEN FAVORITES
-===================================== */
+/* =========================
+   SHOW FAVORITES
+========================= */
 
 function openFavorites() {
 
@@ -647,19 +541,14 @@ function openFavorites() {
         "favoritesPanel"
     ).style.display = "block";
 
-
     var area =
         document.getElementById(
             "favoritesList"
         );
 
-
     area.innerHTML = "";
 
-
-    if (
-        favorites.length == 0
-    ) {
+    if (favorites.length == 0) {
 
         area.innerHTML =
             '<div class="message">' +
@@ -669,9 +558,7 @@ function openFavorites() {
         return;
     }
 
-
     var i;
-
 
     for (
         i = 0;
@@ -680,18 +567,15 @@ function openFavorites() {
     ) {
 
         var item =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-        item.className =
-            "item";
+        item.className = "item";
 
+
+        /* OPEN BUTTON */
 
         var link =
-            document.createElement(
-                "a"
-            );
+            document.createElement("a");
 
         link.href =
             favorites[i].url;
@@ -701,16 +585,15 @@ function openFavorites() {
             favorites[i].name;
 
 
-        var del =
-            document.createElement(
-                "button"
-            );
+        /* DELETE BUTTON */
 
-        del.className =
-            "delete";
+        var del =
+            document.createElement("button");
+
+        del.className = "delete";
 
         del.innerHTML =
-            "✕";
+            "🗑️ Delete";
 
 
         del.onclick =
@@ -724,56 +607,34 @@ function openFavorites() {
                     );
 
                     openFavorites();
+
                 };
 
             })(i);
 
 
-        item.appendChild(
-            link
-        );
+        item.appendChild(link);
 
-        item.appendChild(
-            del
-        );
+        item.appendChild(del);
 
-        area.appendChild(
-            item
-        );
+        area.appendChild(item);
     }
 }
 
 
-/* =====================================
-   CLOSE FAVORITES
-===================================== */
-
-function closeFavorites() {
-
-    document.getElementById(
-        "favoritesPanel"
-    ).style.display = "none";
-}
-
-
-/* =====================================
+/* =========================
    HISTORY
-===================================== */
+========================= */
 
-function addHistory(url) {
+function addHistory(
+    name,
+    url
+) {
 
-    historyList.unshift(url);
-
-    if (
-        historyList.length > 20
-    ) {
-
-        historyList =
-            historyList.slice(
-                0,
-                20
-            );
-    }
+    historyList.push({
+        name:name,
+        url:url
+    });
 }
 
 
@@ -785,67 +646,49 @@ function openHistory() {
         "historyPanel"
     ).style.display = "block";
 
-
     var area =
         document.getElementById(
             "historyList"
         );
 
-
     area.innerHTML = "";
 
-
-    if (
-        historyList.length == 0
-    ) {
+    if (historyList.length == 0) {
 
         area.innerHTML =
             '<div class="message">' +
-            '🕘 History is empty.' +
+            '🕘 No history yet.' +
             '</div>';
 
         return;
     }
 
-
     var i;
 
-
     for (
-        i = 0;
-        i < historyList.length;
-        i++
+        i = historyList.length - 1;
+        i >= 0;
+        i--
     ) {
 
         var item =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-        item.className =
-            "item";
-
+        item.className = "item";
 
         var link =
-            document.createElement(
-                "a"
-            );
+            document.createElement("a");
 
         link.href =
-            historyList[i];
+            historyList[i].url;
 
         link.innerHTML =
-            "🕘 " +
-            historyList[i];
+            "🌐 " +
+            historyList[i].name;
 
+        item.appendChild(link);
 
-        item.appendChild(
-            link
-        );
-
-        area.appendChild(
-            item
-        );
+        area.appendChild(item);
     }
 }
 
@@ -855,34 +698,6 @@ function clearHistory() {
     historyList = [];
 
     openHistory();
-}
-
-
-function closeHistory() {
-
-    document.getElementById(
-        "historyPanel"
-    ).style.display = "none";
-}
-
-
-/* =====================================
-   BACK
-===================================== */
-
-function goBack() {
-
-    if (
-        window.history.length > 1
-    ) {
-
-        window.history.back();
-
-    } else {
-
-        window.location.href =
-            "https://artinxray.github.io/nokia3210-google/";
-    }
 }
 
 
