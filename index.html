@@ -9,7 +9,7 @@
                initial-scale=1.0,
                maximum-scale=1.0">
 
-<title>Google</title>
+<title>Nokia Browser</title>
 
 <style>
 
@@ -20,210 +20,299 @@
 body {
     margin: 0;
     padding: 0;
+
     background: #000;
     color: #fff;
+
     font-family: Arial, sans-serif;
+
     text-align: center;
 }
 
+
+/* =========================
+   Main
+========================= */
+
 .main {
     width: 100%;
-    padding: 30px 12px 20px 12px;
+    padding: 26px 12px 18px 12px;
 }
 
 
-/* Google Logo */
+/* =========================
+   Google Logo
+========================= */
 
 .logo {
-    font-size: 48px;
+    font-size: 46px;
+
     font-weight: bold;
+
     letter-spacing: -4px;
+
     line-height: 1;
+
     white-space: nowrap;
-    margin-bottom: 30px;
+
+    margin-bottom: 28px;
 }
 
-.blue { color: #4285F4; }
-.red { color: #EA4335; }
-.yellow { color: #FBBC05; }
-.green { color: #34A853; }
+.blue {
+    color: #4285F4;
+}
+
+.red {
+    color: #EA4335;
+}
+
+.yellow {
+    color: #FBBC05;
+}
+
+.green {
+    color: #34A853;
+}
 
 
-/* Search Box */
+/* =========================
+   Search Box
+========================= */
 
 .search-box {
+
     width: 100%;
+
     height: 48px;
 
     border: 1px solid #5f6368;
+
     border-radius: 24px;
 
     background: #202124;
 
     display: flex;
+
     align-items: center;
 
-    padding: 0 12px;
+    padding: 0 10px;
 }
 
 
-/* Real Search Icon */
+/* Search Button */
 
 .search-button {
+
     width: 34px;
     height: 34px;
 
     border: none;
+
     background: transparent;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     padding: 0;
-    margin-right: 5px;
 
-    cursor: pointer;
+    margin-right: 5px;
 }
 
 .search-button svg {
+
     width: 21px;
     height: 21px;
 
     fill: none;
-    stroke: #aaa;
-    stroke-width: 2.5;
-}
 
-.search-button:active svg {
-    stroke: #fff;
+    stroke: #aaa;
+
+    stroke-width: 2.5;
 }
 
 
 /* Input */
 
 #search {
+
     width: 100%;
+
     height: 42px;
 
     border: none;
+
     outline: none;
 
     font-size: 16px;
 
     background: transparent;
+
     color: #fff;
 }
 
 #search::placeholder {
+
     color: #aaa;
 }
 
 
-/* Clock */
+/* =========================
+   Clock
+========================= */
 
 #clock {
+
     font-size: 20px;
+
     color: #fff;
 
     margin-top: 18px;
 }
 
 
-/* Phone */
+/* =========================
+   Nokia Area
+========================= */
+
+.nokia-box {
+
+    margin-top: 18px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #222;
+}
+
+.nokia-title {
+
+    font-size: 13px;
+
+    color: #777;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   Speed / Lightweight
+========================= */
 
 .info {
-    margin-top: 6px;
 
-    font-size: 12px;
-    color: #777;
+    margin-top: 5px;
+
+    font-size: 10px;
+
+    color: #444;
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="main">
 
 
-<!-- Google Logo -->
+    <!-- Google Logo -->
 
-<div class="logo">
+    <div class="logo">
 
-    <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span>
+        <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span>
+
+    </div>
+
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+
+        <button
+            class="search-button"
+            onclick="openSearch()"
+            aria-label="Search">
+
+
+            <svg viewBox="0 0 24 24">
+
+                <circle
+                    cx="10.5"
+                    cy="10.5"
+                    r="6.5">
+                </circle>
+
+                <line
+                    x1="16"
+                    y1="16"
+                    x2="21"
+                    y2="21">
+                </line>
+
+            </svg>
+
+
+        </button>
+
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search or enter website"
+            onkeydown="searchKey(event)"
+        >
+
+
+    </div>
+
+
+    <!-- Clock -->
+
+    <div id="clock">
+        00:00:00
+    </div>
+
+
+    <!-- Nokia -->
+
+    <div class="nokia-box">
+
+        <div class="nokia-title">
+            NOKIA 3210 4G
+        </div>
+
+        <div class="info">
+            MINI BROWSER
+        </div>
+
+    </div>
+
 
 </div>
 
-
-<!-- Search -->
-
-<div class="search-box">
-
-    <button
-        class="search-button"
-        onclick="searchGoogle()"
-        aria-label="Search">
-
-        <svg viewBox="0 0 24 24">
-
-            <circle
-                cx="10.5"
-                cy="10.5"
-                r="6.5">
-            </circle>
-
-            <line
-                x1="16"
-                y1="16"
-                x2="21"
-                y2="21">
-            </line>
-
-        </svg>
-
-    </button>
-
-
-    <input
-        id="search"
-        type="text"
-        placeholder="Search Google"
-        onkeydown="searchKey(event)"
-    >
-
-</div>
-
-
-<!-- Clock -->
-
-<div id="clock">
-    00:00:00
-</div>
-
-
-<!-- Phone -->
-
-<div class="info">
-    Nokia 3210 4G
-</div>
-
-
-</div>
 
 
 <script>
 
 
-/* Search */
+/* =========================
+   Open Search / Website
+========================= */
 
-function searchGoogle() {
+function openSearch() {
+
 
     var text =
         document.getElementById(
             "search"
         ).value;
+
 
     text =
         text.replace(
@@ -231,55 +320,130 @@ function searchGoogle() {
             ""
         );
 
+
     if (text == "") {
         return;
     }
 
-    window.location.href =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(text);
-}
+
+    /*
+       اگر آدرس سایت باشد
+       مستقیم باز می‌شود.
+    */
+
+    var isWebsite =
+        text.indexOf(".") > 0 ||
+        text.indexOf("://") > 0;
 
 
-/* Enter */
+    if (isWebsite) {
 
-function searchKey(event) {
 
-    if (event.keyCode == 13) {
-        searchGoogle();
+        var url = text;
+
+
+        if (
+            url.indexOf("://") == -1
+        ) {
+
+            url =
+                "https://" + url;
+
+        }
+
+
+        window.location.href = url;
+
+
+    } else {
+
+
+        /*
+           متن معمولی:
+           Google Search
+        */
+
+        window.location.href =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(text);
+
     }
 
 }
 
 
-/* Clock */
+/* =========================
+   Enter Key
+========================= */
+
+function searchKey(event) {
+
+
+    if (
+        event.keyCode == 13
+    ) {
+
+        openSearch();
+
+    }
+
+}
+
+
+/* =========================
+   Clock
+========================= */
 
 function updateClock() {
 
-    var now = new Date();
 
-    var h = now.getHours();
-    var m = now.getMinutes();
-    var s = now.getSeconds();
+    var now =
+        new Date();
 
-    if (h < 10) h = "0" + h;
-    if (m < 10) m = "0" + m;
-    if (s < 10) s = "0" + s;
+
+    var h =
+        now.getHours();
+
+
+    var m =
+        now.getMinutes();
+
+
+    var s =
+        now.getSeconds();
+
+
+    if (h < 10)
+        h = "0" + h;
+
+
+    if (m < 10)
+        m = "0" + m;
+
+
+    if (s < 10)
+        s = "0" + s;
+
 
     document.getElementById(
         "clock"
     ).innerHTML =
         h + ":" + m + ":" + s;
+
 }
 
+
 updateClock();
+
 
 setInterval(
     updateClock,
     1000
 );
 
+
 </script>
+
 
 </body>
 </html>
