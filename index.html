@@ -20,19 +20,11 @@
 body {
     margin: 0;
     padding: 0;
-
     background: #000;
     color: #fff;
-
     font-family: Arial, sans-serif;
-
     text-align: center;
 }
-
-
-/* =========================
-   Main
-========================= */
 
 .main {
     width: 100%;
@@ -40,21 +32,14 @@ body {
 }
 
 
-/* =========================
-   Google Logo
-========================= */
+/* Google Logo */
 
 .logo {
     font-size: 46px;
-
     font-weight: bold;
-
     letter-spacing: -4px;
-
     line-height: 1;
-
     white-space: nowrap;
-
     margin-bottom: 28px;
 }
 
@@ -75,110 +60,94 @@ body {
 }
 
 
-/* =========================
-   Search Box
-========================= */
+/* Search Box */
 
 .search-box {
-
     width: 100%;
-
     height: 48px;
 
     border: 1px solid #5f6368;
-
     border-radius: 24px;
 
     background: #202124;
 
     display: flex;
-
     align-items: center;
 
     padding: 0 10px;
 }
 
 
-/* Search Button */
-
-.search-button {
-
-    width: 34px;
-    height: 34px;
-
-    border: none;
-
-    background: transparent;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 0;
-
-    margin-right: 5px;
-}
-
-.search-button svg {
-
-    width: 21px;
-    height: 21px;
-
-    fill: none;
-
-    stroke: #aaa;
-
-    stroke-width: 2.5;
-}
-
-
-/* Input */
+/* Search Input */
 
 #search {
-
     width: 100%;
-
     height: 42px;
 
     border: none;
-
     outline: none;
 
     font-size: 16px;
 
     background: transparent;
-
     color: #fff;
+
+    order: 1;
 }
 
 #search::placeholder {
-
     color: #aaa;
 }
 
 
-/* =========================
-   Clock
-========================= */
+/* Search Button */
+
+.search-button {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    margin-left: 5px;
+
+    order: 2;
+
+    cursor: pointer;
+}
+
+.search-button svg {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+    stroke: #aaa;
+    stroke-width: 2.5;
+}
+
+.search-button:active svg {
+    stroke: #fff;
+}
+
+
+/* Clock */
 
 #clock {
-
     font-size: 20px;
-
     color: #fff;
 
     margin-top: 18px;
 }
 
 
-/* =========================
-   Nokia Area
-========================= */
+/* Nokia Area */
 
 .nokia-box {
-
     margin-top: 18px;
 
     padding-top: 12px;
@@ -187,7 +156,6 @@ body {
 }
 
 .nokia-title {
-
     font-size: 13px;
 
     color: #777;
@@ -195,13 +163,7 @@ body {
     letter-spacing: 1px;
 }
 
-
-/* =========================
-   Speed / Lightweight
-========================= */
-
 .info {
-
     margin-top: 5px;
 
     font-size: 10px;
@@ -229,9 +191,17 @@ body {
     </div>
 
 
-    <!-- Search -->
+    <!-- Search Box -->
 
     <div class="search-box">
+
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search or enter website"
+            onkeydown="searchKey(event)"
+        >
 
 
         <button
@@ -259,14 +229,6 @@ body {
 
 
         </button>
-
-
-        <input
-            id="search"
-            type="text"
-            placeholder="Search or enter website"
-            onkeydown="searchKey(event)"
-        >
 
 
     </div>
@@ -301,12 +263,9 @@ body {
 <script>
 
 
-/* =========================
-   Open Search / Website
-========================= */
+/* Search / Open Website */
 
 function openSearch() {
-
 
     var text =
         document.getElementById(
@@ -326,10 +285,7 @@ function openSearch() {
     }
 
 
-    /*
-       اگر آدرس سایت باشد
-       مستقیم باز می‌شود.
-    */
+    /* Website */
 
     var isWebsite =
         text.indexOf(".") > 0 ||
@@ -337,7 +293,6 @@ function openSearch() {
 
 
     if (isWebsite) {
-
 
         var url = text;
 
@@ -358,10 +313,7 @@ function openSearch() {
     } else {
 
 
-        /*
-           متن معمولی:
-           Google Search
-        */
+        /* Google Search */
 
         window.location.href =
             "https://www.google.com/search?q=" +
@@ -372,16 +324,11 @@ function openSearch() {
 }
 
 
-/* =========================
-   Enter Key
-========================= */
+/* Enter Key */
 
 function searchKey(event) {
 
-
-    if (
-        event.keyCode == 13
-    ) {
+    if (event.keyCode == 13) {
 
         openSearch();
 
@@ -390,39 +337,28 @@ function searchKey(event) {
 }
 
 
-/* =========================
-   Clock
-========================= */
+/* Clock */
 
 function updateClock() {
 
+    var now = new Date();
 
-    var now =
-        new Date();
-
-
-    var h =
-        now.getHours();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
 
 
-    var m =
-        now.getMinutes();
-
-
-    var s =
-        now.getSeconds();
-
-
-    if (h < 10)
+    if (h < 10) {
         h = "0" + h;
+    }
 
-
-    if (m < 10)
+    if (m < 10) {
         m = "0" + m;
+    }
 
-
-    if (s < 10)
+    if (s < 10) {
         s = "0" + s;
+    }
 
 
     document.getElementById(
@@ -440,7 +376,6 @@ setInterval(
     updateClock,
     1000
 );
-
 
 </script>
 
