@@ -19,13 +19,25 @@
 
 body {
     margin: 0;
-    padding: 12px;
+    padding: 0;
 
-    background: #111;
-    color: white;
+    background: #fff;
+    color: #202124;
 
     font-family: Arial, sans-serif;
+
     text-align: center;
+}
+
+
+/* =========================
+   صفحه اصلی
+========================= */
+
+.main {
+    width: 100%;
+
+    padding: 35px 12px 20px 12px;
 }
 
 
@@ -36,18 +48,17 @@ body {
 .logo {
     font-family: Arial, sans-serif;
 
-    font-size: 45px;
+    font-size: 48px;
 
     font-weight: bold;
 
-    letter-spacing: -3px;
-
-    margin-top: 5px;
-    margin-bottom: 10px;
+    letter-spacing: -4px;
 
     line-height: 1;
 
     white-space: nowrap;
+
+    margin-bottom: 28px;
 }
 
 .blue {
@@ -68,65 +79,56 @@ body {
 
 
 /* =========================
-   Clock
+   Search Box
 ========================= */
 
-#clock {
-    font-size: 20px;
-    margin-bottom: 8px;
-}
-
-
-/* =========================
-   Phone
-========================= */
-
-.info {
-    font-size: 15px;
-
-    color: #aaa;
-
-    margin-bottom: 15px;
-}
-
-
-/* =========================
-   Line
-========================= */
-
-.line {
-    height: 1px;
-
-    background: #333;
-
-    margin: 16px 0;
-}
-
-
-/* =========================
-   Input
-========================= */
-
-input {
-    display: block;
-
+.search-box {
     width: 100%;
 
     height: 48px;
 
-    padding: 8px 12px;
+    border: 1px solid #dfe1e5;
 
-    margin: 8px 0;
+    border-radius: 24px;
 
-    background: #1d1d1d;
+    background: #fff;
 
-    color: white;
+    display: flex;
 
-    border: 1px solid #555;
+    align-items: center;
 
-    border-radius: 7px;
+    padding: 0 14px;
+
+    box-shadow:
+        0 1px 4px rgba(0,0,0,0.15);
+
+    margin-bottom: 16px;
+}
+
+
+.search-icon {
+    font-size: 18px;
+
+    margin-right: 8px;
+
+    color: #777;
+}
+
+
+#search {
+    width: 100%;
+
+    height: 42px;
+
+    border: none;
+
+    outline: none;
 
     font-size: 16px;
+
+    background: transparent;
+
+    color: #202124;
 }
 
 
@@ -135,30 +137,54 @@ input {
 ========================= */
 
 button {
-    display: block;
+    height: 44px;
 
-    width: 100%;
+    padding: 0 15px;
 
-    height: 50px;
+    margin: 5px 3px;
 
-    margin: 9px 0;
+    background: #f8f9fa;
 
-    background: #222;
+    color: #3c4043;
 
-    color: white;
+    border: 1px solid #f8f9fa;
 
-    border: 1px solid #666;
+    border-radius: 4px;
 
-    border-radius: 7px;
-
-    font-size: 17px;
-
-    font-weight: bold;
+    font-size: 14px;
 }
 
 
 button:active {
-    background: #444;
+    border-color: #dadce0;
+
+    background: #f1f3f4;
+}
+
+
+/* =========================
+   Time
+========================= */
+
+#clock {
+    margin-top: 28px;
+
+    font-size: 15px;
+
+    color: #70757a;
+}
+
+
+/* =========================
+   Phone
+========================= */
+
+.info {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color: #9aa0a6;
 }
 
 
@@ -167,11 +193,11 @@ button:active {
 ========================= */
 
 .footer {
-    margin-top: 18px;
+    margin-top: 25px;
 
-    color: #666;
+    font-size: 11px;
 
-    font-size: 12px;
+    color: #9aa0a6;
 }
 
 </style>
@@ -182,13 +208,44 @@ button:active {
 <body>
 
 
-<!-- =========================
-     Google Logo
-========================= -->
+<div class="main">
+
+
+<!-- Google Logo -->
 
 <div class="logo">
+
     <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span>
+
 </div>
+
+
+<!-- Search -->
+
+<div class="search-box">
+
+    <span class="search-icon">🔍</span>
+
+    <input
+        id="search"
+        type="text"
+        placeholder="Search Google"
+        onkeydown="searchKey(event)"
+    >
+
+</div>
+
+
+<!-- Buttons -->
+
+<button onclick="searchGoogle()">
+    Google Search
+</button>
+
+
+<button onclick="luckySearch()">
+    I'm Feeling Lucky
+</button>
 
 
 <!-- Clock -->
@@ -201,68 +258,15 @@ button:active {
 <!-- Phone -->
 
 <div class="info">
-    📱 Nokia 3210 4G
+    Nokia 3210 4G
 </div>
-
-
-<div class="line"></div>
-
-
-<!-- Google Search -->
-
-<input
-    id="search"
-    type="text"
-    placeholder="Search Google"
->
-
-<button onclick="searchGoogle()">
-    🔎 Search Google
-</button>
-
-
-<div class="line"></div>
-
-
-<!-- Website -->
-
-<input
-    id="url"
-    type="text"
-    placeholder="Website URL"
->
-
-<button onclick="openWebsite()">
-    🌐 Open Website
-</button>
-
-
-<div class="line"></div>
-
-
-<!-- Google -->
-
-<button onclick="openGoogle()">
-    🔵 Google
-</button>
-
-
-<!-- Wikipedia -->
-
-<button onclick="openWikipedia()">
-    📚 Wikipedia
-</button>
-
-
-<!-- Back -->
-
-<button onclick="goBack()">
-    ◀️ Back
-</button>
 
 
 <div class="footer">
     Google
+</div>
+
+
 </div>
 
 
@@ -281,6 +285,12 @@ function searchGoogle() {
             "search"
         ).value;
 
+    text =
+        text.replace(
+            /^\s+|\s+$/g,
+            ""
+        );
+
     if (text == "") {
         return;
     }
@@ -292,61 +302,45 @@ function searchGoogle() {
 
 
 /* =========================
-   Open Website
+   Enter Key
 ========================= */
 
-function openWebsite() {
+function searchKey(event) {
 
-    var url =
+    if (
+        event.keyCode == 13
+    ) {
+
+        searchGoogle();
+    }
+}
+
+
+/* =========================
+   I'm Feeling Lucky
+========================= */
+
+function luckySearch() {
+
+    var text =
         document.getElementById(
-            "url"
+            "search"
         ).value;
 
-    if (url == "") {
+    text =
+        text.replace(
+            /^\s+|\s+$/g,
+            ""
+        );
+
+    if (text == "") {
         return;
     }
 
-    if (
-        url.indexOf("http://") != 0 &&
-        url.indexOf("https://") != 0
-    ) {
-
-        url = "https://" + url;
-    }
-
-    window.location.href = url;
-}
-
-
-/* =========================
-   Google
-========================= */
-
-function openGoogle() {
-
     window.location.href =
-        "https://www.google.com/";
-}
-
-
-/* =========================
-   Wikipedia
-========================= */
-
-function openWikipedia() {
-
-    window.location.href =
-        "https://www.wikipedia.org/";
-}
-
-
-/* =========================
-   Back
-========================= */
-
-function goBack() {
-
-    history.back();
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(text) +
+        "&btnI=1";
 }
 
 
@@ -359,7 +353,9 @@ function updateClock() {
     var now = new Date();
 
     var h = now.getHours();
+
     var m = now.getMinutes();
+
     var s = now.getSeconds();
 
 
