@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>Google Hub</title>
 
@@ -30,8 +31,8 @@ body {
 
 .clock {
     padding: 5px;
-    font-size: 13px;
-    color: #ccc;
+    font-size: 14px;
+    color: #ddd;
 }
 
 .status {
@@ -115,6 +116,14 @@ button:active {
     text-decoration: none;
 }
 
+.delete {
+    float: right;
+    width: auto;
+    margin: 0;
+    padding: 3px 7px;
+    font-size: 11px;
+}
+
 .message {
     padding: 10px;
     color: #aaa;
@@ -135,18 +144,19 @@ button:active {
 
 </head>
 
+
 <body>
 
-
-<!-- HEADER -->
 
 <div class="header">
     🌐 GOOGLE HUB
 </div>
 
-<div class="clock" id="clock">
-    00:00
+
+<div id="clock" class="clock">
+    --:--
 </div>
+
 
 <div class="status">
     📱 Nokia 3210 4G • TA-1618
@@ -156,7 +166,9 @@ button:active {
 <div class="container">
 
 
-<!-- SEARCH -->
+<!-- =========================
+     SEARCH
+========================= -->
 
 <div class="section">
     🔎 SEARCH
@@ -168,22 +180,24 @@ button:active {
     placeholder="Search Google..."
 >
 
-<button onclick="googleSearch()">
+<button onclick="searchGoogle()">
     🔍 Search Google
 </button>
 
 
-<!-- FAVORITES -->
+<!-- =========================
+     FAVORITES
+========================= -->
 
 <div class="section">
     ⭐ FAVORITES
 </div>
 
-<button onclick="showFavorites()">
+<button onclick="openFavorites()">
     ⭐ Go to Favorites
 </button>
 
-<button onclick="showAddFavorite()">
+<button onclick="newFavorite()">
     ➕ Add Favorite
 </button>
 
@@ -191,59 +205,60 @@ button:active {
 <!-- ADD FAVORITE -->
 
 <div
-    id="addFavoritePanel"
+    id="favoriteForm"
     class="panel hidden"
 >
 
-    <div class="section">
-        ⭐ NEW FAVORITE
-    </div>
+<div class="section">
+    ⭐ NEW FAVORITE
+</div>
 
-    <input
-        id="favoriteName"
-        type="text"
-        placeholder="Favorite name"
-    >
+<input
+    id="favoriteName"
+    type="text"
+    placeholder="Favorite name"
+>
 
-    <input
-        id="favoriteURL"
-        type="text"
-        placeholder="Website URL"
-    >
+<input
+    id="favoriteURL"
+    type="text"
+    placeholder="Website URL"
+>
 
-    <button onclick="saveFavorite()">
-        💾 Save Favorite
-    </button>
+<button onclick="saveFavorite()">
+    💾 Save Favorite
+</button>
 
-    <button onclick="closeAddFavorite()">
-        ❌ Cancel
-    </button>
+<button onclick="cancelFavorite()">
+    ❌ Cancel
+</button>
 
 </div>
 
 
-<!-- FAVORITES -->
+<!-- FAVORITES LIST -->
 
 <div
     id="favoritesPanel"
     class="panel hidden"
 >
 
-    <div class="section">
-        ⭐ SAVED FAVORITES
-    </div>
+<div class="section">
+    ⭐ SAVED FAVORITES
+</div>
 
-    <div id="favoritesList">
-    </div>
+<div id="favoritesList"></div>
 
-    <button onclick="closeFavorites()">
-        ◀ Back
-    </button>
+<button onclick="closeFavorites()">
+    ◀ Back
+</button>
 
 </div>
 
 
-<!-- BROWSER -->
+<!-- =========================
+     BROWSER
+========================= -->
 
 <div class="section">
     🌐 BROWSER
@@ -255,56 +270,62 @@ button:active {
     placeholder="Enter website..."
 >
 
-<button onclick="openBrowserURL()">
+<button onclick="goWebsite()">
     🚀 Go
 </button>
 
 
-<!-- GOOGLE -->
+<!-- =========================
+     GOOGLE
+========================= -->
 
 <div class="section">
     🔵 GOOGLE
 </div>
 
-<button onclick="openSite('https://www.google.com')">
+<button onclick="go('https://www.google.com')">
     🔍 Google Search
 </button>
 
-<button onclick="openSite('https://images.google.com')">
+<button onclick="go('https://images.google.com')">
     🖼️ Google Images
 </button>
 
-<button onclick="openSite('https://news.google.com')">
+<button onclick="go('https://news.google.com')">
     📰 Google News
 </button>
 
-<button onclick="openSite('https://translate.google.com')">
+<button onclick="go('https://translate.google.com')">
     🌐 Google Translate
 </button>
 
-<button onclick="openSite('https://www.google.com/search?q=weather')">
+<button onclick="go('https://www.google.com/search?q=weather')">
     🌤️ Google Weather
 </button>
 
 
-<!-- OTHER -->
+<!-- =========================
+     OTHER
+========================= -->
 
 <div class="section">
     🌍 OTHER
 </div>
 
-<button onclick="openSite('https://www.wikipedia.org')">
+<button onclick="go('https://www.wikipedia.org')">
     📚 Wikipedia
 </button>
 
 
-<!-- HISTORY -->
+<!-- =========================
+     HISTORY
+========================= -->
 
 <div class="section">
     🕘 HISTORY
 </div>
 
-<button onclick="showHistory()">
+<button onclick="openHistory()">
     🕘 View History
 </button>
 
@@ -313,28 +334,27 @@ button:active {
 </button>
 
 
-<!-- HISTORY PANEL -->
-
 <div
     id="historyPanel"
     class="panel hidden"
 >
 
-    <div class="section">
-        🕘 BROWSING HISTORY
-    </div>
+<div class="section">
+    🕘 BROWSING HISTORY
+</div>
 
-    <div id="historyList">
-    </div>
+<div id="historyList"></div>
 
-    <button onclick="closeHistory()">
-        ◀ Back
-    </button>
+<button onclick="closeHistory()">
+    ◀ Back
+</button>
 
 </div>
 
 
-<!-- CONTROLS -->
+<!-- =========================
+     CONTROLS
+========================= -->
 
 <div class="section">
     ⚙️ CONTROLS
@@ -353,17 +373,31 @@ button:active {
 
 
 <div class="footer">
-    ⭐ Google Hub v7
+    ⭐ Google Hub v8
 </div>
-
 
 
 <script>
 
 
-/* =========================================
+/* =====================================
+   FAVORITES
+   Memory only - no localStorage
+===================================== */
+
+var favorites = [];
+
+
+/* =====================================
+   HISTORY
+===================================== */
+
+var historyList = [];
+
+
+/* =====================================
    CLOCK
-========================================= */
+===================================== */
 
 function updateClock() {
 
@@ -371,6 +405,7 @@ function updateClock() {
 
     var h = now.getHours();
     var m = now.getMinutes();
+    var s = now.getSeconds();
 
     if (h < 10) {
         h = "0" + h;
@@ -380,11 +415,25 @@ function updateClock() {
         m = "0" + m;
     }
 
+    if (s < 10) {
+        s = "0" + s;
+    }
+
     document.getElementById("clock").innerHTML =
-        h + ":" + m;
+        h + ":" + m + ":" + s;
 }
 
+
+/*
+   Update immediately
+*/
+
 updateClock();
+
+
+/*
+   Update every second
+*/
 
 setInterval(
     updateClock,
@@ -392,15 +441,14 @@ setInterval(
 );
 
 
-
-/* =========================================
+/* =====================================
    HIDE PANELS
-========================================= */
+===================================== */
 
 function hidePanels() {
 
     document.getElementById(
-        "addFavoritePanel"
+        "favoriteForm"
     ).style.display = "none";
 
     document.getElementById(
@@ -413,25 +461,23 @@ function hidePanels() {
 }
 
 
-
-/* =========================================
+/* =====================================
    OPEN WEBSITE
-========================================= */
+===================================== */
 
-function openSite(url) {
+function go(url) {
 
-    saveHistory(url);
+    addHistory(url);
 
     window.location.href = url;
 }
 
 
-
-/* =========================================
+/* =====================================
    GOOGLE SEARCH
-========================================= */
+===================================== */
 
-function googleSearch() {
+function searchGoogle() {
 
     var text =
         document.getElementById(
@@ -452,18 +498,17 @@ function googleSearch() {
         "https://www.google.com/search?q=" +
         encodeURIComponent(text);
 
-    saveHistory(url);
+    addHistory(url);
 
     window.location.href = url;
 }
 
 
-
-/* =========================================
+/* =====================================
    BROWSER
-========================================= */
+===================================== */
 
-function openBrowserURL() {
+function goWebsite() {
 
     var url =
         document.getElementById(
@@ -484,105 +529,49 @@ function openBrowserURL() {
         url.indexOf("http://") != 0 &&
         url.indexOf("https://") != 0
     ) {
-
         url =
             "https://" + url;
     }
 
-    saveHistory(url);
+    addHistory(url);
 
     window.location.href = url;
 }
 
 
+/* =====================================
+   FAVORITE FORM
+===================================== */
 
-/* =========================================
-   FAVORITES
-========================================= */
-
-
-/*
-   Get favorites
-*/
-
-function getFavorites() {
-
-    try {
-
-        var data =
-            localStorage.getItem(
-                "googleHubFavorites"
-            );
-
-        if (!data) {
-            return [];
-        }
-
-        return JSON.parse(data);
-
-    } catch (e) {
-
-        return [];
-    }
-}
-
-
-/*
-   Save favorites
-*/
-
-function storeFavorites(list) {
-
-    try {
-
-        localStorage.setItem(
-            "googleHubFavorites",
-            JSON.stringify(list)
-        );
-
-        return true;
-
-    } catch (e) {
-
-        return false;
-    }
-}
-
-
-
-/*
-   Show Add Favorite
-*/
-
-function showAddFavorite() {
+function newFavorite() {
 
     hidePanels();
 
     document.getElementById(
-        "addFavoritePanel"
+        "favoriteForm"
     ).style.display = "block";
 
-}
-
-
-
-/*
-   Close Add Favorite
-*/
-
-function closeAddFavorite() {
+    document.getElementById(
+        "favoriteName"
+    ).value = "";
 
     document.getElementById(
-        "addFavoritePanel"
-    ).style.display = "none";
-
+        "favoriteURL"
+    ).value = "";
 }
 
 
+function cancelFavorite() {
 
-/*
-   Save Favorite
-*/
+    document.getElementById(
+        "favoriteForm"
+    ).style.display = "none";
+}
+
+
+/* =====================================
+   SAVE FAVORITE
+===================================== */
 
 function saveFavorite() {
 
@@ -623,17 +612,12 @@ function saveFavorite() {
         url.indexOf("http://") != 0 &&
         url.indexOf("https://") != 0
     ) {
-
         url =
             "https://" + url;
     }
 
 
-    var list =
-        getFavorites();
-
-
-    list.push({
+    favorites.push({
 
         name: name,
 
@@ -642,51 +626,26 @@ function saveFavorite() {
     });
 
 
-    if (
-        storeFavorites(list)
-    ) {
+    document.getElementById(
+        "favoriteForm"
+    ).style.display = "none";
 
-        document.getElementById(
-            "favoriteName"
-        ).value = "";
 
-        document.getElementById(
-            "favoriteURL"
-        ).value = "";
-
-        closeAddFavorite();
-
-        showFavorites();
-
-    } else {
-
-        alert(
-            "Cannot save favorites."
-        );
-    }
+    openFavorites();
 }
 
 
+/* =====================================
+   OPEN FAVORITES
+===================================== */
 
-/*
-   Show Favorites
-
-   IMPORTANT:
-   This function does NOT depend
-   on any other button.
-*/
-
-function showFavorites() {
+function openFavorites() {
 
     hidePanels();
 
     document.getElementById(
         "favoritesPanel"
     ).style.display = "block";
-
-
-    var list =
-        getFavorites();
 
 
     var area =
@@ -699,7 +658,7 @@ function showFavorites() {
 
 
     if (
-        list.length == 0
+        favorites.length == 0
     ) {
 
         area.innerHTML =
@@ -716,7 +675,7 @@ function showFavorites() {
 
     for (
         i = 0;
-        i < list.length;
+        i < favorites.length;
         i++
     ) {
 
@@ -735,17 +694,48 @@ function showFavorites() {
             );
 
         link.href =
-            list[i].url;
+            favorites[i].url;
 
         link.innerHTML =
             "⭐ " +
-            list[i].name;
+            favorites[i].name;
+
+
+        var del =
+            document.createElement(
+                "button"
+            );
+
+        del.className =
+            "delete";
+
+        del.innerHTML =
+            "✕";
+
+
+        del.onclick =
+            (function(index) {
+
+                return function() {
+
+                    favorites.splice(
+                        index,
+                        1
+                    );
+
+                    openFavorites();
+                };
+
+            })(i);
 
 
         item.appendChild(
             link
         );
 
+        item.appendChild(
+            del
+        );
 
         area.appendChild(
             item
@@ -754,95 +744,46 @@ function showFavorites() {
 }
 
 
-
-/*
-   Close Favorites
-*/
+/* =====================================
+   CLOSE FAVORITES
+===================================== */
 
 function closeFavorites() {
 
     document.getElementById(
         "favoritesPanel"
     ).style.display = "none";
-
 }
 
 
-
-/* =========================================
+/* =====================================
    HISTORY
-========================================= */
+===================================== */
 
-function getHistory() {
+function addHistory(url) {
 
-    try {
+    historyList.unshift(url);
 
-        var data =
-            localStorage.getItem(
-                "googleHubHistory"
+    if (
+        historyList.length > 20
+    ) {
+
+        historyList =
+            historyList.slice(
+                0,
+                20
             );
-
-        if (!data) {
-            return [];
-        }
-
-        return JSON.parse(data);
-
-    } catch (e) {
-
-        return [];
     }
 }
 
 
-function saveHistory(url) {
-
-    try {
-
-        var list =
-            getHistory();
-
-        list.unshift(url);
-
-        if (
-            list.length > 20
-        ) {
-
-            list =
-                list.slice(
-                    0,
-                    20
-                );
-        }
-
-        localStorage.setItem(
-            "googleHubHistory",
-            JSON.stringify(list)
-        );
-
-    } catch (e) {
-
-        /* Ignore */
-    }
-}
-
-
-
-/*
-   Show History
-*/
-
-function showHistory() {
+function openHistory() {
 
     hidePanels();
 
     document.getElementById(
         "historyPanel"
     ).style.display = "block";
-
-
-    var list =
-        getHistory();
 
 
     var area =
@@ -855,7 +796,7 @@ function showHistory() {
 
 
     if (
-        list.length == 0
+        historyList.length == 0
     ) {
 
         area.innerHTML =
@@ -872,7 +813,7 @@ function showHistory() {
 
     for (
         i = 0;
-        i < list.length;
+        i < historyList.length;
         i++
     ) {
 
@@ -891,17 +832,16 @@ function showHistory() {
             );
 
         link.href =
-            list[i];
+            historyList[i];
 
         link.innerHTML =
             "🕘 " +
-            list[i];
+            historyList[i];
 
 
         item.appendChild(
             link
         );
-
 
         area.appendChild(
             item
@@ -910,44 +850,25 @@ function showHistory() {
 }
 
 
-
-/*
-   Clear History
-*/
-
 function clearHistory() {
 
-    try {
+    historyList = [];
 
-        localStorage.removeItem(
-            "googleHubHistory"
-        );
-
-    } catch (e) {}
-
-
-    showHistory();
+    openHistory();
 }
 
-
-
-/*
-   Close History
-*/
 
 function closeHistory() {
 
     document.getElementById(
         "historyPanel"
     ).style.display = "none";
-
 }
 
 
-
-/* =========================================
+/* =====================================
    BACK
-========================================= */
+===================================== */
 
 function goBack() {
 
@@ -968,4 +889,4 @@ function goBack() {
 </script>
 
 </body>
-    </html>
+</html>
