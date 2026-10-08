@@ -13,6 +13,10 @@
 
 <style>
 
+/* =========================
+   Base
+========================= */
+
 * {
     box-sizing: border-box;
 }
@@ -34,19 +38,16 @@ body {
 .nokia-header {
     width: 100%;
     height: 58px;
-
     padding: 5px 10px;
-
     background: #000;
 }
 
 
 /* =========================
-   Lite Button
+   Lite Mode Button
 ========================= */
 
 .lite-button {
-
     width: 100%;
     height: 48px;
 
@@ -57,7 +58,6 @@ body {
     border-radius: 24px;
 
     background: #111;
-
     color: #fff;
 
     font-size: 14px;
@@ -72,9 +72,6 @@ body {
 
 .lite-button.on {
     background: #222;
-
-    color: #fff;
-
     border-color: #fff;
 }
 
@@ -85,7 +82,6 @@ body {
 
 .main {
     width: 100%;
-
     padding: 22px 12px 18px 12px;
 }
 
@@ -95,17 +91,11 @@ body {
 ========================= */
 
 .logo {
-
     font-size: 46px;
-
     font-weight: bold;
-
     letter-spacing: -4px;
-
     line-height: 1;
-
     white-space: nowrap;
-
     margin-bottom: 25px;
 }
 
@@ -131,7 +121,6 @@ body {
 ========================= */
 
 .search-box {
-
     width: 100%;
     height: 48px;
 
@@ -141,14 +130,12 @@ body {
     background: #181818;
 
     display: flex;
-
     align-items: center;
 
     padding: 0 10px;
 }
 
 #search {
-
     width: 100%;
     height: 42px;
 
@@ -158,7 +145,6 @@ body {
     font-size: 16px;
 
     background: transparent;
-
     color: #fff;
 
     order: 1;
@@ -174,35 +160,28 @@ body {
 ========================= */
 
 .search-button {
-
     width: 34px;
     height: 34px;
 
     border: none;
-
     background: transparent;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     padding: 0;
-
     margin-left: 5px;
 
     order: 2;
 }
 
 .search-button svg {
-
     width: 21px;
     height: 21px;
 
     fill: none;
-
     stroke: #aaa;
-
     stroke-width: 2.5;
 }
 
@@ -216,11 +195,8 @@ body {
 ========================= */
 
 #clock {
-
     font-size: 20px;
-
     margin-top: 15px;
-
     color: #fff;
 }
 
@@ -230,11 +206,9 @@ body {
 ========================= */
 
 .status {
-
     margin-top: 8px;
 
     font-size: 10px;
-
     color: #555;
 
     letter-spacing: 1px;
@@ -246,7 +220,6 @@ body {
 ========================= */
 
 .section {
-
     margin-top: 18px;
 
     border-top: 1px solid #222;
@@ -255,7 +228,6 @@ body {
 }
 
 .section-title {
-
     font-size: 12px;
 
     color: #888;
@@ -267,11 +239,10 @@ body {
 
 
 /* =========================
-   History / Favorites
+   History / Favorites Items
 ========================= */
 
 .item {
-
     width: 100%;
 
     min-height: 38px;
@@ -279,7 +250,6 @@ body {
     margin: 5px 0;
 
     border: 1px solid #292929;
-
     border-radius: 7px;
 
     background: #0d0d0d;
@@ -309,15 +279,12 @@ body {
 ========================= */
 
 .add-favorite {
-
     width: 100%;
-
     height: 40px;
 
     margin-top: 7px;
 
     border: 1px solid #292929;
-
     border-radius: 7px;
 
     background: #111;
@@ -333,11 +300,10 @@ body {
 
 
 /* =========================
-   Clear
+   Clear Buttons
 ========================= */
 
 .clear {
-
     margin-top: 7px;
 
     color: #666;
@@ -368,7 +334,6 @@ body.lite-mode .main {
 ========================= */
 
 .footer {
-
     margin-top: 20px;
 
     color: #333;
@@ -386,7 +351,9 @@ body.lite-mode .main {
 <body>
 
 
-<!-- Lite Mode -->
+<!-- =========================
+     Lite Mode Button
+========================= -->
 
 <div class="nokia-header">
 
@@ -395,13 +362,16 @@ body.lite-mode .main {
         class="lite-button"
         onclick="toggleLite()">
 
-        ⚡ Toggle Lite Mode
+        ⚡ Lite Mode: OFF
 
     </button>
 
 </div>
 
 
+<!-- =========================
+     Main
+========================= -->
 
 <div class="main">
 
@@ -415,7 +385,9 @@ body.lite-mode .main {
     </div>
 
 
-    <!-- Search -->
+    <!-- =========================
+         Search
+    ========================= -->
 
     <div class="search-box">
 
@@ -425,7 +397,6 @@ body.lite-mode .main {
             placeholder="Search or enter website"
             onkeydown="searchKey(event)"
         >
-
 
         <button
             class="search-button"
@@ -466,7 +437,9 @@ body.lite-mode .main {
     </div>
 
 
-    <!-- History -->
+    <!-- =========================
+         History
+    ========================= -->
 
     <div class="section">
 
@@ -487,7 +460,9 @@ body.lite-mode .main {
     </div>
 
 
-    <!-- Favorites -->
+    <!-- =========================
+         Favorites
+    ========================= -->
 
     <div class="section">
 
@@ -497,7 +472,6 @@ body.lite-mode .main {
 
         <div id="favorites"></div>
 
-
         <button
             class="add-favorite"
             onclick="addFavorite()">
@@ -505,7 +479,6 @@ body.lite-mode .main {
             + Add current address to Favorites
 
         </button>
-
 
         <div
             class="clear"
@@ -518,13 +491,14 @@ body.lite-mode .main {
     </div>
 
 
+    <!-- Footer -->
+
     <div class="footer">
         NOKIA 3210 4G • MINI BROWSER
     </div>
 
 
 </div>
-
 
 
 <script>
@@ -534,26 +508,69 @@ body.lite-mode .main {
    Storage
 ========================= */
 
-var historyList =
-    JSON.parse(
+var historyList = [];
+
+var favorites = [];
+
+var liteMode = false;
+
+
+/* =========================
+   Safe Storage Load
+========================= */
+
+try {
+
+    historyList =
+        JSON.parse(
+            localStorage.getItem(
+                "nokia_history"
+            ) || "[]"
+        );
+
+    if (!historyList.length) {
+        historyList = [];
+    }
+
+} catch (e) {
+
+    historyList = [];
+
+}
+
+
+try {
+
+    favorites =
+        JSON.parse(
+            localStorage.getItem(
+                "nokia_favorites"
+            ) || "[]"
+        );
+
+    if (!favorites.length) {
+        favorites = [];
+    }
+
+} catch (e) {
+
+    favorites = [];
+
+}
+
+
+try {
+
+    liteMode =
         localStorage.getItem(
-            "nokia_history"
-        ) || "[]"
-    );
+            "nokia_lite"
+        ) === "true";
 
+} catch (e) {
 
-var favorites =
-    JSON.parse(
-        localStorage.getItem(
-            "nokia_favorites"
-        ) || "[]"
-    );
+    liteMode = false;
 
-
-var liteMode =
-    localStorage.getItem(
-        "nokia_lite"
-    ) === "true";
+}
 
 
 /* =========================
@@ -562,11 +579,13 @@ var liteMode =
 
 function openSearch() {
 
-    var text =
+    var input =
         document.getElementById(
             "search"
-        ).value;
+        );
 
+    var text =
+        input.value;
 
     text =
         text.replace(
@@ -576,16 +595,28 @@ function openSearch() {
 
 
     if (text == "") {
+
         return;
+
     }
 
 
     addHistory(text);
 
 
+    /*
+       Website detection
+
+       Examples:
+       google.com
+       www.google.com
+       https://google.com
+       example.org/page
+    */
+
     var isWebsite =
-        text.indexOf(".") > 0 ||
-        text.indexOf("://") > 0;
+        text.indexOf("://") > 0 ||
+        text.indexOf(".") > 0;
 
 
     if (isWebsite) {
@@ -618,12 +649,15 @@ function openSearch() {
 
 
 /* =========================
-   Enter
+   Enter Key
 ========================= */
 
 function searchKey(event) {
 
-    if (event.keyCode == 13) {
+    if (
+        event.keyCode == 13 ||
+        event.which == 13
+    ) {
 
         openSearch();
 
@@ -666,10 +700,15 @@ function addHistory(text) {
         newList.slice(0, 5);
 
 
-    localStorage.setItem(
-        "nokia_history",
-        JSON.stringify(historyList)
-    );
+    try {
+
+        localStorage.setItem(
+            "nokia_history",
+            JSON.stringify(historyList)
+        );
+
+    } catch (e) {
+    }
 
 
     showHistory();
@@ -693,10 +732,11 @@ function showHistory() {
             '<div style="color:#444;font-size:11px;">No history</div>';
 
         return;
+
     }
 
 
-    var html = "";
+    box.innerHTML = "";
 
 
     for (
@@ -705,19 +745,42 @@ function showHistory() {
         i++
     ) {
 
-        html +=
-            '<div class="item" onclick="useItem(' +
-            JSON.stringify(
-                historyList[i]
-            ) +
-            ')">' +
-            historyList[i] +
-            '</div>';
+        createHistoryItem(
+            historyList[i],
+            box
+        );
 
     }
 
+}
 
-    box.innerHTML = html;
+
+function createHistoryItem(
+    text,
+    box
+) {
+
+    var item =
+        document.createElement(
+            "div"
+        );
+
+
+    item.className = "item";
+
+    item.innerHTML =
+        escapeHTML(text);
+
+
+    item.onclick =
+        function() {
+
+            useItem(text);
+
+        };
+
+
+    box.appendChild(item);
 
 }
 
@@ -737,9 +800,16 @@ function clearHistory() {
 
     historyList = [];
 
-    localStorage.removeItem(
-        "nokia_history"
-    );
+
+    try {
+
+        localStorage.removeItem(
+            "nokia_history"
+        );
+
+    } catch (e) {
+    }
+
 
     showHistory();
 
@@ -766,7 +836,9 @@ function addFavorite() {
 
 
     if (text == "") {
+
         return;
+
     }
 
 
@@ -781,6 +853,7 @@ function addFavorite() {
         ) {
 
             return;
+
         }
 
     }
@@ -788,14 +861,20 @@ function addFavorite() {
 
     favorites.push(text);
 
+
     favorites =
         favorites.slice(0, 5);
 
 
-    localStorage.setItem(
-        "nokia_favorites",
-        JSON.stringify(favorites)
-    );
+    try {
+
+        localStorage.setItem(
+            "nokia_favorites",
+            JSON.stringify(favorites)
+        );
+
+    } catch (e) {
+    }
 
 
     showFavorites();
@@ -819,10 +898,11 @@ function showFavorites() {
             '<div style="color:#444;font-size:11px;">No favorites</div>';
 
         return;
+
     }
 
 
-    var html = "";
+    box.innerHTML = "";
 
 
     for (
@@ -831,20 +911,43 @@ function showFavorites() {
         i++
     ) {
 
-        html +=
-            '<div class="item" onclick="useFavorite(' +
-            JSON.stringify(
-                favorites[i]
-            ) +
-            ')">' +
-            "⭐ " +
-            favorites[i] +
-            '</div>';
+        createFavoriteItem(
+            favorites[i],
+            box
+        );
 
     }
 
+}
 
-    box.innerHTML = html;
+
+function createFavoriteItem(
+    text,
+    box
+) {
+
+    var item =
+        document.createElement(
+            "div"
+        );
+
+
+    item.className = "item";
+
+    item.innerHTML =
+        "⭐ " +
+        escapeHTML(text);
+
+
+    item.onclick =
+        function() {
+
+            useFavorite(text);
+
+        };
+
+
+    box.appendChild(item);
 
 }
 
@@ -864,11 +967,34 @@ function clearFavorites() {
 
     favorites = [];
 
-    localStorage.removeItem(
-        "nokia_favorites"
-    );
+
+    try {
+
+        localStorage.removeItem(
+            "nokia_favorites"
+        );
+
+    } catch (e) {
+    }
+
 
     showFavorites();
+
+}
+
+
+/* =========================
+   HTML Safety
+========================= */
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
 
 }
 
@@ -893,6 +1019,10 @@ function applyLite() {
         button.className =
             "lite-button on";
 
+        button.innerHTML =
+            "⚡ Lite Mode: ON";
+
+
     } else {
 
         document.body.className =
@@ -901,6 +1031,9 @@ function applyLite() {
         button.className =
             "lite-button";
 
+        button.innerHTML =
+            "⚡ Lite Mode: OFF";
+
     }
 
 }
@@ -908,13 +1041,19 @@ function applyLite() {
 
 function toggleLite() {
 
-    liteMode = !liteMode;
+    liteMode =
+        !liteMode;
 
 
-    localStorage.setItem(
-        "nokia_lite",
-        liteMode
-    );
+    try {
+
+        localStorage.setItem(
+            "nokia_lite",
+            liteMode
+        );
+
+    } catch (e) {
+    }
 
 
     applyLite();
@@ -928,7 +1067,9 @@ function toggleLite() {
 
 function updateClock() {
 
-    var now = new Date();
+    var now =
+        new Date();
+
 
     var h =
         now.getHours();
@@ -940,16 +1081,25 @@ function updateClock() {
         now.getSeconds();
 
 
-    if (h < 10)
+    if (h < 10) {
+
         h = "0" + h;
 
+    }
 
-    if (m < 10)
+
+    if (m < 10) {
+
         m = "0" + m;
 
+    }
 
-    if (s < 10)
+
+    if (s < 10) {
+
         s = "0" + s;
+
+    }
 
 
     document.getElementById(
@@ -960,7 +1110,12 @@ function updateClock() {
 }
 
 
+/* =========================
+   Start
+========================= */
+
 updateClock();
+
 
 setInterval(
     updateClock,
@@ -968,18 +1123,16 @@ setInterval(
 );
 
 
-/* =========================
-   Start
-========================= */
-
 showHistory();
+
 
 showFavorites();
 
+
 applyLite();
 
-</script>
 
+</script>
 
 </body>
 </html>
