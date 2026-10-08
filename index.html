@@ -3,53 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Google Hub</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body {
-        margin: 0;
-        background: #111;
-        color: white;
-        font-family: Arial, sans-serif;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    background: #101010;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
 
-    .header {
-        background: #222;
-        padding: 10px 5px;
-        font-size: 20px;
-        font-weight: bold;
-    }
+.header {
+    background: #202020;
+    border-bottom: 1px solid #444;
+    padding: 9px 4px;
+    font-size: 19px;
+    font-weight: bold;
+}
 
-    .container {
-        padding: 10px;
-    }
+.clock {
+    padding: 4px;
+    font-size: 13px;
+    color: #ccc;
+}
 
-    button {
-        display: block;
-        width: 100%;
-        margin: 8px 0;
-        padding: 12px 5px;
-        border: 1px solid #555;
-        border-radius: 6px;
-        background: #222;
-        color: white;
-        font-size: 16px;
-    }
+.status {
+    font-size: 10px;
+    color: #777;
+}
 
-    button:active {
-        background: #444;
-    }
+.container {
+    padding: 7px;
+}
 
-    .footer {
-        margin-top: 12px;
-        font-size: 11px;
-        color: #888;
-    }
+.section {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #999;
+    font-size: 11px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 10px 4px;
+    background: #202020;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+button:active {
+    background: #444;
+}
+
+.footer {
+    margin: 12px 0;
+    font-size: 10px;
+    color: #666;
+}
 </style>
 </head>
 
@@ -59,51 +80,138 @@
     GOOGLE HUB
 </div>
 
+<div class="clock" id="clock">
+    00:00
+</div>
+
+<div class="status">
+    Nokia 3210 4G • TA-1618
+</div>
+
 <div class="container">
 
+    <div class="section">
+        GOOGLE
+    </div>
+
     <button onclick="openSite('https://www.google.com/search')">
-        🔍 Google Search
+        Google Search
     </button>
 
-    <button onclick="openSite('https://www.youtube.com')">
-        ▶ YouTube
+    <button onclick="openSite('https://images.google.com')">
+        Google Images
     </button>
 
-    <button onclick="openSite('https://www.google.com/maps')">
-        🗺 Google Maps
+    <button onclick="openSite('https://news.google.com')">
+        Google News
     </button>
 
-    <button onclick="openSite('https://mail.google.com')">
-        ✉ Gmail
+    <button onclick="openSite('https://translate.google.com')">
+        Google Translate
+    </button>
+
+    <button onclick="openSite('https://www.google.com/search?q=weather')">
+        Google Weather
+    </button>
+
+    <div class="section">
+        WEB
+    </div>
+
+    <button onclick="openSite('https://www.wikipedia.org')">
+        Wikipedia
     </button>
 
     <button onclick="openBrowser()">
-        🌐 Open Website
+        Open Website
+    </button>
+
+    <button onclick="searchWeb()">
+        Web Search
+    </button>
+
+    <div class="section">
+        CONTROLS
+    </div>
+
+    <button onclick="refreshPage()">
+        Refresh
+    </button>
+
+    <button onclick="goBack()">
+        Back
     </button>
 
 </div>
 
 <div class="footer">
-    Nokia 3210 • Google Hub
+    Google Hub v3
 </div>
 
 <script>
+
 function openSite(url) {
     window.location.href = url;
 }
 
 function openBrowser() {
-    var site = prompt("Enter website:");
 
-    if (site) {
-        if (!site.startsWith("http://") &&
-            !site.startsWith("https://")) {
-            site = "https://" + site;
-        }
+    var site = prompt("Website:");
 
-        window.location.href = site;
+    if (!site) {
+        return;
+    }
+
+    if (!site.startsWith("http://") &&
+        !site.startsWith("https://")) {
+
+        site = "https://" + site;
+    }
+
+    window.location.href = site;
+}
+
+function searchWeb() {
+
+    var query = prompt("Search:");
+
+    if (!query) {
+        return;
+    }
+
+    window.location.href =
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(query);
+}
+
+function refreshPage() {
+    location.reload();
+}
+
+function goBack() {
+
+    if (history.length > 1) {
+        history.back();
+    } else {
+        window.location.href =
+        "https://artinxray.github.io/nokia3210-google/";
     }
 }
+
+function updateClock() {
+
+    var now = new Date();
+
+    var h = String(now.getHours()).padStart(2, "0");
+    var m = String(now.getMinutes()).padStart(2, "0");
+
+    document.getElementById("clock").innerHTML =
+        h + ":" + m;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
 </script>
 
 </body>
