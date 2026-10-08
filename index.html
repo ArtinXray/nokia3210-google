@@ -9,7 +9,7 @@
                initial-scale=1.0,
                maximum-scale=1.0">
 
-<title>Google Hub</title>
+<title>Google</title>
 
 <style>
 
@@ -29,42 +29,45 @@ body {
 }
 
 
-/* عنوان */
+/* =========================
+   Google Logo
+========================= */
 
-h1 {
-    font-size: 24px;
-    margin: 8px 0 12px 0;
-}
-
-
-/* لوگوی Google */
-
-.google-icon {
-    display: inline-block;
-
-    font-size: 27px;
-    font-weight: bold;
-
+.logo {
     font-family: Arial, sans-serif;
 
-    margin-right: 6px;
+    font-size: 58px;
 
-    background: linear-gradient(
-        45deg,
-        #4285F4,
-        #34A853,
-        #FBBC05,
-        #EA4335
-    );
+    font-weight: bold;
 
-    -webkit-background-clip: text;
-    background-clip: text;
+    letter-spacing: -5px;
 
-    color: transparent;
+    margin-top: 5px;
+    margin-bottom: 8px;
+
+    line-height: 1;
+}
+
+.blue {
+    color: #4285F4;
+}
+
+.red {
+    color: #EA4335;
+}
+
+.yellow {
+    color: #FBBC05;
+}
+
+.green {
+    color: #34A853;
 }
 
 
-/* ساعت */
+/* =========================
+   Clock
+========================= */
 
 #clock {
     font-size: 20px;
@@ -72,30 +75,41 @@ h1 {
 }
 
 
-/* اطلاعات گوشی */
+/* =========================
+   Phone
+========================= */
 
 .info {
     font-size: 15px;
+
     color: #aaa;
+
     margin-bottom: 15px;
 }
 
 
-/* جداکننده */
+/* =========================
+   Line
+========================= */
 
 .line {
     height: 1px;
+
     background: #333;
+
     margin: 16px 0;
 }
 
 
-/* ورودی */
+/* =========================
+   Input
+========================= */
 
 input {
     display: block;
 
     width: 100%;
+
     height: 48px;
 
     padding: 8px 12px;
@@ -103,32 +117,40 @@ input {
     margin: 8px 0;
 
     background: #1d1d1d;
+
     color: white;
 
     border: 1px solid #555;
+
     border-radius: 7px;
 
     font-size: 16px;
 }
 
 
-/* دکمه */
+/* =========================
+   Buttons
+========================= */
 
 button {
     display: block;
 
     width: 100%;
+
     height: 50px;
 
     margin: 9px 0;
 
     background: #222;
+
     color: white;
 
     border: 1px solid #666;
+
     border-radius: 7px;
 
     font-size: 17px;
+
     font-weight: bold;
 }
 
@@ -138,7 +160,9 @@ button:active {
 }
 
 
-/* پایین صفحه */
+/* =========================
+   Footer
+========================= */
 
 .footer {
     margin-top: 18px;
@@ -156,22 +180,30 @@ button:active {
 <body>
 
 
-<!-- عنوان -->
+<!-- =========================
+     Google Logo
+========================= -->
 
-<h1>
-    <span class="google-icon">G</span>
-    GOOGLE HUB
-</h1>
+<div class="logo">
+
+    <span class="blue">G</span>
+    <span class="red">o</span>
+    <span class="yellow">o</span>
+    <span class="blue">g</span>
+    <span class="green">l</span>
+    <span class="red">e</span>
+
+</div>
 
 
-<!-- ساعت -->
+<!-- Clock -->
 
 <div id="clock">
     00:00:00
 </div>
 
 
-<!-- گوشی -->
+<!-- Phone -->
 
 <div class="info">
     📱 Nokia 3210 4G
@@ -181,7 +213,7 @@ button:active {
 <div class="line"></div>
 
 
-<!-- جستجوی گوگل -->
+<!-- Google Search -->
 
 <input
     id="search"
@@ -197,7 +229,7 @@ button:active {
 <div class="line"></div>
 
 
-<!-- باز کردن سایت -->
+<!-- Website -->
 
 <input
     id="url"
@@ -235,7 +267,7 @@ button:active {
 
 
 <div class="footer">
-    Google Hub
+    Google
 </div>
 
 
