@@ -36,16 +36,18 @@ body {
 .logo {
     font-family: Arial, sans-serif;
 
-    font-size: 58px;
+    font-size: 45px;
 
     font-weight: bold;
 
-    letter-spacing: -5px;
+    letter-spacing: -3px;
 
     margin-top: 5px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 
     line-height: 1;
+
+    white-space: nowrap;
 }
 
 .blue {
@@ -185,14 +187,7 @@ button:active {
 ========================= -->
 
 <div class="logo">
-
-    <span class="blue">G</span>
-    <span class="red">o</span>
-    <span class="yellow">o</span>
-    <span class="blue">g</span>
-    <span class="green">l</span>
-    <span class="red">e</span>
-
+    <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span>
 </div>
 
 
@@ -316,8 +311,7 @@ function openWebsite() {
         url.indexOf("https://") != 0
     ) {
 
-        url =
-            "https://" + url;
+        url = "https://" + url;
     }
 
     window.location.href = url;
