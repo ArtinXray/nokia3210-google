@@ -21,8 +21,8 @@ body {
     margin: 0;
     padding: 0;
 
-    background: #fff;
-    color: #202124;
+    background: #000;
+    color: #fff;
 
     font-family: Arial, sans-serif;
 
@@ -31,13 +31,28 @@ body {
 
 
 /* =========================
-   صفحه اصلی
+   Main
 ========================= */
 
 .main {
     width: 100%;
 
-    padding: 35px 12px 20px 12px;
+    padding: 12px;
+}
+
+
+/* =========================
+   Clock
+========================= */
+
+#clock {
+    font-size: 20px;
+
+    color: #fff;
+
+    margin-top: 3px;
+
+    margin-bottom: 22px;
 }
 
 
@@ -87,11 +102,11 @@ body {
 
     height: 48px;
 
-    border: 1px solid #dfe1e5;
+    border: 1px solid #5f6368;
 
     border-radius: 24px;
 
-    background: #fff;
+    background: #202124;
 
     display: flex;
 
@@ -99,19 +114,16 @@ body {
 
     padding: 0 14px;
 
-    box-shadow:
-        0 1px 4px rgba(0,0,0,0.15);
-
     margin-bottom: 16px;
 }
 
 
 .search-icon {
-    font-size: 18px;
+    font-size: 17px;
 
     margin-right: 8px;
 
-    color: #777;
+    color: #aaa;
 }
 
 
@@ -128,7 +140,12 @@ body {
 
     background: transparent;
 
-    color: #202124;
+    color: #fff;
+}
+
+
+#search::placeholder {
+    color: #aaa;
 }
 
 
@@ -143,11 +160,11 @@ button {
 
     margin: 5px 3px;
 
-    background: #f8f9fa;
+    background: #303134;
 
-    color: #3c4043;
+    color: #fff;
 
-    border: 1px solid #f8f9fa;
+    border: 1px solid #303134;
 
     border-radius: 4px;
 
@@ -156,22 +173,9 @@ button {
 
 
 button:active {
-    border-color: #dadce0;
+    background: #454545;
 
-    background: #f1f3f4;
-}
-
-
-/* =========================
-   Time
-========================= */
-
-#clock {
-    margin-top: 28px;
-
-    font-size: 15px;
-
-    color: #70757a;
+    border-color: #5f6368;
 }
 
 
@@ -180,11 +184,11 @@ button:active {
 ========================= */
 
 .info {
-    margin-top: 5px;
+    margin-top: 20px;
 
     font-size: 12px;
 
-    color: #9aa0a6;
+    color: #777;
 }
 
 
@@ -197,7 +201,7 @@ button:active {
 
     font-size: 11px;
 
-    color: #9aa0a6;
+    color: #666;
 }
 
 </style>
@@ -209,6 +213,13 @@ button:active {
 
 
 <div class="main">
+
+
+<!-- Clock -->
+
+<div id="clock">
+    00:00:00
+</div>
 
 
 <!-- Google Logo -->
@@ -246,13 +257,6 @@ button:active {
 <button onclick="luckySearch()">
     I'm Feeling Lucky
 </button>
-
-
-<!-- Clock -->
-
-<div id="clock">
-    00:00:00
-</div>
 
 
 <!-- Phone -->
@@ -302,7 +306,7 @@ function searchGoogle() {
 
 
 /* =========================
-   Enter Key
+   Enter
 ========================= */
 
 function searchKey(event) {
