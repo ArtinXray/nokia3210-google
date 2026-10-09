@@ -1,431 +1,599 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ArtinGo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Nokia Browser</title>
 
 <style>
 * { box-sizing: border-box; }
 
+:root {
+    --bg: #080808;
+    --text: #ffffff;
+    --panel: #171717;
+    --border: #333333;
+    --input: #111111;
+    --muted: #aaaaaa;
+    --accent: #4285f4;
+}
+
+body.light {
+    --bg: #f5f5f5;
+    --text: #171717;
+    --panel: #ffffff;
+    --border: #dddddd;
+    --input: #ffffff;
+    --muted: #666666;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background: #000;
-    color: #fff;
+    background: var(--bg);
+    color: var(--text);
     font-family: Arial, sans-serif;
-    text-align: center;
+    min-height: 100vh;
+    transition: background .2s, color .2s;
 }
 
-.nokia-header {
+button, input { font-family: Arial, sans-serif; }
+button { cursor: pointer; }
+
+.topbar {
     width: 100%;
-    height: 58px;
-    padding: 5px 10px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
 }
 
-.lite-button {
+.icon-button {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 25px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.icon-button:active { background: var(--border); }
+.menu-wrap { position: relative; }
+
+.menu {
+    display: none;
+    position: absolute;
+    top: 43px;
+    right: 0;
+    width: 155px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0,0,0,.25);
+}
+
+.menu.show { display: block; }
+
+.menu button {
+    display: block;
     width: 100%;
-    height: 48px;
-    border: 1px solid #fff;
-    border-radius: 24px;
-    background: #111;
-    color: #fff;
+    padding: 13px 14px;
+    text-align: left;
+    color: var(--text);
+    background: transparent;
+    border: none;
     font-size: 14px;
 }
 
-.lite-button:active { background: #222; }
-.lite-button.on { background: #222; }
+.menu button:active { background: var(--border); }
 
-.main {
+main {
     width: 100%;
-    padding: 22px 12px 18px;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 35px 18px 20px;
+    text-align: center;
 }
 
-/* ArtinGo Wordmark */
 .logo {
-    font-size: 43px;
+    font-size: 39px;
     font-weight: bold;
-    letter-spacing: -2px;
-    line-height: 1;
+    letter-spacing: -1.5px;
+    margin: 15px 0 25px;
     white-space: nowrap;
-    margin: 0 auto 25px;
 }
 
-.blue { color: #4285F4; }
-.red { color: #EA4335; }
-.yellow { color: #FBBC05; }
-.green { color: #34A853; }
+.clock {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 25px;
+}
 
 .search-box {
     width: 100%;
-    height: 48px;
-    border: 1px solid #555;
-    border-radius: 24px;
-    background: #181818;
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    background: var(--input);
+    padding: 4px 8px 4px 15px;
 }
 
-#search {
-    width: 100%;
+.search-box:focus-within { border-color: var(--accent); }
+
+#searchInput {
+    flex: 1;
     min-width: 0;
-    height: 42px;
+    background: transparent;
     border: none;
     outline: none;
+    color: var(--text);
     font-size: 16px;
-    background: transparent;
-    color: #fff;
-    order: 1;
+    padding: 11px 0;
 }
 
-#search::placeholder { color: #888; }
+.search-box button {
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 20px;
+    padding: 5px 7px;
+}
 
-.search-button {
-    width: 34px;
-    height: 34px;
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.action-button {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    background: var(--panel);
+    font-size: 13px;
+}
+
+.action-button:active { opacity: .7; }
+
+#notice {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 12px;
+    min-height: 15px;
+}
+
+.panel {
+    display: none;
+    max-width: 520px;
+    margin: 10px auto 30px;
+    padding: 0 18px;
+}
+
+.panel.show { display: block; }
+
+.panel-inner {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.panel-heading h2 { font-size: 18px; margin: 0; }
+
+.small-button {
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text);
+    padding: 7px 9px;
+    font-size: 12px;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+}
+
+.item-open {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 14px;
+    padding: 4px 0;
+}
+
+.remove-button {
     flex-shrink: 0;
     border: none;
     background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin-left: 5px;
-    order: 2;
+    color: #e45b5b;
+    font-size: 19px;
+    padding: 4px 7px;
 }
 
-.search-button svg {
-    width: 21px;
-    height: 21px;
-    fill: none;
-    stroke: #aaa;
-    stroke-width: 2.5;
-}
-
-.search-button:active svg { stroke: #fff; }
-
-#clock {
-    font-size: 20px;
-    margin-top: 15px;
-    color: #fff;
-}
-
-.status {
-    margin-top: 8px;
-    font-size: 10px;
-    color: #555;
-    letter-spacing: 1px;
-}
-
-.section {
-    margin-top: 18px;
-    border-top: 1px solid #222;
-    padding-top: 12px;
-}
-
-.section-title {
-    font-size: 12px;
-    color: #888;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-}
-
-.item {
-    width: 100%;
-    min-height: 38px;
-    margin: 5px 0;
-    border: 1px solid #292929;
-    border-radius: 7px;
-    background: #0d0d0d;
-    color: #ccc;
+.empty {
+    color: var(--muted);
     font-size: 13px;
-    text-align: left;
-    padding: 9px 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    padding: 15px 0 5px;
 }
 
-.item:active { background: #202020; }
-
-.add-favorite {
-    width: 100%;
-    height: 40px;
-    margin-top: 7px;
-    border: 1px solid #292929;
-    border-radius: 7px;
-    background: #111;
-    color: #aaa;
-    font-size: 12px;
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 25px 10px;
 }
 
-.add-favorite:active { background: #222; }
-
-.clear {
-    margin-top: 7px;
-    color: #666;
-    font-size: 10px;
-    cursor: pointer;
+@media (max-width: 360px) {
+    .logo { font-size: 34px; }
+    .action-button { font-size: 12px; padding: 9px 8px; }
 }
 
-body.lite-mode .section,
-body.lite-mode .status {
-    display: none;
-}
-
-body.lite-mode .main { padding-top: 30px; }
-
-.footer {
-    margin-top: 20px;
-    color: #333;
-    font-size: 9px;
-    letter-spacing: 1px;
+@media (max-height: 600px) {
+    main { padding-top: 10px; }
+    .logo { margin: 8px 0 15px; }
+    .clock { margin-bottom: 15px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="nokia-header">
-    <button id="liteButton"
-            class="lite-button"
-            onclick="toggleLite()">
-        ⚡ Lite Mode: OFF
-    </button>
-</div>
+<header class="topbar">
+    <button id="themeButton" class="icon-button"
+        aria-label="Change theme" title="Change theme">🌙</button>
 
-<div class="main">
+    <div class="menu-wrap">
+        <button id="moreButton" class="icon-button"
+            aria-label="More options" title="More">⋮</button>
 
-    <!-- ArtinGo Logo -->
-    <div class="logo"><span class="blue">A</span><span class="red">r</span><span class="yellow">t</span><span class="blue">i</span><span class="green">n</span><span class="red">G</span><span class="yellow">o</span></div>
+        <div id="moreMenu" class="menu">
+            <button id="openHistory">History</button>
+            <button id="openFavorites">Favorites</button>
+        </div>
+    </div>
+</header>
 
-    <!-- Search -->
-    <div class="search-box">
-        <input id="search"
-               type="text"
-               placeholder="Search or enter website"
-               onkeydown="searchKey(event)">
-
-        <button class="search-button"
-                onclick="openSearch()"
-                aria-label="Search">
-            <svg viewBox="0 0 24 24">
-                <circle cx="10.5" cy="10.5" r="6.5"></circle>
-                <line x1="16" y1="16" x2="21" y2="21"></line>
-            </svg>
-        </button>
+<main>
+    <div class="logo" aria-label="Nokia Browser">
+        <span style="color:#4285F4">Nokia</span>
+        <span style="color:#EA4335">Browser</span>
     </div>
 
-    <div id="clock">00:00:00</div>
-    <div class="status">ARTINGO MINI BROWSER</div>
+    <div id="clock" class="clock">--:--</div>
 
-    <!-- History -->
-    <div class="section">
-        <div class="section-title">HISTORY</div>
-        <div id="history"></div>
-        <div class="clear" onclick="clearHistory()">Clear History</div>
+    <form id="searchForm">
+        <div class="search-box">
+            <input id="searchInput" type="text"
+                placeholder="Search Google or enter URL"
+                autocomplete="off">
+            <button type="submit" aria-label="Search">⌕</button>
+        </div>
+    </form>
+
+    <div class="actions">
+        <button id="searchButton" class="action-button">Google Search</button>
+        <button id="favoriteButton" class="action-button">☆ Favorite</button>
     </div>
 
-    <!-- Favorites -->
-    <div class="section">
-        <div class="section-title">FAVORITES</div>
-        <div id="favorites"></div>
-        <button class="add-favorite" onclick="addFavorite()">
-            + Add current address to Favorites
-        </button>
-        <div class="clear" onclick="clearFavorites()">Clear Favorites</div>
-    </div>
+    <div id="notice"></div>
+</main>
 
-    <div class="footer">ARTINGO • NOKIA 3210 4G</div>
-</div>
+<section id="historyPanel" class="panel">
+    <div class="panel-inner">
+        <div class="panel-heading">
+            <h2>History</h2>
+            <div>
+                <button id="clearHistory" class="small-button">Clear All</button>
+                <button class="small-button closePanel">Close</button>
+            </div>
+        </div>
+        <div id="historyList"></div>
+    </div>
+</section>
+
+<section id="favoritesPanel" class="panel">
+    <div class="panel-inner">
+        <div class="panel-heading">
+            <h2>Favorites</h2>
+            <button class="small-button closePanel">Close</button>
+        </div>
+        <div id="favoritesList"></div>
+    </div>
+</section>
+
+<footer>NOKIA BROWSER • NOKIA 3210 4G</footer>
 
 <script>
-var historyList = [];
-var favorites = [];
-var liteMode = false;
+(function () {
+    var input = document.getElementById("searchInput");
+    var notice = document.getElementById("notice");
+    var historyPanel = document.getElementById("historyPanel");
+    var favoritesPanel = document.getElementById("favoritesPanel");
+    var moreMenu = document.getElementById("moreMenu");
+    var themeButton = document.getElementById("themeButton");
 
-try {
-    historyList = JSON.parse(localStorage.getItem("nokia_history") || "[]");
-    if (!Array.isArray(historyList)) historyList = [];
-} catch (e) {
-    historyList = [];
-}
+    function loadData(key) {
+        try {
+            var value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : [];
+        } catch (e) {
+            return [];
+        }
+    }
 
-try {
-    favorites = JSON.parse(localStorage.getItem("nokia_favorites") || "[]");
+    function saveData(key, data) {
+        try {
+            localStorage.setItem(key, JSON.stringify(data));
+        } catch (e) {}
+    }
+
+    var history = loadData("nokia_history");
+    var favorites = loadData("nokia_favorites");
+
+    if (!Array.isArray(history)) history = [];
     if (!Array.isArray(favorites)) favorites = [];
-} catch (e) {
-    favorites = [];
-}
 
-try {
-    liteMode = localStorage.getItem("nokia_lite") === "true";
-} catch (e) {
-    liteMode = false;
-}
+    history = history.filter(function (item) {
+        return typeof item === "string";
+    });
 
-function openSearch() {
-    var input = document.getElementById("search");
-    var text = input.value.replace(/^\s+|\s+$/g, "");
+    favorites = favorites.filter(function (item) {
+        return item && typeof item.text === "string"
+            && typeof item.url === "string";
+    });
 
-    if (!text) return;
-
-    addHistory(text);
-
-    var isWebsite =
-        text.indexOf("://") > 0 ||
-        text.indexOf(".") > 0;
-
-    if (isWebsite) {
-        var url = text;
-        if (url.indexOf("://") === -1) url = "https://" + url;
-        window.location.href = url;
-    } else {
-        window.location.href =
-            "https://www.google.com/search?q=" +
-            encodeURIComponent(text);
-    }
-}
-
-function searchKey(event) {
-    if (event.keyCode === 13 || event.which === 13) {
-        openSearch();
-    }
-}
-
-function addHistory(text) {
-    var newList = [text];
-
-    for (var i = 0; i < historyList.length; i++) {
-        if (historyList[i] !== text) newList.push(historyList[i]);
+    function updateClock() {
+        var now = new Date();
+        var h = String(now.getHours()).padStart(2, "0");
+        var m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("clock").textContent = h + ":" + m;
     }
 
-    historyList = newList.slice(0, 5);
+    updateClock();
+    setInterval(updateClock, 1000);
 
+    function setTheme(isLight) {
+        if (isLight) {
+            document.body.classList.add("light");
+            themeButton.textContent = "☀️";
+            themeButton.title = "Light mode";
+            document.querySelector('meta[name="theme-color"]')
+                .setAttribute("content", "#f5f5f5");
+            try { localStorage.setItem("nokia_lite", "true"); } catch (e) {}
+        } else {
+            document.body.classList.remove("light");
+            themeButton.textContent = "🌙";
+            themeButton.title = "Dark mode";
+            document.querySelector('meta[name="theme-color"]')
+                .setAttribute("content", "#080808");
+            try { localStorage.setItem("nokia_lite", "false"); } catch (e) {}
+        }
+    }
+
+    var savedTheme = "false";
     try {
-        localStorage.setItem("nokia_history", JSON.stringify(historyList));
+        savedTheme = localStorage.getItem("nokia_lite") || "false";
     } catch (e) {}
 
-    showHistory();
-}
+    setTheme(savedTheme === "true");
 
-function showHistory() {
-    var box = document.getElementById("history");
-    box.innerHTML = "";
+    themeButton.addEventListener("click", function () {
+        setTheme(!document.body.classList.contains("light"));
+    });
 
-    if (!historyList.length) {
-        var empty = document.createElement("div");
-        empty.style.color = "#444";
-        empty.style.fontSize = "11px";
-        empty.textContent = "No history";
-        box.appendChild(empty);
-        return;
+    function closePanels() {
+        historyPanel.classList.remove("show");
+        favoritesPanel.classList.remove("show");
     }
 
-    for (var i = 0; i < historyList.length; i++) {
-        createItem(historyList[i], box, false);
+    document.getElementById("moreButton").addEventListener("click", function (e) {
+        e.stopPropagation();
+        moreMenu.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".menu-wrap")) {
+            moreMenu.classList.remove("show");
+        }
+    });
+
+    document.getElementById("openHistory").addEventListener("click", function () {
+        moreMenu.classList.remove("show");
+        favoritesPanel.classList.remove("show");
+        historyPanel.classList.add("show");
+        renderHistory();
+    });
+
+    document.getElementById("openFavorites").addEventListener("click", function () {
+        moreMenu.classList.remove("show");
+        historyPanel.classList.remove("show");
+        favoritesPanel.classList.add("show");
+        renderFavorites();
+    });
+
+    document.querySelectorAll(".closePanel").forEach(function (button) {
+        button.addEventListener("click", closePanels);
+    });
+
+    function getTarget(value) {
+        value = value.trim();
+
+        if (/^https?:\/\//i.test(value)) return value;
+
+        if (/^(www\.)/i.test(value) ||
+            /^[\w-]+(\.[\w-]+)+([/:?#].*)?$/i.test(value)) {
+            return "https://" + value;
+        }
+
+        return "https://www.google.com/search?q=" +
+            encodeURIComponent(value);
     }
-}
 
-function clearHistory() {
-    historyList = [];
-    try { localStorage.removeItem("nokia_history"); } catch (e) {}
-    showHistory();
-}
+    function addToHistory(value) {
+        history = history.filter(function (item) {
+            return item !== value;
+        });
 
-function addFavorite() {
-    var text = document.getElementById("search")
-        .value.replace(/^\s+|\s+$/g, "");
-
-    if (!text || favorites.indexOf(text) !== -1) return;
-
-    favorites.push(text);
-    favorites = favorites.slice(0, 5);
-
-    try {
-        localStorage.setItem("nokia_favorites", JSON.stringify(favorites));
-    } catch (e) {}
-
-    showFavorites();
-}
-
-function showFavorites() {
-    var box = document.getElementById("favorites");
-    box.innerHTML = "";
-
-    if (!favorites.length) {
-        var empty = document.createElement("div");
-        empty.style.color = "#444";
-        empty.style.fontSize = "11px";
-        empty.textContent = "No favorites";
-        box.appendChild(empty);
-        return;
+        history.unshift(value);
+        history = history.slice(0, 5);
+        saveData("nokia_history", history);
+        renderHistory();
     }
 
-    for (var i = 0; i < favorites.length; i++) {
-        createItem(favorites[i], box, true);
+    function openValue(value) {
+        value = String(value || "").trim();
+        if (!value) return;
+
+        addToHistory(value);
+        window.location.href = getTarget(value);
     }
-}
 
-function clearFavorites() {
-    favorites = [];
-    try { localStorage.removeItem("nokia_favorites"); } catch (e) {}
-    showFavorites();
-}
+    document.getElementById("searchForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        openValue(input.value);
+    });
 
-function createItem(text, box, isFavorite) {
-    var item = document.createElement("div");
-    item.className = "item";
-    item.textContent = (isFavorite ? "⭐ " : "") + text;
+    document.getElementById("searchButton").addEventListener("click", function () {
+        openValue(input.value);
+    });
 
-    item.onclick = function() {
-        document.getElementById("search").value = text;
-        openSearch();
-    };
+    document.getElementById("favoriteButton").addEventListener("click", function () {
+        var value = input.value.trim();
 
-    box.appendChild(item);
-}
+        if (!value) {
+            notice.textContent = "Enter a search or URL first.";
+            return;
+        }
 
-function applyLite() {
-    var button = document.getElementById("liteButton");
+        var item = { text: value, url: getTarget(value) };
 
-    if (liteMode) {
-        document.body.className = "lite-mode";
-        button.className = "lite-button on";
-        button.textContent = "⚡ Lite Mode: ON";
-    } else {
-        document.body.className = "";
-        button.className = "lite-button";
-        button.textContent = "⚡ Lite Mode: OFF";
+        var exists = favorites.some(function (fav) {
+            return fav.text === item.text;
+        });
+
+        if (exists) {
+            notice.textContent = "Already in Favorites.";
+            return;
+        }
+
+        favorites.unshift(item);
+        favorites = favorites.slice(0, 5);
+        saveData("nokia_favorites", favorites);
+        renderFavorites();
+        notice.textContent = "Added to Favorites!";
+    });
+
+    function renderHistory() {
+        var list = document.getElementById("historyList");
+        list.innerHTML = "";
+
+        if (!history.length) {
+            list.innerHTML = '<div class="empty">No history yet.</div>';
+            return;
+        }
+
+        history.forEach(function (value, index) {
+            var row = document.createElement("div");
+            row.className = "list-item";
+
+            var open = document.createElement("button");
+            open.className = "item-open";
+            open.textContent = value;
+            open.title = value;
+            open.addEventListener("click", function () {
+                openValue(value);
+            });
+
+            var remove = document.createElement("button");
+            remove.className = "remove-button";
+            remove.textContent = "×";
+            remove.title = "Delete this history item";
+            remove.setAttribute("aria-label", "Delete history item");
+            remove.addEventListener("click", function () {
+                history.splice(index, 1);
+                saveData("nokia_history", history);
+                renderHistory();
+            });
+
+            row.appendChild(open);
+            row.appendChild(remove);
+            list.appendChild(row);
+        });
     }
-}
 
-function toggleLite() {
-    liteMode = !liteMode;
+    function renderFavorites() {
+        var list = document.getElementById("favoritesList");
+        list.innerHTML = "";
 
-    try {
-        localStorage.setItem("nokia_lite", String(liteMode));
-    } catch (e) {}
+        if (!favorites.length) {
+            list.innerHTML = '<div class="empty">No favorites yet.</div>';
+            return;
+        }
 
-    applyLite();
-}
+        favorites.forEach(function (item, index) {
+            var row = document.createElement("div");
+            row.className = "list-item";
 
-function updateClock() {
-    var now = new Date();
-    var h = String(now.getHours()).padStart(2, "0");
-    var m = String(now.getMinutes()).padStart(2, "0");
-    var s = String(now.getSeconds()).padStart(2, "0");
+            var open = document.createElement("button");
+            open.className = "item-open";
+            open.textContent = item.text;
+            open.title = item.text;
+            open.addEventListener("click", function () {
+                openValue(item.text);
+            });
 
-    document.getElementById("clock").textContent =
-        h + ":" + m + ":" + s;
-}
+            var remove = document.createElement("button");
+            remove.className = "remove-button";
+            remove.textContent = "×";
+            remove.title = "Remove this favorite";
+            remove.setAttribute("aria-label", "Remove favorite");
+            remove.addEventListener("click", function () {
+                favorites.splice(index, 1);
+                saveData("nokia_favorites", favorites);
+                renderFavorites();
+            });
 
-updateClock();
-setInterval(updateClock, 1000);
-showHistory();
-showFavorites();
-applyLite();
+            row.appendChild(open);
+            row.appendChild(remove);
+            list.appendChild(row);
+        });
+    }
+
+    document.getElementById("clearHistory").addEventListener("click", function () {
+        history = [];
+        saveData("nokia_history", history);
+        renderHistory();
+        notice.textContent = "History cleared.";
+    });
+
+    renderHistory();
+    renderFavorites();
+})();
 </script>
 
 </body>
