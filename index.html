@@ -145,12 +145,6 @@ main {
 
 .search-box:focus-within { border-color: var(--accent); }
 
-.search-symbol {
-    color: var(--muted);
-    font-size: 21px;
-    margin-right: 9px;
-}
-
 #searchInput {
     flex: 1;
     width: 0;
@@ -165,12 +159,14 @@ main {
 
 #searchInput::placeholder { color: var(--muted); }
 
-.search-box button {
+.search-button {
+    flex-shrink: 0;
     border: none;
     background: transparent;
     color: var(--text);
-    font-size: 21px;
-    padding: 5px 0 5px 8px;
+    font-size: 24px;
+    padding: 4px 0 4px 10px;
+    line-height: 1;
 }
 
 #notice {
@@ -271,7 +267,6 @@ footer {
     .logo-browser { font-size: 32px; }
     .clock { margin-bottom: 12px; }
 }
-
 </style>
 </head>
 
@@ -304,11 +299,11 @@ footer {
 
     <form id="searchForm">
         <div class="search-box">
-            <span class="search-symbol">⌕</span>
             <input id="searchInput" type="text"
                 placeholder="Search Google or enter URL"
                 autocomplete="off">
-            <button type="submit" aria-label="Search">➜</button>
+            <button type="submit" class="search-button"
+                aria-label="Search" title="Search">⌕</button>
         </div>
     </form>
 
