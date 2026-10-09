@@ -1,30 +1,43 @@
 
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
 <title>Nokia Browser</title>
 
 <style>
 :root {
-    --bg: #ffffff;
+    color-scheme: light;
+    --bg: #fff;
     --text: #202124;
-    --box: #ffffff;
+    --muted: #777;
     --border: #dadce0;
-    --panel: #f8f9fa;
+    --surface: #fff;
+    --hover: #f1f3f4;
+    --accent: #4285f4;
+    --danger: #d93025;
 }
 
 body.dark {
+    color-scheme: dark;
     --bg: #171717;
     --text: #f1f3f4;
-    --box: #202124;
-    --border: #5f6368;
-    --panel: #292a2d;
+    --muted: #b0b0b0;
+    --border: #505257;
+    --surface: #242528;
+    --hover: #333539;
+    --accent: #8ab4f8;
+    --danger: #ff8a80;
 }
 
 * {
     box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
 }
 
 body {
@@ -32,148 +45,179 @@ body {
     min-height: 100vh;
     background: var(--bg);
     color: var(--text);
-    font-family: Arial, sans-serif;
-    transition: background 0.2s, color 0.2s;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: background .2s, color .2s;
 }
 
 button, input {
-    font-family: inherit;
+    font: inherit;
+}
+
+button {
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .topbar {
+    height: 52px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
+    padding: 0 10px;
 }
 
-.topbar button {
+.icon-button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
     background: transparent;
-    color: var(--text);
-    border: none;
-    font-size: 24px;
-    padding: 4px 8px;
+    font-size: 25px;
     cursor: pointer;
+}
+
+.icon-button:active {
+    background: var(--hover);
+}
+
+main {
+    width: 100%;
+    padding: 0 14px 30px;
 }
 
 .logo {
     text-align: center;
-    margin-top: 65px;
-    margin-bottom: 28px;
+    margin: 60px 0 27px;
+    user-select: none;
 }
 
 .logo-nokia {
-    color: #4285F4;
-    font-size: clamp(36px, 12vw, 48px);
+    color: #4285f4;
+    font-size: clamp(35px, 12vw, 48px);
     font-weight: bold;
     letter-spacing: 1px;
+    line-height: 1.1;
 }
 
 .logo-browser {
     font-size: 27px;
     font-weight: 500;
-    margin-top: 2px;
+    margin-top: 4px;
+    line-height: 1.2;
 }
 
-.red { color: #EA4335; }
-.yellow { color: #FBBC05; }
-.green { color: #34A853; }
-.blue { color: #4285F4; }
+.red { color: #ea4335; }
+.yellow { color: #fbbc05; }
+.green { color: #34a853; }
+.blue { color: #4285f4; }
 
 .search-box {
     display: flex;
     align-items: center;
-    width: calc(100% - 28px);
+    width: 100%;
     max-width: 340px;
-    height: 44px;
+    height: 45px;
     margin: 0 auto;
+    padding: 0 10px 0 15px;
     border: 1px solid var(--border);
     border-radius: 24px;
-    padding: 0 12px;
-    background: var(--box);
+    background: var(--surface);
 }
 
 .search-box:focus-within {
-    border-color: #4285F4;
+    border-color: var(--accent);
 }
 
 .search-box input {
     flex: 1;
     min-width: 0;
     height: 100%;
-    border: none;
+    padding: 0 4px;
+    border: 0;
     outline: none;
     background: transparent;
     color: var(--text);
     font-size: 14px;
-    padding: 0 4px;
 }
 
 .search-box input::placeholder {
-    color: #888;
+    color: var(--muted);
+    opacity: 1;
 }
 
-.search-box button {
-    border: none;
+.search-submit {
+    flex: 0 0 30px;
+    width: 30px;
+    height: 36px;
+    padding: 0;
+    border: 0;
     background: transparent;
     color: var(--text);
-    font-size: 28px;
-    cursor: pointer;
-    padding: 0 2px;
+    font-size: 29px;
     line-height: 1;
+    cursor: pointer;
 }
 
 .panel {
     display: none;
-    width: calc(100% - 28px);
+    width: 100%;
     max-width: 340px;
-    margin: 18px auto;
+    margin: 18px auto 0;
+    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: 12px;
-    overflow: hidden;
-    background: var(--panel);
+    background: var(--surface);
 }
 
 .panel.show {
     display: block;
 }
 
-.panel-title {
-    font-weight: bold;
-    padding: 12px;
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 43px;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .menu-item {
+    display: block;
     width: 100%;
-    text-align: left;
-    border: none;
+    min-height: 43px;
+    padding: 11px 13px;
+    border: 0;
     border-bottom: 1px solid var(--border);
     background: transparent;
-    color: var(--text);
-    padding: 12px;
+    text-align: left;
     font-size: 14px;
     cursor: pointer;
 }
 
 .menu-item:last-child {
-    border-bottom: none;
+    border-bottom: 0;
 }
 
-.menu-item:active {
-    background: var(--border);
+.menu-item:active,
+.action-button:active,
+.text-button:active {
+    background: var(--hover);
 }
 
 .entry {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 7px;
+    min-height: 43px;
+    padding: 7px 9px 7px 12px;
     border-bottom: 1px solid var(--border);
 }
 
 .entry:last-child {
-    border-bottom: none;
+    border-bottom: 0;
 }
 
 .entry-name {
@@ -181,39 +225,74 @@ button, input {
     min-width: 0;
     overflow-wrap: anywhere;
     font-size: 13px;
+    line-height: 1.4;
     cursor: pointer;
 }
 
-.delete-btn {
+.entry-name:active {
+    color: var(--accent);
+}
+
+.action-button {
+    flex-shrink: 0;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 3px 6px;
+    border: 0;
+    border-radius: 6px;
     background: transparent;
-    color: var(--text);
-    border: none;
     font-size: 18px;
     cursor: pointer;
-    padding: 3px 6px;
+}
+
+.delete-button {
+    color: var(--danger);
 }
 
 .empty {
-    padding: 14px;
-    color: #888;
-    font-size: 13px;
+    padding: 17px 10px;
+    color: var(--muted);
     text-align: center;
+    font-size: 13px;
 }
 
-.clear-btn {
-    width: 100%;
-    border: none;
+.panel-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 10px;
     border-top: 1px solid var(--border);
+}
+
+.text-button {
+    padding: 7px 9px;
+    border: 0;
+    border-radius: 6px;
     background: transparent;
-    color: #4285F4;
-    padding: 11px;
+    color: var(--accent);
+    font-size: 13px;
     cursor: pointer;
 }
 
 @media (max-height: 500px) {
     .logo {
-        margin-top: 22px;
+        margin-top: 20px;
         margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 250px) {
+    main {
+        padding-right: 9px;
+        padding-left: 9px;
+    }
+
+    .logo-browser {
+        font-size: 24px;
+    }
+
+    .search-box {
+        padding-left: 9px;
+        padding-right: 6px;
     }
 }
 </style>
@@ -221,242 +300,354 @@ button, input {
 
 <body>
 
-<div class="topbar">
-    <button id="themeBtn" aria-label="تغییر تم" onclick="toggleTheme()">☾</button>
-    <button aria-label="منو" onclick="toggleMenu()">⋮</button>
-</div>
+<header class="topbar">
+    <button class="icon-button" id="themeButton"
+        type="button" aria-label="Switch theme">☾</button>
 
-<div class="logo" aria-label="Nokia Browser">
-    <div class="logo-nokia">NOKIA</div>
-    <div class="logo-browser">
-        <span class="red">B</span><span class="yellow">r</span><span class="green">o</span><span class="blue">w</span><span class="red">s</span><span class="yellow">e</span><span class="green">r</span>
+    <button class="icon-button" id="menuButton"
+        type="button" aria-label="Open menu">⋮</button>
+</header>
+
+<main>
+    <div class="logo" aria-label="Nokia Browser">
+        <div class="logo-nokia">NOKIA</div>
+        <div class="logo-browser"><span class="blue">B</span><span class="red">r</span><span class="yellow">o</span><span class="blue">w</span><span class="green">s</span><span class="red">e</span><span class="yellow">r</span></div>
     </div>
-</div>
 
-<form class="search-box" onsubmit="searchGoogle(); return false;">
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search Google..."
-        autocomplete="off"
-    >
-    <button type="submit" aria-label="جست‌وجو">⌕</button>
-</form>
+    <form class="search-box" id="searchForm">
+        <input id="searchInput" type="text"
+            placeholder="Search Google..."
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+            aria-label="Search Google or enter a website">
+        <button class="search-submit" type="submit"
+            aria-label="Search">⌕</button>
+    </form>
 
-<div class="panel" id="menuPanel">
-    <button class="menu-item" onclick="showHistory()">🕘 History</button>
-    <button class="menu-item" onclick="showFavorites()">★ Favorites</button>
-    <button class="menu-item" onclick="addFavorite()">＋ Add to Favorites</button>
-</div>
+    <section class="panel" id="menuPanel" aria-label="Menu">
+        <button class="menu-item" id="historyMenuButton" type="button">History</button>
+        <button class="menu-item" id="favoritesMenuButton" type="button">Favorites</button>
+        <button class="menu-item" id="addFavoriteButton" type="button">＋ Add to Favorites</button>
+    </section>
 
-<div class="panel" id="historyPanel">
-    <div class="panel-title">History</div>
-    <div id="historyList"></div>
-    <button class="clear-btn" onclick="clearHistory()">Clear All</button>
-</div>
+    <section class="panel" id="historyPanel" aria-label="History">
+        <div class="panel-heading">
+            <span>History</span>
+            <button class="text-button" id="closeHistoryButton" type="button">Close</button>
+        </div>
+        <div id="historyList"></div>
+        <div class="panel-footer">
+            <button class="text-button" id="clearHistoryButton" type="button">Clear All</button>
+        </div>
+    </section>
 
-<div class="panel" id="favoritesPanel">
-    <div class="panel-title">Favorites</div>
-    <div id="favoritesList"></div>
-</div>
+    <section class="panel" id="favoritesPanel" aria-label="Favorites">
+        <div class="panel-heading">
+            <span>Favorites</span>
+            <button class="text-button" id="closeFavoritesButton" type="button">Close</button>
+        </div>
+        <div id="favoritesList"></div>
+    </section>
+</main>
 
 <script>
-const HISTORY_KEY = "nokia_history";
-const FAVORITES_KEY = "nokia_favorites";
-const THEME_KEY = "nokia_lite";
+(function () {
+    "use strict";
 
-function getList(key) {
-    try {
-        const data = JSON.parse(localStorage.getItem(key) || "[]");
-        return Array.isArray(data) ? data : [];
-    } catch (e) {
-        return [];
+    const HISTORY_KEY = "nokia_history";
+    const FAVORITES_KEY = "nokia_favorites";
+    const THEME_KEY = "nokia_lite";
+
+    // Maximum saved items in each list
+    const MAX_HISTORY = 10;
+    const MAX_FAVORITES = 10;
+
+    const $ = id => document.getElementById(id);
+
+    const input = $("searchInput");
+    const menuPanel = $("menuPanel");
+    const historyPanel = $("historyPanel");
+    const favoritesPanel = $("favoritesPanel");
+
+    function readList(key) {
+        try {
+            const value = JSON.parse(localStorage.getItem(key) || "[]");
+            return Array.isArray(value)
+                ? value.filter(item => typeof item === "string")
+                : [];
+        } catch (error) {
+            return [];
+        }
     }
-}
 
-function saveList(key, list) {
-    localStorage.setItem(key, JSON.stringify(list));
-}
-
-function searchGoogle() {
-    const input = document.getElementById("searchInput");
-    const query = input.value.trim();
-
-    if (!query) {
-        input.focus();
-        return;
+    function writeList(key, items) {
+        try {
+            localStorage.setItem(key, JSON.stringify(items));
+            return true;
+        } catch (error) {
+            alert("Unable to save data in this browser.");
+            return false;
+        }
     }
 
-    let destination;
+    function hidePanels() {
+        menuPanel.classList.remove("show");
+        historyPanel.classList.remove("show");
+        favoritesPanel.classList.remove("show");
+    }
 
-    if (/^https?:\/\//i.test(query)) {
-        destination = query;
-    } else if (/^[\w-]+\.[a-z]{2,}(\/.*)?$/i.test(query) && !query.includes(" ")) {
-        destination = "https://" + query;
-    } else {
-        destination = "https://www.google.com/search?q=" +
+    function toggleMenu() {
+        const shouldOpen = !menuPanel.classList.contains("show");
+        hidePanels();
+
+        if (shouldOpen) {
+            menuPanel.classList.add("show");
+        }
+    }
+
+    function normalizeDestination(raw) {
+        const query = raw.trim();
+
+        if (!query) return null;
+
+        if (/^https?:\/\//i.test(query)) {
+            try {
+                const url = new URL(query);
+                if (url.protocol === "http:" || url.protocol === "https:") {
+                    return url.href;
+                }
+            } catch (error) {
+                // Search invalid URL text on Google.
+            }
+        }
+
+        const domainPattern =
+            /^(localhost|(?:[\w-]+\.)+[a-z]{2,})(:\d+)?(?:\/[^\s]*)?$/i;
+
+        if (!/\s/.test(query) && domainPattern.test(query)) {
+            return "https://" + query;
+        }
+
+        return "https://www.google.com/search?q=" +
             encodeURIComponent(query);
     }
 
-    let history = getList(HISTORY_KEY);
-    history = history.filter(item => item !== destination);
-    history.unshift(destination);
-    saveList(HISTORY_KEY, history.slice(0, 5));
+    function addHistory(url) {
+        let history = readList(HISTORY_KEY);
 
-    window.location.href = destination;
-}
+        history = history.filter(item => item !== url);
+        history.unshift(url);
 
-function toggleTheme() {
-    document.body.classList.toggle("dark");
-
-    const dark = document.body.classList.contains("dark");
-    localStorage.setItem(THEME_KEY, dark ? "dark" : "light");
-    updateThemeButton();
-}
-
-function updateThemeButton() {
-    const dark = document.body.classList.contains("dark");
-    document.getElementById("themeBtn").textContent = dark ? "☀" : "☾";
-}
-
-function loadTheme() {
-    if (localStorage.getItem(THEME_KEY) === "dark") {
-        document.body.classList.add("dark");
-    }
-    updateThemeButton();
-}
-
-function hidePanels() {
-    ["menuPanel", "historyPanel", "favoritesPanel"].forEach(id => {
-        document.getElementById(id).classList.remove("show");
-    });
-}
-
-function toggleMenu() {
-    const panel = document.getElementById("menuPanel");
-    const wasOpen = panel.classList.contains("show");
-    hidePanels();
-
-    if (!wasOpen) {
-        panel.classList.add("show");
-    }
-}
-
-function showHistory() {
-    hidePanels();
-    renderHistory();
-    document.getElementById("historyPanel").classList.add("show");
-}
-
-function showFavorites() {
-    hidePanels();
-    renderFavorites();
-    document.getElementById("favoritesPanel").classList.add("show");
-}
-
-function renderList(key, containerId, emptyText) {
-    const container = document.getElementById(containerId);
-    const items = getList(key);
-    container.innerHTML = "";
-
-    if (items.length === 0) {
-        container.innerHTML = '<div class="empty">' + emptyText + '</div>';
-        return;
+        writeList(HISTORY_KEY, history.slice(0, MAX_HISTORY));
     }
 
-    items.forEach((item, index) => {
+    function navigateTo(url) {
+        if (!url) return;
+        addHistory(url);
+        window.location.href = url;
+    }
+
+    function searchGoogle(event) {
+        event.preventDefault();
+
+        const destination = normalizeDestination(input.value);
+
+        if (!destination) {
+            input.focus();
+            return;
+        }
+
+        navigateTo(destination);
+    }
+
+    function createEntry(url, key) {
         const row = document.createElement("div");
         row.className = "entry";
 
         const name = document.createElement("div");
         name.className = "entry-name";
-        name.textContent = item;
-        name.title = item;
-        name.onclick = () => {
-            window.location.href = item;
-        };
+        name.textContent = url;
+        name.title = url;
+        name.tabIndex = 0;
+        name.setAttribute("role", "link");
+
+        function openEntry() {
+            navigateTo(url);
+        }
+
+        name.addEventListener("click", openEntry);
+        name.addEventListener("keydown", event => {
+            if (event.key === "Enter") openEntry();
+        });
 
         const remove = document.createElement("button");
-        remove.className = "delete-btn";
+        remove.className = "action-button delete-button";
+        remove.type = "button";
         remove.textContent = "×";
-        remove.setAttribute("aria-label", "حذف");
-        remove.onclick = () => {
-            const updated = getList(key);
-            updated.splice(index, 1);
-            saveList(key, updated);
+        remove.title = "Delete";
+        remove.setAttribute("aria-label", "Delete " + url);
+
+        remove.addEventListener("click", () => {
+            const items = readList(key);
+            const index = items.indexOf(url);
+
+            if (index !== -1) {
+                items.splice(index, 1);
+                writeList(key, items);
+            }
 
             if (key === HISTORY_KEY) {
                 renderHistory();
             } else {
                 renderFavorites();
             }
-        };
+        });
 
-        row.appendChild(name);
-        row.appendChild(remove);
-        container.appendChild(row);
+        row.append(name, remove);
+        return row;
+    }
+
+    function renderList(key, containerId, emptyText) {
+        const container = $(containerId);
+        const items = readList(key);
+
+        container.replaceChildren();
+
+        if (items.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = emptyText;
+            container.appendChild(empty);
+            return;
+        }
+
+        items.forEach(url => {
+            container.appendChild(createEntry(url, key));
+        });
+    }
+
+    function renderHistory() {
+        renderList(HISTORY_KEY, "historyList", "No history yet.");
+    }
+
+    function renderFavorites() {
+        renderList(FAVORITES_KEY, "favoritesList", "No favorites yet.");
+    }
+
+    function showHistory() {
+        hidePanels();
+        renderHistory();
+        historyPanel.classList.add("show");
+    }
+
+    function showFavorites() {
+        hidePanels();
+        renderFavorites();
+        favoritesPanel.classList.add("show");
+    }
+
+    function clearHistory() {
+        if (readList(HISTORY_KEY).length === 0) {
+            renderHistory();
+            return;
+        }
+
+        if (window.confirm("Clear all history?")) {
+            writeList(HISTORY_KEY, []);
+            renderHistory();
+        }
+    }
+
+    function addFavorite() {
+        const destination = normalizeDestination(input.value);
+
+        if (!destination) {
+            alert("Enter a website or search term first.");
+            input.focus();
+            return;
+        }
+
+        const favorites = readList(FAVORITES_KEY);
+
+        if (favorites.includes(destination)) {
+            alert("This item is already in Favorites.");
+            return;
+        }
+
+        if (favorites.length >= MAX_FAVORITES) {
+            alert("Favorites is full. Delete an item first.");
+            return;
+        }
+
+        favorites.unshift(destination);
+
+        if (writeList(FAVORITES_KEY, favorites)) {
+            showFavorites();
+        }
+    }
+
+    function applyTheme(theme) {
+        const dark = theme === "dark";
+
+        document.body.classList.toggle("dark", dark);
+        $("themeButton").textContent = dark ? "☀" : "☾";
+        $("themeButton").setAttribute(
+            "aria-label",
+            dark ? "Switch to light theme" : "Switch to dark theme"
+        );
+
+        document.querySelector('meta[name="theme-color"]')
+            .setAttribute("content", dark ? "#171717" : "#ffffff");
+    }
+
+    function toggleTheme() {
+        const theme = document.body.classList.contains("dark")
+            ? "light"
+            : "dark";
+
+        try {
+            localStorage.setItem(THEME_KEY, theme);
+        } catch (error) {
+            // Theme still changes for the current page.
+        }
+
+        applyTheme(theme);
+    }
+
+    function loadTheme() {
+        let theme = "light";
+
+        try {
+            theme = localStorage.getItem(THEME_KEY) || "light";
+        } catch (error) {
+            // Default to light theme.
+        }
+
+        applyTheme(theme);
+    }
+
+    $("searchForm").addEventListener("submit", searchGoogle);
+    $("themeButton").addEventListener("click", toggleTheme);
+    $("menuButton").addEventListener("click", toggleMenu);
+
+    $("historyMenuButton").addEventListener("click", showHistory);
+    $("favoritesMenuButton").addEventListener("click", showFavorites);
+    $("addFavoriteButton").addEventListener("click", addFavorite);
+
+    $("closeHistoryButton").addEventListener("click", hidePanels);
+    $("closeFavoritesButton").addEventListener("click", hidePanels);
+    $("clearHistoryButton").addEventListener("click", clearHistory);
+
+    input.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            input.value = "";
+            hidePanels();
+        }
     });
-}
 
-function renderHistory() {
-    renderList(HISTORY_KEY, "historyList", "No history yet");
-}
-
-function renderFavorites() {
-    renderList(FAVORITES_KEY, "favoritesList", "No favorites yet");
-}
-
-function clearHistory() {
-    saveList(HISTORY_KEY, []);
-    renderHistory();
-}
-
-function addFavorite() {
-    const input = document.getElementById("searchInput");
-    const query = input.value.trim();
-
-    if (!query) {
-        alert("First enter a website or search term.");
-        input.focus();
-        return;
-    }
-
-    let destination;
-
-    if (/^https?:\/\//i.test(query)) {
-        destination = query;
-    } else if (/^[\w-]+\.[a-z]{2,}(\/.*)?$/i.test(query) && !query.includes(" ")) {
-        destination = "https://" + query;
-    } else {
-        destination = "https://www.google.com/search?q=" +
-            encodeURIComponent(query);
-    }
-
-    let favorites = getList(FAVORITES_KEY);
-
-    if (favorites.includes(destination)) {
-        alert("Already in Favorites.");
-        return;
-    }
-
-    if (favorites.length >= 5) {
-        alert("Favorites is full. Delete one before adding another.");
-        return;
-    }
-
-    favorites.unshift(destination);
-    saveList(FAVORITES_KEY, favorites);
-    hidePanels();
-    showFavorites();
-}
-
-document.getElementById("searchInput").addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        this.value = "";
-    }
-});
-
-loadTheme();
+    loadTheme();
+})();
 </script>
 
 </body>
