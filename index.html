@@ -1,567 +1,462 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080808">
 <title>Nokia Browser</title>
 
 <style>
-* { box-sizing: border-box; }
-
 :root {
-    --bg: #080808;
-    --text: #ffffff;
-    --panel: #171717;
-    --border: #333333;
-    --input: #111111;
-    --muted: #aaaaaa;
-    --accent: #4285f4;
+    --bg: #ffffff;
+    --text: #202124;
+    --box: #ffffff;
+    --border: #dadce0;
+    --panel: #f8f9fa;
 }
 
-body.light {
-    --bg: #f5f5f5;
-    --text: #171717;
-    --panel: #ffffff;
-    --border: #dddddd;
-    --input: #ffffff;
-    --muted: #666666;
+body.dark {
+    --bg: #171717;
+    --text: #f1f3f4;
+    --box: #202124;
+    --border: #5f6368;
+    --panel: #292a2d;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 0;
+    min-height: 100vh;
     background: var(--bg);
     color: var(--text);
     font-family: Arial, sans-serif;
-    min-height: 100vh;
-    transition: background .2s, color .2s;
+    transition: background 0.2s, color 0.2s;
 }
 
-button, input { font-family: Arial, sans-serif; }
-button { cursor: pointer; }
+button, input {
+    font-family: inherit;
+}
 
 .topbar {
-    width: 100%;
-    height: 55px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 8px 14px;
+    align-items: center;
+    padding: 12px;
 }
 
-.icon-button {
+.topbar button {
     background: transparent;
-    border: none;
     color: var(--text);
-    font-size: 25px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-.icon-button:active { background: var(--border); }
-.menu-wrap { position: relative; }
-
-.menu {
-    display: none;
-    position: absolute;
-    top: 43px;
-    right: 0;
-    width: 155px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    z-index: 10;
-    box-shadow: 0 5px 15px rgba(0,0,0,.25);
-}
-
-.menu.show { display: block; }
-
-.menu button {
-    display: block;
-    width: 100%;
-    padding: 13px 14px;
-    text-align: left;
-    color: var(--text);
-    background: transparent;
     border: none;
-    font-size: 14px;
-}
-
-.menu button:active { background: var(--border); }
-
-main {
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 25px 20px 20px;
-    text-align: center;
+    font-size: 24px;
+    padding: 4px 8px;
+    cursor: pointer;
 }
 
 .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin: 15px 0 28px;
-    line-height: 1.05;
-    font-weight: bold;
+    text-align: center;
+    margin-top: 65px;
+    margin-bottom: 28px;
 }
 
 .logo-nokia {
     color: #4285F4;
     font-size: clamp(36px, 12vw, 48px);
+    font-weight: bold;
     letter-spacing: 1px;
 }
 
 .logo-browser {
-    font-size: clamp(35px, 11vw, 44px);
-    letter-spacing: -1px;
+    font-size: 27px;
+    font-weight: 500;
+    margin-top: 2px;
 }
 
-.blue { color: #4285F4; }
 .red { color: #EA4335; }
 .yellow { color: #FBBC05; }
 .green { color: #34A853; }
-
-.clock {
-    font-size: 17px;
-    color: var(--muted);
-    margin-bottom: 22px;
-}
+.blue { color: #4285F4; }
 
 .search-box {
-    width: 100%;
     display: flex;
     align-items: center;
+    width: calc(100% - 28px);
+    max-width: 340px;
+    height: 44px;
+    margin: 0 auto;
     border: 1px solid var(--border);
-    border-radius: 25px;
-    background: var(--input);
-    padding: 4px 12px 4px 15px;
+    border-radius: 24px;
+    padding: 0 12px;
+    background: var(--box);
 }
 
-.search-box:focus-within { border-color: var(--accent); }
+.search-box:focus-within {
+    border-color: #4285F4;
+}
 
-#searchInput {
+.search-box input {
     flex: 1;
-    width: 0;
     min-width: 0;
-    background: transparent;
+    height: 100%;
     border: none;
     outline: none;
+    background: transparent;
     color: var(--text);
-    font-size: 15px;
-    padding: 12px 0;
+    font-size: 14px;
+    padding: 0 4px;
 }
 
-#searchInput::placeholder { color: var(--muted); }
+.search-box input::placeholder {
+    color: #888;
+}
 
-.search-button {
-    flex-shrink: 0;
+.search-box button {
     border: none;
     background: transparent;
     color: var(--text);
-    font-size: 24px;
-    padding: 4px 0 4px 10px;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0 2px;
     line-height: 1;
-}
-
-#notice {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 12px;
-    min-height: 15px;
 }
 
 .panel {
     display: none;
-    max-width: 520px;
-    margin: 10px auto 30px;
-    padding: 0 18px;
-}
-
-.panel.show { display: block; }
-
-.panel-inner {
-    background: var(--panel);
+    width: calc(100% - 28px);
+    max-width: 340px;
+    margin: 18px auto;
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 15px;
+    overflow: hidden;
+    background: var(--panel);
 }
 
-.panel-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 12px;
+.panel.show {
+    display: block;
 }
 
-.panel-heading h2 { font-size: 18px; margin: 0; }
+.panel-title {
+    font-weight: bold;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+}
 
-.small-button {
-    border: 1px solid var(--border);
-    border-radius: 7px;
+.menu-item {
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid var(--border);
     background: transparent;
     color: var(--text);
-    padding: 7px 9px;
-    font-size: 12px;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-.list-item {
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item:active {
+    background: var(--border);
+}
+
+.entry {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 0;
-    border-top: 1px solid var(--border);
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
 }
 
-.item-open {
+.entry:last-child {
+    border-bottom: none;
+}
+
+.entry-name {
     flex: 1;
     min-width: 0;
     overflow-wrap: anywhere;
-    text-align: left;
-    background: transparent;
-    border: none;
-    color: var(--text);
-    font-size: 14px;
-    padding: 4px 0;
+    font-size: 13px;
+    cursor: pointer;
 }
 
-.remove-button {
-    flex-shrink: 0;
-    border: none;
+.delete-btn {
     background: transparent;
-    color: #e45b5b;
-    font-size: 19px;
-    padding: 4px 7px;
+    color: var(--text);
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 3px 6px;
 }
 
 .empty {
-    color: var(--muted);
+    padding: 14px;
+    color: #888;
     font-size: 13px;
-    padding: 15px 0 5px;
-}
-
-footer {
     text-align: center;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    padding: 25px 10px;
 }
 
-@media (max-width: 340px) {
-    main { padding-left: 14px; padding-right: 14px; }
-    .logo-nokia { font-size: 36px; }
-    .logo-browser { font-size: 34px; }
+.clear-btn {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--border);
+    background: transparent;
+    color: #4285F4;
+    padding: 11px;
+    cursor: pointer;
 }
 
-@media (max-height: 600px) {
-    main { padding-top: 8px; }
-    .logo { margin: 5px 0 16px; }
-    .logo-nokia { font-size: 34px; }
-    .logo-browser { font-size: 32px; }
-    .clock { margin-bottom: 12px; }
+@media (max-height: 500px) {
+    .logo {
+        margin-top: 22px;
+        margin-bottom: 18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
-    <button id="themeButton" class="icon-button"
-        aria-label="Change theme" title="Change theme">🌙</button>
+<div class="topbar">
+    <button id="themeBtn" aria-label="تغییر تم" onclick="toggleTheme()">☾</button>
+    <button aria-label="منو" onclick="toggleMenu()">⋮</button>
+</div>
 
-    <div class="menu-wrap">
-        <button id="moreButton" class="icon-button"
-            aria-label="More options" title="More">⋮</button>
-
-        <div id="moreMenu" class="menu">
-            <button id="openHistory">History</button>
-            <button id="openFavorites">Favorites</button>
-        </div>
+<div class="logo" aria-label="Nokia Browser">
+    <div class="logo-nokia">NOKIA</div>
+    <div class="logo-browser">
+        <span class="red">B</span><span class="yellow">r</span><span class="green">o</span><span class="blue">w</span><span class="red">s</span><span class="yellow">e</span><span class="green">r</span>
     </div>
-</header>
+</div>
 
-<main>
-    <div class="logo" aria-label="Nokia Browser">
-        <div class="logo-nokia">NOKIA</div>
-        <div class="logo-browser">
-            <span class="red">B</span><span class="yellow">r</span><span class="green">o</span><span class="blue">w</span><span class="red">s</span><span class="yellow">e</span><span class="green">r</span>
-        </div>
-    </div>
+<form class="search-box" onsubmit="searchGoogle(); return false;">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search Google..."
+        autocomplete="off"
+    >
+    <button type="submit" aria-label="جست‌وجو">⌕</button>
+</form>
 
-    <div id="clock" class="clock">--:--</div>
+<div class="panel" id="menuPanel">
+    <button class="menu-item" onclick="showHistory()">🕘 History</button>
+    <button class="menu-item" onclick="showFavorites()">★ Favorites</button>
+    <button class="menu-item" onclick="addFavorite()">＋ Add to Favorites</button>
+</div>
 
-    <form id="searchForm">
-        <div class="search-box">
-            <input id="searchInput" type="text"
-                placeholder="Search Google or enter URL"
-                autocomplete="off">
-            <button type="submit" class="search-button"
-                aria-label="Search" title="Search">⌕</button>
-        </div>
-    </form>
+<div class="panel" id="historyPanel">
+    <div class="panel-title">History</div>
+    <div id="historyList"></div>
+    <button class="clear-btn" onclick="clearHistory()">Clear All</button>
+</div>
 
-    <div id="notice"></div>
-</main>
-
-<section id="historyPanel" class="panel">
-    <div class="panel-inner">
-        <div class="panel-heading">
-            <h2>History</h2>
-            <div>
-                <button id="clearHistory" class="small-button">Clear All</button>
-                <button class="small-button closePanel">Close</button>
-            </div>
-        </div>
-        <div id="historyList"></div>
-    </div>
-</section>
-
-<section id="favoritesPanel" class="panel">
-    <div class="panel-inner">
-        <div class="panel-heading">
-            <h2>Favorites</h2>
-            <button class="small-button closePanel">Close</button>
-        </div>
-        <div id="favoritesList"></div>
-    </div>
-</section>
-
-<footer>NOKIA BROWSER • NOKIA 3210 4G</footer>
+<div class="panel" id="favoritesPanel">
+    <div class="panel-title">Favorites</div>
+    <div id="favoritesList"></div>
+</div>
 
 <script>
-(function () {
-    var input = document.getElementById("searchInput");
-    var notice = document.getElementById("notice");
-    var historyPanel = document.getElementById("historyPanel");
-    var favoritesPanel = document.getElementById("favoritesPanel");
-    var moreMenu = document.getElementById("moreMenu");
-    var themeButton = document.getElementById("themeButton");
+const HISTORY_KEY = "nokia_history";
+const FAVORITES_KEY = "nokia_favorites";
+const THEME_KEY = "nokia_lite";
 
-    function loadData(key) {
-        try {
-            var value = localStorage.getItem(key);
-            return value ? JSON.parse(value) : [];
-        } catch (e) { return []; }
-    }
-
-    function saveData(key, data) {
-        try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) {}
-    }
-
-    var history = loadData("nokia_history");
-    var favorites = loadData("nokia_favorites");
-
-    if (!Array.isArray(history)) history = [];
-    if (!Array.isArray(favorites)) favorites = [];
-
-    history = history.filter(function (item) {
-        return typeof item === "string";
-    });
-
-    favorites = favorites.filter(function (item) {
-        return item && typeof item.text === "string"
-            && typeof item.url === "string";
-    });
-
-    function updateClock() {
-        var now = new Date();
-        var h = String(now.getHours()).padStart(2, "0");
-        var m = String(now.getMinutes()).padStart(2, "0");
-        document.getElementById("clock").textContent = h + ":" + m;
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    function setTheme(isLight) {
-        if (isLight) {
-            document.body.classList.add("light");
-            themeButton.textContent = "☀️";
-            themeButton.title = "Light mode";
-            document.querySelector('meta[name="theme-color"]')
-                .setAttribute("content", "#f5f5f5");
-            try { localStorage.setItem("nokia_lite", "true"); } catch (e) {}
-        } else {
-            document.body.classList.remove("light");
-            themeButton.textContent = "🌙";
-            themeButton.title = "Dark mode";
-            document.querySelector('meta[name="theme-color"]')
-                .setAttribute("content", "#080808");
-            try { localStorage.setItem("nokia_lite", "false"); } catch (e) {}
-        }
-    }
-
-    var savedTheme = "false";
+function getList(key) {
     try {
-        savedTheme = localStorage.getItem("nokia_lite") || "false";
-    } catch (e) {}
+        const data = JSON.parse(localStorage.getItem(key) || "[]");
+        return Array.isArray(data) ? data : [];
+    } catch (e) {
+        return [];
+    }
+}
 
-    setTheme(savedTheme === "true");
+function saveList(key, list) {
+    localStorage.setItem(key, JSON.stringify(list));
+}
 
-    themeButton.addEventListener("click", function () {
-        setTheme(!document.body.classList.contains("light"));
-    });
+function searchGoogle() {
+    const input = document.getElementById("searchInput");
+    const query = input.value.trim();
 
-    function closePanels() {
-        historyPanel.classList.remove("show");
-        favoritesPanel.classList.remove("show");
+    if (!query) {
+        input.focus();
+        return;
     }
 
-    document.getElementById("moreButton").addEventListener("click", function (e) {
-        e.stopPropagation();
-        moreMenu.classList.toggle("show");
-    });
+    let destination;
 
-    document.addEventListener("click", function (e) {
-        if (!e.target.closest(".menu-wrap")) {
-            moreMenu.classList.remove("show");
-        }
-    });
-
-    document.getElementById("openHistory").addEventListener("click", function () {
-        moreMenu.classList.remove("show");
-        favoritesPanel.classList.remove("show");
-        historyPanel.classList.add("show");
-        renderHistory();
-    });
-
-    document.getElementById("openFavorites").addEventListener("click", function () {
-        moreMenu.classList.remove("show");
-        historyPanel.classList.remove("show");
-        favoritesPanel.classList.add("show");
-        renderFavorites();
-    });
-
-    document.querySelectorAll(".closePanel").forEach(function (button) {
-        button.addEventListener("click", closePanels);
-    });
-
-    function getTarget(value) {
-        value = value.trim();
-
-        if (/^https?:\/\//i.test(value)) return value;
-
-        if (/^(www\.)/i.test(value) ||
-            /^[\w-]+(\.[\w-]+)+([/:?#].*)?$/i.test(value)) {
-            return "https://" + value;
-        }
-
-        return "https://www.google.com/search?q=" + encodeURIComponent(value);
+    if (/^https?:\/\//i.test(query)) {
+        destination = query;
+    } else if (/^[\w-]+\.[a-z]{2,}(\/.*)?$/i.test(query) && !query.includes(" ")) {
+        destination = "https://" + query;
+    } else {
+        destination = "https://www.google.com/search?q=" +
+            encodeURIComponent(query);
     }
 
-    function addToHistory(value) {
-        history = history.filter(function (item) {
-            return item !== value;
-        });
+    let history = getList(HISTORY_KEY);
+    history = history.filter(item => item !== destination);
+    history.unshift(destination);
+    saveList(HISTORY_KEY, history.slice(0, 5));
 
-        history.unshift(value);
-        history = history.slice(0, 5);
-        saveData("nokia_history", history);
-        renderHistory();
+    window.location.href = destination;
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    const dark = document.body.classList.contains("dark");
+    localStorage.setItem(THEME_KEY, dark ? "dark" : "light");
+    updateThemeButton();
+}
+
+function updateThemeButton() {
+    const dark = document.body.classList.contains("dark");
+    document.getElementById("themeBtn").textContent = dark ? "☀" : "☾";
+}
+
+function loadTheme() {
+    if (localStorage.getItem(THEME_KEY) === "dark") {
+        document.body.classList.add("dark");
     }
+    updateThemeButton();
+}
 
-    function openValue(value) {
-        value = String(value || "").trim();
-        if (!value) return;
-
-        addToHistory(value);
-        window.location.href = getTarget(value);
-    }
-
-    document.getElementById("searchForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        openValue(input.value);
+function hidePanels() {
+    ["menuPanel", "historyPanel", "favoritesPanel"].forEach(id => {
+        document.getElementById(id).classList.remove("show");
     });
+}
 
-    function renderHistory() {
-        var list = document.getElementById("historyList");
-        list.innerHTML = "";
+function toggleMenu() {
+    const panel = document.getElementById("menuPanel");
+    const wasOpen = panel.classList.contains("show");
+    hidePanels();
 
-        if (!history.length) {
-            list.innerHTML = '<div class="empty">No history yet.</div>';
-            return;
-        }
-
-        history.forEach(function (value, index) {
-            var row = document.createElement("div");
-            row.className = "list-item";
-
-            var open = document.createElement("button");
-            open.className = "item-open";
-            open.textContent = value;
-            open.addEventListener("click", function () {
-                openValue(value);
-            });
-
-            var remove = document.createElement("button");
-            remove.className = "remove-button";
-            remove.textContent = "×";
-            remove.title = "Delete history item";
-            remove.addEventListener("click", function () {
-                history.splice(index, 1);
-                saveData("nokia_history", history);
-                renderHistory();
-            });
-
-            row.appendChild(open);
-            row.appendChild(remove);
-            list.appendChild(row);
-        });
+    if (!wasOpen) {
+        panel.classList.add("show");
     }
+}
 
-    function renderFavorites() {
-        var list = document.getElementById("favoritesList");
-        list.innerHTML = "";
-
-        if (!favorites.length) {
-            list.innerHTML = '<div class="empty">No favorites yet.</div>';
-            return;
-        }
-
-        favorites.forEach(function (item, index) {
-            var row = document.createElement("div");
-            row.className = "list-item";
-
-            var open = document.createElement("button");
-            open.className = "item-open";
-            open.textContent = item.text;
-            open.addEventListener("click", function () {
-                openValue(item.text);
-            });
-
-            var remove = document.createElement("button");
-            remove.className = "remove-button";
-            remove.textContent = "×";
-            remove.title = "Remove favorite";
-            remove.addEventListener("click", function () {
-                favorites.splice(index, 1);
-                saveData("nokia_favorites", favorites);
-                renderFavorites();
-            });
-
-            row.appendChild(open);
-            row.appendChild(remove);
-            list.appendChild(row);
-        });
-    }
-
-    document.getElementById("clearHistory").addEventListener("click", function () {
-        history = [];
-        saveData("nokia_history", history);
-        renderHistory();
-        notice.textContent = "History cleared.";
-    });
-
+function showHistory() {
+    hidePanels();
     renderHistory();
+    document.getElementById("historyPanel").classList.add("show");
+}
+
+function showFavorites() {
+    hidePanels();
     renderFavorites();
-})();
+    document.getElementById("favoritesPanel").classList.add("show");
+}
+
+function renderList(key, containerId, emptyText) {
+    const container = document.getElementById(containerId);
+    const items = getList(key);
+    container.innerHTML = "";
+
+    if (items.length === 0) {
+        container.innerHTML = '<div class="empty">' + emptyText + '</div>';
+        return;
+    }
+
+    items.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "entry";
+
+        const name = document.createElement("div");
+        name.className = "entry-name";
+        name.textContent = item;
+        name.title = item;
+        name.onclick = () => {
+            window.location.href = item;
+        };
+
+        const remove = document.createElement("button");
+        remove.className = "delete-btn";
+        remove.textContent = "×";
+        remove.setAttribute("aria-label", "حذف");
+        remove.onclick = () => {
+            const updated = getList(key);
+            updated.splice(index, 1);
+            saveList(key, updated);
+
+            if (key === HISTORY_KEY) {
+                renderHistory();
+            } else {
+                renderFavorites();
+            }
+        };
+
+        row.appendChild(name);
+        row.appendChild(remove);
+        container.appendChild(row);
+    });
+}
+
+function renderHistory() {
+    renderList(HISTORY_KEY, "historyList", "No history yet");
+}
+
+function renderFavorites() {
+    renderList(FAVORITES_KEY, "favoritesList", "No favorites yet");
+}
+
+function clearHistory() {
+    saveList(HISTORY_KEY, []);
+    renderHistory();
+}
+
+function addFavorite() {
+    const input = document.getElementById("searchInput");
+    const query = input.value.trim();
+
+    if (!query) {
+        alert("First enter a website or search term.");
+        input.focus();
+        return;
+    }
+
+    let destination;
+
+    if (/^https?:\/\//i.test(query)) {
+        destination = query;
+    } else if (/^[\w-]+\.[a-z]{2,}(\/.*)?$/i.test(query) && !query.includes(" ")) {
+        destination = "https://" + query;
+    } else {
+        destination = "https://www.google.com/search?q=" +
+            encodeURIComponent(query);
+    }
+
+    let favorites = getList(FAVORITES_KEY);
+
+    if (favorites.includes(destination)) {
+        alert("Already in Favorites.");
+        return;
+    }
+
+    if (favorites.length >= 5) {
+        alert("Favorites is full. Delete one before adding another.");
+        return;
+    }
+
+    favorites.unshift(destination);
+    saveList(FAVORITES_KEY, favorites);
+    hidePanels();
+    showFavorites();
+}
+
+document.getElementById("searchInput").addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        this.value = "";
+    }
+});
+
+loadTheme();
 </script>
 
 </body>
