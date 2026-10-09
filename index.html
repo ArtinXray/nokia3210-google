@@ -6,9 +6,7 @@
 <title>ArtinGo</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -28,45 +26,35 @@ body {
 .lite-button {
     width: 100%;
     height: 48px;
-    margin: 0;
-    padding: 0;
     border: 1px solid #fff;
     border-radius: 24px;
     background: #111;
     color: #fff;
     font-size: 14px;
-    font-weight: normal;
 }
 
-.lite-button:active {
-    background: #222;
-}
-
-.lite-button.on {
-    background: #222;
-    border-color: #fff;
-}
+.lite-button:active { background: #222; }
+.lite-button.on { background: #222; }
 
 .main {
     width: 100%;
     padding: 22px 12px 18px;
 }
 
-/* ArG Logo */
+/* ArtinGo Wordmark */
 .logo {
-    width: 160px;
-    height: 100px;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    line-height: 1;
+    white-space: nowrap;
     margin: 0 auto 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.logo svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
+.blue { color: #4285F4; }
+.red { color: #EA4335; }
+.yellow { color: #FBBC05; }
+.green { color: #34A853; }
 
 .search-box {
     width: 100%;
@@ -81,8 +69,8 @@ body {
 
 #search {
     width: 100%;
-    height: 42px;
     min-width: 0;
+    height: 42px;
     border: none;
     outline: none;
     font-size: 16px;
@@ -91,9 +79,7 @@ body {
     order: 1;
 }
 
-#search::placeholder {
-    color: #888;
-}
+#search::placeholder { color: #888; }
 
 .search-button {
     width: 34px;
@@ -117,9 +103,7 @@ body {
     stroke-width: 2.5;
 }
 
-.search-button:active svg {
-    stroke: #fff;
-}
+.search-button:active svg { stroke: #fff; }
 
 #clock {
     font-size: 20px;
@@ -163,9 +147,7 @@ body {
     text-overflow: ellipsis;
 }
 
-.item:active {
-    background: #202020;
-}
+.item:active { background: #202020; }
 
 .add-favorite {
     width: 100%;
@@ -178,9 +160,7 @@ body {
     font-size: 12px;
 }
 
-.add-favorite:active {
-    background: #222;
-}
+.add-favorite:active { background: #222; }
 
 .clear {
     margin-top: 7px;
@@ -194,9 +174,7 @@ body.lite-mode .status {
     display: none;
 }
 
-body.lite-mode .main {
-    padding-top: 30px;
-}
+body.lite-mode .main { padding-top: 30px; }
 
 .footer {
     margin-top: 20px;
@@ -219,76 +197,8 @@ body.lite-mode .main {
 
 <div class="main">
 
-    <!-- Custom ArG Logo -->
-    <div class="logo">
-        <svg viewBox="0 0 200 125"
-             xmlns="http://www.w3.org/2000/svg"
-             role="img"
-             aria-label="ArG Logo">
-
-            <defs>
-                <linearGradient id="aBlue" x1="0" y1="0" x2="0.8" y2="1">
-                    <stop offset="0%" stop-color="#78D7FF"/>
-                    <stop offset="45%" stop-color="#168BFF"/>
-                    <stop offset="100%" stop-color="#0648CF"/>
-                </linearGradient>
-
-                <linearGradient id="rGold" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#FFF58A"/>
-                    <stop offset="50%" stop-color="#FFC928"/>
-                    <stop offset="100%" stop-color="#F28B00"/>
-                </linearGradient>
-
-                <linearGradient id="gColor" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#FF6259"/>
-                    <stop offset="35%" stop-color="#F52D38"/>
-                    <stop offset="65%" stop-color="#F7C82C"/>
-                    <stop offset="100%" stop-color="#24C878"/>
-                </linearGradient>
-
-                <linearGradient id="ringColor" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#087BFF"/>
-                    <stop offset="30%" stop-color="#20C978"/>
-                    <stop offset="62%" stop-color="#FFD12D"/>
-                    <stop offset="82%" stop-color="#FF483E"/>
-                    <stop offset="100%" stop-color="#FFB52D"/>
-                </linearGradient>
-            </defs>
-
-            <!-- Back part of the orbital ring -->
-            <path d="M 27,43 C 55,4 143,2 175,38"
-                  fill="none"
-                  stroke="url(#ringColor)"
-                  stroke-width="6"
-                  stroke-linecap="round"/>
-
-            <!-- ArG lettering -->
-            <text x="17" y="79"
-                  font-family="Arial,sans-serif"
-                  font-size="68"
-                  font-weight="bold"
-                  fill="url(#aBlue)">A</text>
-
-            <text x="78" y="79"
-                  font-family="Arial,sans-serif"
-                  font-size="61"
-                  font-weight="bold"
-                  fill="url(#rGold)">r</text>
-
-            <text x="111" y="79"
-                  font-family="Arial,sans-serif"
-                  font-size="68"
-                  font-weight="bold"
-                  fill="url(#gColor)">G</text>
-
-            <!-- Front part of the orbital ring -->
-            <path d="M 177,47 C 162,94 72,116 24,87"
-                  fill="none"
-                  stroke="url(#ringColor)"
-                  stroke-width="6"
-                  stroke-linecap="round"/>
-        </svg>
-    </div>
+    <!-- ArtinGo Logo -->
+    <div class="logo"><span class="blue">A</span><span class="red">r</span><span class="yellow">t</span><span class="blue">i</span><span class="green">n</span><span class="red">G</span><span class="yellow">o</span></div>
 
     <!-- Search -->
     <div class="search-box">
@@ -307,7 +217,6 @@ body.lite-mode .main {
         </button>
     </div>
 
-    <!-- Clock -->
     <div id="clock">00:00:00</div>
     <div class="status">ARTINGO MINI BROWSER</div>
 
@@ -322,11 +231,9 @@ body.lite-mode .main {
     <div class="section">
         <div class="section-title">FAVORITES</div>
         <div id="favorites"></div>
-
         <button class="add-favorite" onclick="addFavorite()">
             + Add current address to Favorites
         </button>
-
         <div class="clear" onclick="clearFavorites()">Clear Favorites</div>
     </div>
 
@@ -338,20 +245,15 @@ var historyList = [];
 var favorites = [];
 var liteMode = false;
 
-/* Load saved data */
 try {
-    historyList = JSON.parse(
-        localStorage.getItem("nokia_history") || "[]"
-    );
+    historyList = JSON.parse(localStorage.getItem("nokia_history") || "[]");
     if (!Array.isArray(historyList)) historyList = [];
 } catch (e) {
     historyList = [];
 }
 
 try {
-    favorites = JSON.parse(
-        localStorage.getItem("nokia_favorites") || "[]"
-    );
+    favorites = JSON.parse(localStorage.getItem("nokia_favorites") || "[]");
     if (!Array.isArray(favorites)) favorites = [];
 } catch (e) {
     favorites = [];
@@ -363,7 +265,6 @@ try {
     liteMode = false;
 }
 
-/* Search */
 function openSearch() {
     var input = document.getElementById("search");
     var text = input.value.replace(/^\s+|\s+$/g, "");
@@ -378,11 +279,7 @@ function openSearch() {
 
     if (isWebsite) {
         var url = text;
-
-        if (url.indexOf("://") === -1) {
-            url = "https://" + url;
-        }
-
+        if (url.indexOf("://") === -1) url = "https://" + url;
         window.location.href = url;
     } else {
         window.location.href =
@@ -397,23 +294,17 @@ function searchKey(event) {
     }
 }
 
-/* History */
 function addHistory(text) {
     var newList = [text];
 
     for (var i = 0; i < historyList.length; i++) {
-        if (historyList[i] !== text) {
-            newList.push(historyList[i]);
-        }
+        if (historyList[i] !== text) newList.push(historyList[i]);
     }
 
     historyList = newList.slice(0, 5);
 
     try {
-        localStorage.setItem(
-            "nokia_history",
-            JSON.stringify(historyList)
-        );
+        localStorage.setItem("nokia_history", JSON.stringify(historyList));
     } catch (e) {}
 
     showHistory();
@@ -439,15 +330,10 @@ function showHistory() {
 
 function clearHistory() {
     historyList = [];
-
-    try {
-        localStorage.removeItem("nokia_history");
-    } catch (e) {}
-
+    try { localStorage.removeItem("nokia_history"); } catch (e) {}
     showHistory();
 }
 
-/* Favorites */
 function addFavorite() {
     var text = document.getElementById("search")
         .value.replace(/^\s+|\s+$/g, "");
@@ -458,10 +344,7 @@ function addFavorite() {
     favorites = favorites.slice(0, 5);
 
     try {
-        localStorage.setItem(
-            "nokia_favorites",
-            JSON.stringify(favorites)
-        );
+        localStorage.setItem("nokia_favorites", JSON.stringify(favorites));
     } catch (e) {}
 
     showFavorites();
@@ -487,11 +370,7 @@ function showFavorites() {
 
 function clearFavorites() {
     favorites = [];
-
-    try {
-        localStorage.removeItem("nokia_favorites");
-    } catch (e) {}
-
+    try { localStorage.removeItem("nokia_favorites"); } catch (e) {}
     showFavorites();
 }
 
@@ -508,7 +387,6 @@ function createItem(text, box, isFavorite) {
     box.appendChild(item);
 }
 
-/* Lite Mode */
 function applyLite() {
     var button = document.getElementById("liteButton");
 
@@ -533,10 +411,8 @@ function toggleLite() {
     applyLite();
 }
 
-/* Clock */
 function updateClock() {
     var now = new Date();
-
     var h = String(now.getHours()).padStart(2, "0");
     var m = String(now.getMinutes()).padStart(2, "0");
     var s = String(now.getSeconds()).padStart(2, "0");
@@ -545,7 +421,6 @@ function updateClock() {
         h + ":" + m + ":" + s;
 }
 
-/* Start */
 updateClock();
 setInterval(updateClock, 1000);
 showHistory();
