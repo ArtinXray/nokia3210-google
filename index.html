@@ -1,654 +1,402 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#ffffff">
 <title>Nokia Browser</title>
-
 <style>
 :root {
-    color-scheme: light;
-    --bg: #fff;
-    --text: #202124;
-    --muted: #777;
-    --border: #dadce0;
-    --surface: #fff;
-    --hover: #f1f3f4;
-    --accent: #4285f4;
-    --danger: #d93025;
+  --bg:#f8fafd;--card:#fff;--text:#202124;
+  --muted:#5f6368;--border:#dadce0;--blue:#4285f4;
+  --focus:#d2e3fc;
 }
-
-body.dark {
-    color-scheme: dark;
-    --bg: #171717;
-    --text: #f1f3f4;
-    --muted: #b0b0b0;
-    --border: #505257;
-    --surface: #242528;
-    --hover: #333539;
-    --accent: #8ab4f8;
-    --danger: #ff8a80;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    min-height: 100%;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-    transition: background .2s, color .2s;
-}
-
-button, input {
-    font: inherit;
-}
-
-button {
-    color: inherit;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.topbar {
-    height: 52px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.icon-button {
-    width: 40px;
-    height: 40px;
-    border: 0;
-    border-radius: 50%;
-    background: transparent;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-.icon-button:active {
-    background: var(--hover);
-}
-
-main {
-    width: 100%;
-    padding: 0 14px 30px;
-}
-
-.logo {
-    text-align: center;
-    margin: 60px 0 27px;
-    user-select: none;
-}
-
-.logo-nokia {
-    color: #4285f4;
-    font-size: clamp(35px, 12vw, 48px);
-    font-weight: bold;
-    letter-spacing: 1px;
-    line-height: 1.1;
-}
-
-.logo-browser {
-    font-size: 27px;
-    font-weight: 500;
-    margin-top: 4px;
-    line-height: 1.2;
-}
-
-.red { color: #ea4335; }
-.yellow { color: #fbbc05; }
-.green { color: #34a853; }
-.blue { color: #4285f4; }
-
-.search-box {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 340px;
-    height: 45px;
-    margin: 0 auto;
-    padding: 0 10px 0 15px;
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    background: var(--surface);
-}
-
-.search-box:focus-within {
-    border-color: var(--accent);
-}
-
-.search-box input {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-    padding: 0 4px;
-    border: 0;
-    outline: none;
-    background: transparent;
-    color: var(--text);
-    font-size: 14px;
-}
-
-.search-box input::placeholder {
-    color: var(--muted);
-    opacity: 1;
-}
-
-.search-submit {
-    flex: 0 0 30px;
-    width: 30px;
-    height: 36px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--text);
-    font-size: 29px;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.panel {
-    display: none;
-    width: 100%;
-    max-width: 340px;
-    margin: 18px auto 0;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--surface);
-}
-
-.panel.show {
-    display: block;
-}
-
-.panel-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 43px;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.menu-item {
-    display: block;
-    width: 100%;
-    min-height: 43px;
-    padding: 11px 13px;
-    border: 0;
-    border-bottom: 1px solid var(--border);
-    background: transparent;
-    text-align: left;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.menu-item:last-child {
-    border-bottom: 0;
-}
-
-.menu-item:active,
-.action-button:active,
-.text-button:active {
-    background: var(--hover);
-}
-
-.entry {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    min-height: 43px;
-    padding: 7px 9px 7px 12px;
-    border-bottom: 1px solid var(--border);
-}
-
-.entry:last-child {
-    border-bottom: 0;
-}
-
-.entry-name {
-    flex: 1;
-    min-width: 0;
-    overflow-wrap: anywhere;
-    font-size: 13px;
-    line-height: 1.4;
-    cursor: pointer;
-}
-
-.entry-name:active {
-    color: var(--accent);
-}
-
-.action-button {
-    flex-shrink: 0;
-    min-width: 30px;
-    min-height: 30px;
-    padding: 3px 6px;
-    border: 0;
-    border-radius: 6px;
-    background: transparent;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.delete-button {
-    color: var(--danger);
-}
-
-.empty {
-    padding: 17px 10px;
-    color: var(--muted);
-    text-align: center;
-    font-size: 13px;
-}
-
-.panel-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px 10px;
-    border-top: 1px solid var(--border);
-}
-
-.text-button {
-    padding: 7px 9px;
-    border: 0;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--accent);
-    font-size: 13px;
-    cursor: pointer;
-}
-
-@media (max-height: 500px) {
-    .logo {
-        margin-top: 20px;
-        margin-bottom: 18px;
-    }
-}
-
-@media (max-width: 250px) {
-    main {
-        padding-right: 9px;
-        padding-left: 9px;
-    }
-
-    .logo-browser {
-        font-size: 24px;
-    }
-
-    .search-box {
-        padding-left: 9px;
-        padding-right: 6px;
-    }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:14px}
+button,input{font:inherit}
+button{cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible,.selected{outline:2px solid var(--blue)!important;outline-offset:1px}
+header{min-height:36px;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--card)}
+.brand-small{font-size:12px;font-weight:bold;color:var(--blue)}
+.top-btn{border:0;background:transparent;padding:4px 8px;font-size:18px;min-width:30px}
+main{width:100%;max-width:430px;margin:auto;padding:8px 9px 14px}
+.logo{text-align:center;margin:8px 0 12px}
+.logo-n{font-size:36px;line-height:40px;font-weight:900;letter-spacing:-2px;color:#4285f4}
+.logo-title{font-size:20px;font-weight:bold;margin-top:2px}
+.nokia{color:#1769aa}
+.clock{margin-top:5px;font-size:12px;color:var(--muted)}
+.searchbox{display:flex;align-items:center;min-height:38px;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:0 10px;gap:7px}
+.searchbox:focus-within{border-color:var(--blue)}
+.glass{color:var(--blue);font-size:19px}
+#query{width:100%;min-width:0;border:0;outline:none;background:transparent;color:var(--text);direction:auto;font-size:13px}
+.primary{width:100%;margin-top:8px;min-height:34px;border:1px solid #d2e3fc;border-radius:7px;background:#e8f0fe;color:#174ea6;font-weight:bold}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0 13px}
+.action{min-height:31px;border:1px solid var(--border);border-radius:7px;background:var(--card);font-size:12px;padding:5px 3px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:5px;margin:11px 1px 7px;font-size:13px;font-weight:bold}
+.section-title button{border:0;background:transparent;color:var(--blue);font-size:11px;padding:4px}
+.shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.shortcut{min-width:0;min-height:37px;display:flex;align-items:center;gap:7px;padding:5px 6px;border:1px solid var(--border);border-radius:8px;background:var(--card);text-align:left}
+.shortcut-icon{flex:0 0 25px;width:25px;height:25px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#e8f0fe;color:#1967d2;font-size:13px;font-weight:bold}
+.shortcut-label{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12px}
+.panel{margin-top:12px;border:1px solid var(--border);border-radius:9px;background:var(--card);padding:8px}
+.panel[hidden],#home[hidden]{display:none!important}
+.field{width:100%;min-height:35px;margin:5px 0;padding:7px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);font-size:12px}
+.help{font-size:11px;line-height:1.5;color:var(--muted);margin:7px 1px}
+.status{font-size:12px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
+.history-item{display:flex;align-items:center;gap:5px;padding:6px 1px;border-bottom:1px solid #eceff1}
+.history-open{flex:1;min-width:0;text-align:left;border:0;background:transparent;padding:5px 3px;overflow-wrap:anywhere}
+.history-open span{display:block;font-size:12px}
+.history-open small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+.delete{border:0;background:transparent;color:#d93025;padding:7px;font-size:17px}
+.empty{color:var(--muted);text-align:center;padding:12px 3px;font-size:12px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.menu button{min-height:32px;border:1px solid var(--border);border-radius:6px;background:var(--card);font-size:11px;padding:5px}
+.footer{text-align:center;color:var(--muted);font-size:10px;margin:13px 0 4px}
+body.dark{--bg:#202124;--card:#292a2d;--text:#e8eaed;--muted:#bdc1c6;--border:#5f6368;--focus:#394b63}
+body.dark .primary{background:#303f54;color:#d2e3fc}
+body.dark .shortcut-icon{background:#303f54;color:#a8c7fa}
+body.dark .history-item{border-color:#414347}
+@media(max-height:360px){
+ main{padding-top:4px}
+ .logo{margin:2px 0 6px}
+ .logo-n{font-size:27px;line-height:29px}
+ .logo-title{font-size:16px}
+ .clock{margin-top:2px}
+ .actions{margin-bottom:7px}
+ .section-title{margin-top:7px}
 }
 </style>
 </head>
-
 <body>
-
-<header class="topbar">
-    <button class="icon-button" id="themeButton"
-        type="button" aria-label="Switch theme">☾</button>
-
-    <button class="icon-button" id="menuButton"
-        type="button" aria-label="Open menu">⋮</button>
+<header>
+  <button class="top-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
+  <span class="brand-small">NOKIA BROWSER</span>
+  <button class="top-btn" id="menuBtn" aria-label="Open menu">⋮</button>
 </header>
 
 <main>
-    <div class="logo" aria-label="Nokia Browser">
-        <div class="logo-nokia">NOKIA</div>
-        <div class="logo-browser"><span class="blue">B</span><span class="red">r</span><span class="yellow">o</span><span class="blue">w</span><span class="green">s</span><span class="red">e</span><span class="yellow">r</span></div>
+<section id="home">
+  <div class="logo">
+    <div class="logo-n">N</div>
+    <div class="logo-title"><span class="nokia">Nokia</span> Browser</div>
+    <div class="clock" id="clock">Welcome</div>
+  </div>
+
+  <form id="searchForm">
+    <div class="searchbox">
+      <span class="glass">⌕</span>
+      <input id="query" type="text" placeholder="Search Google or enter URL" autocomplete="off" enterkeyhint="go">
     </div>
+    <button class="primary" type="submit">Google Search</button>
+  </form>
 
-    <form class="search-box" id="searchForm">
-        <input id="searchInput" type="text"
-            placeholder="Search Google..."
-            autocomplete="off"
-            autocapitalize="none"
-            spellcheck="false"
-            aria-label="Search Google or enter a website">
-        <button class="search-submit" type="submit"
-            aria-label="Search">⌕</button>
-    </form>
+  <div class="actions">
+    <button class="action" id="googleBtn">🌐 Google</button>
+    <button class="action" id="downloadsBtn">📥 Downloads</button>
+    <button class="action" id="editBtn">✎ Edit Shortcuts</button>
+  </div>
 
-    <section class="panel" id="menuPanel" aria-label="Menu">
-        <button class="menu-item" id="historyMenuButton" type="button">History</button>
-        <button class="menu-item" id="favoritesMenuButton" type="button">Favorites</button>
-        <button class="menu-item" id="addFavoriteButton" type="button">＋ Add to Favorites</button>
-    </section>
+  <div class="section-title"><span>Quick Links</span><span style="font-size:10px;color:var(--muted)">10 sites</span></div>
+  <div class="shortcuts" id="shortcuts"></div>
+</section>
 
-    <section class="panel" id="historyPanel" aria-label="History">
-        <div class="panel-heading">
-            <span>History</span>
-            <button class="text-button" id="closeHistoryButton" type="button">Close</button>
-        </div>
-        <div id="historyList"></div>
-        <div class="panel-footer">
-            <button class="text-button" id="clearHistoryButton" type="button">Clear All</button>
-        </div>
-    </section>
+<section class="panel" id="downloadsPanel" hidden>
+  <div class="section-title"><span>📥 Downloads</span><button id="downloadsHomeBtn">Home</button></div>
+  <p class="help">Paste a direct file URL below. The link should point to the file itself, not a Google search results page.</p>
+  <form id="downloadForm">
+    <input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off">
+    <input class="field" id="fileName" type="text" placeholder="Optional filename, e.g. document.pdf">
+    <button class="primary" type="submit">Download File</button>
+  </form>
+  <button class="action" id="openFileBtn" style="width:100%;margin-top:7px">Open File Link</button>
+  <div class="status" id="downloadStatus" role="status"></div>
+  <p class="help">If nothing happens, the Cloud Phone browser may not support downloads. This page cannot override that restriction.</p>
+</section>
 
-    <section class="panel" id="favoritesPanel" aria-label="Favorites">
-        <div class="panel-heading">
-            <span>Favorites</span>
-            <button class="text-button" id="closeFavoritesButton" type="button">Close</button>
-        </div>
-        <div id="favoritesList"></div>
-    </section>
+<section class="panel" id="historyPanel" hidden>
+  <div class="section-title"><span>🕘 Search History</span><button id="clearHistory">Clear All</button></div>
+  <div id="historyList"></div>
+  <div class="menu"><button id="historyHomeBtn">Home</button></div>
+</section>
+
+<section class="panel" id="menuPanel" hidden>
+  <div class="section-title">Menu</div>
+  <div class="menu">
+    <button id="homeBtn">Home</button>
+    <button id="historyBtn">Search History</button>
+    <button id="downloadsMenuBtn">Downloads</button>
+    <button id="editMenuBtn">Edit Shortcuts</button>
+    <button id="clearMenuBtn">Clear History</button>
+  </div>
+</section>
+<div class="footer">Nokia Browser · Made for small screens</div>
 </main>
 
 <script>
-(function () {
-    "use strict";
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
 
-    const HISTORY_KEY = "nokia_history";
-    const FAVORITES_KEY = "nokia_favorites";
-    const THEME_KEY = "nokia_lite";
+const defaultSites=[
+{name:"Google",url:"https://www.google.com",icon:"G"},
+{name:"YouTube",url:"https://m.youtube.com",icon:"▶"},
+{name:"Gmail",url:"https://mail.google.com",icon:"M"},
+{name:"Wikipedia",url:"https://www.wikipedia.org",icon:"W"},
+{name:"Nokia",url:"https://www.nokia.com",icon:"N"},
+{name:"Translate",url:"https://translate.google.com",icon:"文"},
+{name:"Google Maps",url:"https://maps.google.com",icon:"⌖"},
+{name:"DuckDuckGo",url:"https://duckduckgo.com",icon:"D"},
+{name:"GitHub",url:"https://github.com",icon:"⌘"},
+{name:"Google News",url:"https://news.google.com",icon:"▤"}
+];
 
-    // Maximum saved items in each list
-    const MAX_HISTORY = 10;
-    const MAX_FAVORITES = 10;
+function readStore(key,fallback){
+ try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}
+ catch(e){return fallback}
+}
+function saveStore(key,value){
+ try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}
+}
+let sites=readStore("googleHubFavorites",defaultSites);
+let history=readStore("googleHubHistory",[]);
+let dark=readStore("nokiaBrowserDark",false);
+if(!Array.isArray(sites))sites=defaultSites.slice();
+if(!Array.isArray(history))history=[];
+sites=sites.slice(0,10);
+while(sites.length<10)sites.push({...defaultSites[sites.length]});
 
-    const $ = id => document.getElementById(id);
+function resolveInput(raw){
+ const value=raw.trim();
+ if(!value)return null;
+ if(/\s/.test(value)||!value.includes(".")){
+  return "https://www.google.com/search?q="+encodeURIComponent(value);
+ }
+ let url=value;
+ if(!/^https?:\/\//i.test(url))url="https://"+url;
+ try{
+  const parsed=new URL(url);
+  if(!["https:","http:"].includes(parsed.protocol))return null;
+  return parsed.href;
+ }catch(e){
+  return "https://www.google.com/search?q="+encodeURIComponent(value);
+ }
+}
 
-    const input = $("searchInput");
-    const menuPanel = $("menuPanel");
-    const historyPanel = $("historyPanel");
-    const favoritesPanel = $("favoritesPanel");
+function safeHttpUrl(raw){
+ try{
+  const u=new URL(raw.trim());
+  if(u.protocol==="https:"||u.protocol==="http:")return u.href;
+ }catch(e){}
+ return null;
+}
 
-    function readList(key) {
-        try {
-            const value = JSON.parse(localStorage.getItem(key) || "[]");
-            return Array.isArray(value)
-                ? value.filter(item => typeof item === "string")
-                : [];
-        } catch (error) {
-            return [];
-        }
-    }
+function openUrl(url){
+ const safe=safeHttpUrl(url);
+ if(!safe){alert("Please enter a valid HTTP or HTTPS address.");return}
+ window.location.href=safe;
+}
 
-    function writeList(key, items) {
-        try {
-            localStorage.setItem(key, JSON.stringify(items));
-            return true;
-        } catch (error) {
-            alert("Unable to save data in this browser.");
-            return false;
-        }
-    }
+function addHistory(title,url){
+ history=history.filter(item=>item.url!==url);
+ history.unshift({title,url});
+ history=history.slice(0,10);
+ saveStore("googleHubHistory",history);
+ renderHistory();
+}
 
-    function hidePanels() {
-        menuPanel.classList.remove("show");
-        historyPanel.classList.remove("show");
-        favoritesPanel.classList.remove("show");
-    }
+function go(raw){
+ const value=raw.trim();
+ if(!value){openUrl("https://www.google.com");return}
+ const url=resolveInput(value);
+ if(!url){alert("Please enter a valid search or website address.");return}
+ addHistory(value,url);
+ openUrl(url);
+}
 
-    function toggleMenu() {
-        const shouldOpen = !menuPanel.classList.contains("show");
-        hidePanels();
+function showPanel(name){
+ $("home").hidden=name!=="home";
+ $("historyPanel").hidden=name!=="history";
+ $("menuPanel").hidden=name!=="menu";
+ $("downloadsPanel").hidden=name!=="downloads";
+ if(name==="history")renderHistory();
+ if(name==="downloads")$("fileUrl").focus();
+}
 
-        if (shouldOpen) {
-            menuPanel.classList.add("show");
-        }
-    }
+function renderSites(){
+ const box=$("shortcuts");
+ box.textContent="";
+ sites.slice(0,10).forEach((site,index)=>{
+  const button=document.createElement("button");
+  button.className="shortcut";
+  button.type="button";
+  const icon=document.createElement("span");
+  icon.className="shortcut-icon";
+  icon.textContent=site.icon||site.name.slice(0,1);
+  const label=document.createElement("span");
+  label.className="shortcut-label";
+  label.textContent=site.name;
+  button.append(icon,label);
+  button.title=site.url;
+  button.addEventListener("click",()=>openUrl(site.url));
+  box.appendChild(button);
+ });
+}
 
-    function normalizeDestination(raw) {
-        const query = raw.trim();
+function renderHistory(){
+ const box=$("historyList");
+ box.textContent="";
+ if(!history.length){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="Your history is empty.";
+  box.appendChild(empty);
+  return;
+ }
+ history.forEach((item,index)=>{
+  const row=document.createElement("div");
+  row.className="history-item";
+  const open=document.createElement("button");
+  open.className="history-open";
+  open.type="button";
+  const title=document.createElement("span");
+  title.textContent=item.title;
+  const url=document.createElement("small");
+  url.textContent=item.url;
+  open.append(title,url);
+  open.addEventListener("click",()=>openUrl(item.url));
+  const del=document.createElement("button");
+  del.className="delete";
+  del.type="button";
+  del.textContent="×";
+  del.setAttribute("aria-label","Delete history item");
+  del.addEventListener("click",()=>{
+   history.splice(index,1);
+   saveStore("googleHubHistory",history);
+   renderHistory();
+  });
+  row.append(open,del);
+  box.appendChild(row);
+ });
+}
 
-        if (!query) return null;
+function editSites(){
+ for(let i=0;i<10;i++){
+  const old=sites[i];
+  const name=prompt("Shortcut "+(i+1)+" of 10 — enter a name:",old.name);
+  if(name===null)break;
+  const url=prompt("Enter website URL for "+(name.trim()||old.name)+":",old.url);
+  if(url===null)break;
+  const fixedUrl=safeHttpUrl(/^https?:\/\//i.test(url.trim())?url.trim():"https://"+url.trim());
+  if(!fixedUrl){
+   alert("Invalid URL. This shortcut was not changed.");
+   continue;
+  }
+  sites[i]={name:name.trim()||old.name,url:fixedUrl,icon:(name.trim()||old.name).slice(0,1).toUpperCase()};
+ }
+ saveStore("googleHubFavorites",sites);
+ renderSites();
+}
 
-        if (/^https?:\/\//i.test(query)) {
-            try {
-                const url = new URL(query);
-                if (url.protocol === "http:" || url.protocol === "https:") {
-                    return url.href;
-                }
-            } catch (error) {
-                // Search invalid URL text on Google.
-            }
-        }
+function clearHistory(){
+ if(!history.length){alert("Your history is already empty.");return}
+ if(confirm("Clear all search history?")){
+  history=[];
+  saveStore("googleHubHistory",history);
+  renderHistory();
+ }
+}
 
-        const domainPattern =
-            /^(localhost|(?:[\w-]+\.)+[a-z]{2,})(:\d+)?(?:\/[^\s]*)?$/i;
+/* Download helper: the browser must support file downloads. */
+function tryDownload(){
+ const url=safeHttpUrl($("fileUrl").value);
+ const status=$("downloadStatus");
+ if(!url){
+  status.textContent="Enter a valid direct HTTP or HTTPS file URL.";
+  return;
+ }
+ const filename=$("fileName").value.trim();
+ status.textContent="Sending the download request to the browser…";
 
-        if (!/\s/.test(query) && domainPattern.test(query)) {
-            return "https://" + query;
-        }
+ const link=document.createElement("a");
+ link.href=url;
+ if(filename)link.download=filename;
+ link.rel="noopener";
+ link.style.display="none";
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
 
-        return "https://www.google.com/search?q=" +
-            encodeURIComponent(query);
-    }
+ status.textContent="Request sent. If no download starts, this Cloud Phone browser may block downloads or the file server may not allow them. Try Open File Link.";
+}
 
-    function addHistory(url) {
-        let history = readList(HISTORY_KEY);
+$("searchForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ go($("query").value);
+});
+$("googleBtn").addEventListener("click",()=>go($("query").value||"https://www.google.com"));
+$("editBtn").addEventListener("click",editSites);
+$("editMenuBtn").addEventListener("click",editSites);
+$("themeBtn").addEventListener("click",()=>{
+ dark=!dark;
+ document.body.classList.toggle("dark",dark);
+ $("themeBtn").textContent=dark?"☀":"◐";
+ saveStore("nokiaBrowserDark",dark);
+});
+$("menuBtn").addEventListener("click",()=>showPanel($("menuPanel").hidden?"menu":"home"));
+$("homeBtn").addEventListener("click",()=>showPanel("home"));
+$("historyHomeBtn").addEventListener("click",()=>showPanel("home"));
+$("downloadsHomeBtn").addEventListener("click",()=>showPanel("home"));
+$("historyBtn").addEventListener("click",()=>showPanel("history"));
+$("downloadsBtn").addEventListener("click",()=>showPanel("downloads"));
+$("downloadsMenuBtn").addEventListener("click",()=>showPanel("downloads"));
+$("clearHistory").addEventListener("click",clearHistory);
+$("clearMenuBtn").addEventListener("click",clearHistory);
 
-        history = history.filter(item => item !== url);
-        history.unshift(url);
+$("downloadForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ tryDownload();
+});
+$("openFileBtn").addEventListener("click",()=>{
+ const url=safeHttpUrl($("fileUrl").value);
+ if(!url){
+  $("downloadStatus").textContent="Enter a valid HTTP or HTTPS file URL.";
+  return;
+ }
+ openUrl(url);
+});
 
-        writeList(HISTORY_KEY, history.slice(0, MAX_HISTORY));
-    }
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){showPanel("home");return}
+ if(e.key==="Backspace"&&document.activeElement!==$("query")&&
+ !["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){
+  showPanel("home");return;
+ }
+ if(e.key==="/"&&document.activeElement!==$("query")){
+  e.preventDefault();$("query").focus();return;
+ }
+ if(!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key))return;
+ if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;
+ const elements=Array.from(document.querySelectorAll("button:not([disabled]),input:not([disabled])"))
+ .filter(el=>el.offsetWidth>0&&el.offsetHeight>0&&!el.closest("[hidden]"));
+ if(!elements.length)return;
+ const current=elements.indexOf(document.activeElement);
+ const forward=e.key==="ArrowRight"||e.key==="ArrowDown";
+ const next=forward?(current<0?0:(current+1)%elements.length):
+ (current<0?elements.length-1:(current-1+elements.length)%elements.length);
+ e.preventDefault();elements[next].focus();
+});
 
-    function navigateTo(url) {
-        if (!url) return;
-        addHistory(url);
-        window.location.href = url;
-    }
-
-    function searchGoogle(event) {
-        event.preventDefault();
-
-        const destination = normalizeDestination(input.value);
-
-        if (!destination) {
-            input.focus();
-            return;
-        }
-
-        navigateTo(destination);
-    }
-
-    function createEntry(url, key) {
-        const row = document.createElement("div");
-        row.className = "entry";
-
-        const name = document.createElement("div");
-        name.className = "entry-name";
-        name.textContent = url;
-        name.title = url;
-        name.tabIndex = 0;
-        name.setAttribute("role", "link");
-
-        function openEntry() {
-            navigateTo(url);
-        }
-
-        name.addEventListener("click", openEntry);
-        name.addEventListener("keydown", event => {
-            if (event.key === "Enter") openEntry();
-        });
-
-        const remove = document.createElement("button");
-        remove.className = "action-button delete-button";
-        remove.type = "button";
-        remove.textContent = "×";
-        remove.title = "Delete";
-        remove.setAttribute("aria-label", "Delete " + url);
-
-        remove.addEventListener("click", () => {
-            const items = readList(key);
-            const index = items.indexOf(url);
-
-            if (index !== -1) {
-                items.splice(index, 1);
-                writeList(key, items);
-            }
-
-            if (key === HISTORY_KEY) {
-                renderHistory();
-            } else {
-                renderFavorites();
-            }
-        });
-
-        row.append(name, remove);
-        return row;
-    }
-
-    function renderList(key, containerId, emptyText) {
-        const container = $(containerId);
-        const items = readList(key);
-
-        container.replaceChildren();
-
-        if (items.length === 0) {
-            const empty = document.createElement("div");
-            empty.className = "empty";
-            empty.textContent = emptyText;
-            container.appendChild(empty);
-            return;
-        }
-
-        items.forEach(url => {
-            container.appendChild(createEntry(url, key));
-        });
-    }
-
-    function renderHistory() {
-        renderList(HISTORY_KEY, "historyList", "No history yet.");
-    }
-
-    function renderFavorites() {
-        renderList(FAVORITES_KEY, "favoritesList", "No favorites yet.");
-    }
-
-    function showHistory() {
-        hidePanels();
-        renderHistory();
-        historyPanel.classList.add("show");
-    }
-
-    function showFavorites() {
-        hidePanels();
-        renderFavorites();
-        favoritesPanel.classList.add("show");
-    }
-
-    function clearHistory() {
-        if (readList(HISTORY_KEY).length === 0) {
-            renderHistory();
-            return;
-        }
-
-        if (window.confirm("Clear all history?")) {
-            writeList(HISTORY_KEY, []);
-            renderHistory();
-        }
-    }
-
-    function addFavorite() {
-        const destination = normalizeDestination(input.value);
-
-        if (!destination) {
-            alert("Enter a website or search term first.");
-            input.focus();
-            return;
-        }
-
-        const favorites = readList(FAVORITES_KEY);
-
-        if (favorites.includes(destination)) {
-            alert("This item is already in Favorites.");
-            return;
-        }
-
-        if (favorites.length >= MAX_FAVORITES) {
-            alert("Favorites is full. Delete an item first.");
-            return;
-        }
-
-        favorites.unshift(destination);
-
-        if (writeList(FAVORITES_KEY, favorites)) {
-            showFavorites();
-        }
-    }
-
-    function applyTheme(theme) {
-        const dark = theme === "dark";
-
-        document.body.classList.toggle("dark", dark);
-        $("themeButton").textContent = dark ? "☀" : "☾";
-        $("themeButton").setAttribute(
-            "aria-label",
-            dark ? "Switch to light theme" : "Switch to dark theme"
-        );
-
-        document.querySelector('meta[name="theme-color"]')
-            .setAttribute("content", dark ? "#171717" : "#ffffff");
-    }
-
-    function toggleTheme() {
-        const theme = document.body.classList.contains("dark")
-            ? "light"
-            : "dark";
-
-        try {
-            localStorage.setItem(THEME_KEY, theme);
-        } catch (error) {
-            // Theme still changes for the current page.
-        }
-
-        applyTheme(theme);
-    }
-
-    function loadTheme() {
-        let theme = "light";
-
-        try {
-            theme = localStorage.getItem(THEME_KEY) || "light";
-        } catch (error) {
-            // Default to light theme.
-        }
-
-        applyTheme(theme);
-    }
-
-    $("searchForm").addEventListener("submit", searchGoogle);
-    $("themeButton").addEventListener("click", toggleTheme);
-    $("menuButton").addEventListener("click", toggleMenu);
-
-    $("historyMenuButton").addEventListener("click", showHistory);
-    $("favoritesMenuButton").addEventListener("click", showFavorites);
-    $("addFavoriteButton").addEventListener("click", addFavorite);
-
-    $("closeHistoryButton").addEventListener("click", hidePanels);
-    $("closeFavoritesButton").addEventListener("click", hidePanels);
-    $("clearHistoryButton").addEventListener("click", clearHistory);
-
-    input.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            input.value = "";
-            hidePanels();
-        }
-    });
-
-    loadTheme();
+function updateClock(){
+ $("clock").textContent=new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false});
+}
+document.body.classList.toggle("dark",dark);
+$("themeBtn").textContent=dark?"☀":"◐";
+renderSites();
+renderHistory();
+updateClock();
+setInterval(updateClock,30000);
 })();
 </script>
-
 </body>
 </html>
