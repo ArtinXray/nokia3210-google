@@ -7,20 +7,19 @@
 <title>Nokia Browser</title>
 <style>
 :root{--bg:#f8fafd;--card:#fff;--text:#202124;--muted:#5f6368;--border:#dadce0;--blue:#4285f4}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+button:focus,input:focus{outline:2px solid var(--blue);outline-offset:1px}
 header{min-height:36px;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--card)}
 .brand-small{font-size:12px;font-weight:bold;color:var(--blue)}.top-btn{border:0;background:transparent;padding:4px 8px;font-size:18px;min-width:30px}
 main{width:100%;max-width:430px;margin:auto;padding:8px 9px 14px}.logo{text-align:center;margin:8px 0 12px}
-.logo-n{font-size:36px;line-height:40px;font-weight:900;letter-spacing:-2px;color:#4285f4}.logo-title{font-size:20px;font-weight:bold;margin-top:2px}
-.nokia{color:#1769aa}.clock{margin-top:5px;font-size:12px;color:var(--muted)}
+.logo-n{font-size:36px;line-height:40px;font-weight:900;letter-spacing:-2px;color:#4285f4}.logo-title{font-size:20px;font-weight:bold;margin-top:2px}.nokia{color:#1769aa}
+.clock{margin-top:5px;font-size:12px;color:var(--muted)}
 .searchbox{display:flex;align-items:center;min-height:38px;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:0 10px;gap:7px}
-.searchbox:focus-within{border-color:var(--blue)}.glass{color:var(--blue);font-size:19px}
-#query{width:100%;min-width:0;border:0;outline:none;background:transparent;color:var(--text);direction:auto;font-size:13px}
+.glass{color:var(--blue);font-size:19px}#query{width:100%;min-width:0;border:0;outline:none;background:transparent;color:var(--text);direction:auto;font-size:13px}
 .primary{width:100%;margin-top:8px;min-height:34px;border:1px solid #d2e3fc;border-radius:7px;background:#e8f0fe;color:#174ea6;font-weight:bold}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0 13px}
-.action{min-height:31px;border:1px solid var(--border);border-radius:7px;background:var(--card);font-size:12px;padding:5px 3px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0 13px}.action{min-height:34px;border:1px solid var(--border);border-radius:7px;background:var(--card);font-size:12px;padding:5px 3px}
 .section-title{display:flex;justify-content:space-between;align-items:center;gap:5px;margin:11px 1px 7px;font-size:13px;font-weight:bold}
 .section-title button{border:0;background:transparent;color:var(--blue);font-size:11px;padding:4px}
 .shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
@@ -28,118 +27,111 @@ main{width:100%;max-width:430px;margin:auto;padding:8px 9px 14px}.logo{text-alig
 .shortcut-icon{flex:0 0 25px;width:25px;height:25px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#e8f0fe;color:#1967d2;font-size:13px;font-weight:bold}
 .shortcut-label{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12px}
 .panel{margin-top:12px;border:1px solid var(--border);border-radius:9px;background:var(--card);padding:8px}
-.panel[hidden],#home[hidden]{display:none!important}.field{width:100%;min-height:35px;margin:5px 0;padding:7px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);font-size:12px}
+.panel[hidden],#home[hidden]{display:none!important}
+.field{width:100%;min-height:35px;margin:5px 0;padding:7px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);font-size:12px}
 .help{font-size:11px;line-height:1.5;color:var(--muted);margin:7px 1px}.status{font-size:12px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
-.history-item,.clip-item{display:flex;align-items:center;gap:5px;padding:6px 1px;border-bottom:1px solid #eceff1}
-.history-open,.clip-url{flex:1;min-width:0;text-align:left;border:0;background:transparent;padding:5px 3px;overflow-wrap:anywhere}
-.history-open span,.clip-url span{display:block;font-size:12px}.history-open small,.clip-url small{display:block;margin-top:3px;color:var(--muted);font-size:10px;overflow-wrap:anywhere}
-.delete{border:0;background:transparent;color:#d93025;padding:7px;font-size:17px}
-.small-btn{border:1px solid var(--border);background:var(--card);border-radius:6px;padding:6px 7px;font-size:11px}
-.empty{color:var(--muted);text-align:center;padding:12px 3px;font-size:12px}
+.history-item{display:flex;align-items:center;gap:5px;padding:6px 1px;border-bottom:1px solid #eceff1}
+.history-open{flex:1;min-width:0;text-align:left;border:0;background:transparent;padding:5px 3px;overflow-wrap:anywhere}
+.history-open span{display:block;font-size:12px}.history-open small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+.delete{border:0;background:transparent;color:#d93025;padding:7px;font-size:17px}.empty{color:var(--muted);text-align:center;padding:12px 3px;font-size:12px}
 .menu{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.menu button{min-height:32px;border:1px solid var(--border);border-radius:6px;background:var(--card);font-size:11px;padding:5px}
 .footer{text-align:center;color:var(--muted);font-size:10px;margin:13px 0 4px}
 body.dark{--bg:#202124;--card:#292a2d;--text:#e8eaed;--muted:#bdc1c6;--border:#5f6368}
-body.dark .primary{background:#303f54;color:#d2e3fc}body.dark .shortcut-icon{background:#303f54;color:#a8c7fa}
-body.dark .history-item,body.dark .clip-item{border-color:#414347}
+body.dark .primary{background:#303f54;color:#d2e3fc}body.dark .shortcut-icon{background:#303f54;color:#a8c7fa}body.dark .history-item{border-color:#414347}
 @media(max-height:360px){main{padding-top:4px}.logo{margin:2px 0 6px}.logo-n{font-size:27px;line-height:29px}.logo-title{font-size:16px}.clock{margin-top:2px}.actions{margin-bottom:7px}.section-title{margin-top:7px}}
 </style>
 </head>
 <body>
 <header>
-<button class="top-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
+<button class="top-btn" id="themeBtn" type="button" aria-label="Toggle theme">◐</button>
 <span class="brand-small">NOKIA BROWSER</span>
-<button class="top-btn" id="menuBtn" aria-label="Open menu">⋮</button>
+<button class="top-btn" id="menuBtn" type="button" aria-label="Open menu">⋮</button>
 </header>
 <main>
 <section id="home">
 <div class="logo"><div class="logo-n">N</div><div class="logo-title"><span class="nokia">Nokia</span> Browser</div><div class="clock" id="clock">Welcome</div></div>
 <form id="searchForm"><div class="searchbox"><span class="glass">⌕</span><input id="query" type="text" placeholder="Search Google or enter URL" autocomplete="off" enterkeyhint="go"></div><button class="primary" type="submit">Google Search</button></form>
 <div class="actions">
-<button class="action" id="googleBtn">🌐 Google</button><button class="action" id="downloadsBtn">📥 Downloads</button>
-<button class="action" id="editBtn">✎ Edit Shortcuts</button><button class="action" id="clipboardBtn">📋 Clipboard</button>
+<button class="action" id="googleBtn" type="button">🌐 Google</button>
+<button class="action" id="downloadsBtn" type="button">📥 Downloads</button>
+<button class="action" id="editBtn" type="button">✎ Edit Shortcuts</button>
+<button class="action" id="historyQuickBtn" type="button">🕘 History</button>
 </div>
 <div class="section-title"><span>Quick Links</span><span style="font-size:10px;color:var(--muted)">10 sites</span></div>
 <div class="shortcuts" id="shortcuts"></div>
 </section>
-
 <section class="panel" id="downloadsPanel" hidden>
-<div class="section-title"><span>📥 Downloads</span><button id="downloadsHomeBtn">Home</button></div>
-<p class="help">Enter a direct file URL. Downloading depends on Cloud Phone and the file server.</p>
+<div class="section-title"><span>📥 Downloads</span><button id="downloadsHomeBtn" type="button">Home</button></div>
+<p class="help">Paste a direct file URL below. This page can try to start a download, but actual saving depends on Cloud Phone and the file server.</p>
 <div class="status" id="supportStatus" role="status">Checking download support...</div>
-<form id="downloadForm"><input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off" required>
+<form id="downloadForm">
+<input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off" required>
 <input class="field" id="fileName" type="text" placeholder="Optional filename, e.g. document.pdf">
-<button class="primary" id="downloadSubmit" type="submit">Try Download</button></form>
-<button class="action" id="openFileBtn" style="width:100%;margin-top:7px">Open File Link</button>
-<button class="action" id="saveToClipboardBtn" style="width:100%;margin-top:7px">Save Link to Clipboard List</button>
+<button class="primary" id="downloadSubmit" type="submit">Try Download</button>
+</form>
+<button class="action" id="openFileBtn" type="button" style="width:100%;margin-top:7px">Open File Link</button>
 <div class="status" id="downloadStatus" role="status"></div>
-<p class="help">The clipboard list stores links inside this web app. It cannot force Cloud Phone to download files if native download support is unavailable.</p>
+<p class="help">If Try Download does not save the file, use Open File Link. Some sites block direct downloads, and this web app cannot override Cloud Phone restrictions.</p>
 </section>
-
-<section class="panel" id="clipboardPanel" hidden>
-<div class="section-title"><span>📋 Clipboard & Saved Links</span><button id="clipboardHomeBtn">Home</button></div>
-<p class="help">Paste a copied link here, or save links for later. Phone clipboard access depends on Cloud Phone permissions.</p>
-<input class="field" id="clipInput" type="url" placeholder="Paste or enter https://..." autocomplete="off">
-<div class="menu">
-<button id="pasteBtn">Paste from Phone</button><button id="saveClipBtn">Save Link</button>
-<button id="copyClipInputBtn">Copy Link Text</button><button id="clearClipsBtn">Clear Saved Links</button>
-</div>
-<div class="status" id="clipStatus" role="status"></div>
-<div class="section-title"><span>Saved Links</span><span id="clipCount" style="font-size:10px;color:var(--muted)">0 / 20</span></div>
-<div id="clipList"></div>
-</section>
-
 <section class="panel" id="historyPanel" hidden>
-<div class="section-title"><span>🕘 Search History</span><button id="clearHistory">Clear All</button></div>
-<div id="historyList"></div><div class="menu"><button id="historyHomeBtn">Home</button></div>
+<div class="section-title"><span>🕘 Search History</span><button id="clearHistory" type="button">Clear All</button></div>
+<div id="historyList"></div><div class="menu"><button id="historyHomeBtn" type="button">Home</button></div>
 </section>
 <section class="panel" id="menuPanel" hidden>
-<div class="section-title">Menu</div>
-<div class="menu">
-<button id="homeBtn">Home</button><button id="historyBtn">Search History</button>
-<button id="downloadsMenuBtn">Downloads</button><button id="clipboardMenuBtn">Clipboard</button>
-<button id="editMenuBtn">Edit Shortcuts</button><button id="clearMenuBtn">Clear History</button>
-</div>
-</section>
+<div class="section-title">Menu</div><div class="menu">
+<button id="homeBtn" type="button">Home</button><button id="historyBtn" type="button">Search History</button>
+<button id="downloadsMenuBtn" type="button">Downloads</button><button id="editMenuBtn" type="button">Edit Shortcuts</button>
+<button id="clearMenuBtn" type="button">Clear History</button>
+</div></section>
 <div class="footer">Nokia Browser · Made for small screens</div>
 </main>
 <script>
 (function(){
 "use strict";
-const $=id=>document.getElementById(id);
+function $(id){return document.getElementById(id);}
 const defaultSites=[
 {name:"Google",url:"https://www.google.com",icon:"G"},{name:"YouTube",url:"https://m.youtube.com",icon:"▶"},
 {name:"Gmail",url:"https://mail.google.com",icon:"M"},{name:"Wikipedia",url:"https://www.wikipedia.org",icon:"W"},
 {name:"Nokia",url:"https://www.nokia.com",icon:"N"},{name:"Translate",url:"https://translate.google.com",icon:"文"},
 {name:"Google Maps",url:"https://maps.google.com",icon:"⌖"},{name:"DuckDuckGo",url:"https://duckduckgo.com",icon:"D"},
-{name:"GitHub",url:"https://github.com",icon:"⌘"},{name:"Google News",url:"https://news.google.com",icon:"▤"}
-];
-function readStore(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){return fallback}}
-function saveStore(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}}
-let sites=readStore("googleHubFavorites",defaultSites),history=readStore("googleHubHistory",[]),clips=readStore("nokiaBrowserClips",[]),dark=readStore("nokiaBrowserDark",false),downloadSupport="checking";
-if(!Array.isArray(sites))sites=defaultSites.slice();if(!Array.isArray(history))history=[];if(!Array.isArray(clips))clips=[];
-sites=sites.slice(0,10);while(sites.length<10)sites.push({...defaultSites[sites.length]});clips=clips.slice(0,20);
-function safeHttpUrl(raw){try{const u=new URL(String(raw).trim());if(u.protocol==="https:"||u.protocol==="http:")return u.href}catch(e){}return null}
-function resolveInput(raw){const value=raw.trim();if(!value)return null;if(/\s/.test(value)||!value.includes("."))return "https://www.google.com/search?q="+encodeURIComponent(value);let url=value;if(!/^https?:\/\//i.test(url))url="https://"+url;try{const p=new URL(url);if(p.protocol==="https:"||p.protocol==="http:")return p.href}catch(e){}return "https://www.google.com/search?q="+encodeURIComponent(value)}
-function openUrl(url){const safe=safeHttpUrl(url);if(!safe){alert("Please enter a valid HTTP or HTTPS address.");return}window.location.href=safe}
-function addHistory(title,url){history=history.filter(x=>x.url!==url);history.unshift({title,url});history=history.slice(0,10);saveStore("googleHubHistory",history);renderHistory()}
-function go(raw){const value=raw.trim();if(!value){openUrl("https://www.google.com");return}const url=resolveInput(value);if(!url){alert("Please enter a valid search or website address.");return}addHistory(value,url);openUrl(url)}
-function showPanel(name){$("home").hidden=name!=="home";$("historyPanel").hidden=name!=="history";$("menuPanel").hidden=name!=="menu";$("downloadsPanel").hidden=name!=="downloads";$("clipboardPanel").hidden=name!=="clipboard";if(name==="history")renderHistory();if(name==="downloads"){showDownloadSupport();$("fileUrl").focus()}if(name==="clipboard")renderClips()}
-function renderSites(){const box=$("shortcuts");box.textContent="";sites.slice(0,10).forEach(site=>{const b=document.createElement("button");b.className="shortcut";b.type="button";const i=document.createElement("span");i.className="shortcut-icon";i.textContent=site.icon||site.name.slice(0,1);const l=document.createElement("span");l.className="shortcut-label";l.textContent=site.name;b.append(i,l);b.title=site.url;b.addEventListener("click",()=>openUrl(site.url));box.appendChild(b)})}
-function renderHistory(){const box=$("historyList");box.textContent="";if(!history.length){const e=document.createElement("div");e.className="empty";e.textContent="Your history is empty.";box.appendChild(e);return}history.forEach((item,index)=>{const row=document.createElement("div");row.className="history-item";const open=document.createElement("button");open.className="history-open";open.type="button";const title=document.createElement("span");title.textContent=item.title;const url=document.createElement("small");url.textContent=item.url;open.append(title,url);open.addEventListener("click",()=>openUrl(item.url));const del=document.createElement("button");del.className="delete";del.textContent="×";del.setAttribute("aria-label","Delete history item");del.addEventListener("click",()=>{history.splice(index,1);saveStore("googleHubHistory",history);renderHistory()});row.append(open,del);box.appendChild(row)})}
-function editSites(){for(let i=0;i<10;i++){const old=sites[i];const name=prompt("Shortcut "+(i+1)+" of 10 — enter a name:",old.name);if(name===null)break;const url=prompt("Enter website URL for "+(name.trim()||old.name)+":",old.url);if(url===null)break;const fixed=safeHttpUrl(/^https?:\/\//i.test(url.trim())?url.trim():"https://"+url.trim());if(!fixed){alert("Invalid URL. This shortcut was not changed.");continue}sites[i]={name:name.trim()||old.name,url:fixed,icon:(name.trim()||old.name).slice(0,1).toUpperCase()}}saveStore("googleHubFavorites",sites);renderSites()}
-function clearHistory(){if(!history.length){alert("Your history is already empty.");return}if(confirm("Clear all search history?")){history=[];saveStore("googleHubHistory",history);renderHistory()}}
-async function detectDownloadSupport(){const status=$("supportStatus");try{if(typeof navigator.hasFeature!=="function"){downloadSupport="unknown";status.textContent="Download support could not be checked in this Cloud Phone session.";return}const supported=await navigator.hasFeature("FileDownload");downloadSupport=supported===true;status.textContent=downloadSupport?"Cloud Phone reports FileDownload is supported.":"Cloud Phone reports FileDownload is NOT supported in this session."}catch(e){downloadSupport="unknown";status.textContent="Could not check download support in this session."}}
-function showDownloadSupport(){if(downloadSupport==="checking")$("supportStatus").textContent="Checking download support...";else if(downloadSupport===true)$("supportStatus").textContent="Cloud Phone reports FileDownload is supported.";else if(downloadSupport===false)$("supportStatus").textContent="Cloud Phone reports FileDownload is NOT supported in this session.";else $("supportStatus").textContent="Download support could not be confirmed."}
-function tryDownload(){const url=safeHttpUrl($("fileUrl").value),status=$("downloadStatus");if(!url){status.textContent="Enter a valid HTTP or HTTPS file URL.";return}if(downloadSupport==="checking"){status.textContent="Support check is still running. Please try again in a moment.";return}if(downloadSupport===false){status.textContent="Download was not started because Cloud Phone reports FileDownload is unsupported.";return}const filename=$("fileName").value.trim();const a=document.createElement("a");a.href=url;a.setAttribute("download",filename||"download");a.rel="noopener";a.style.display="none";document.body.appendChild(a);try{a.click();status.textContent=downloadSupport===true?"Download link clicked. If nothing is saved, Cloud Phone or the file server may block it.":"Download support is unconfirmed; if nothing happens, this session may not support it."}catch(e){status.textContent="Could not start download. Try Open File Link."}finally{a.remove()}}
-function saveClip(raw){const url=safeHttpUrl(raw);if(!url){$("clipStatus").textContent="Enter a valid HTTP or HTTPS link first.";return false}if(clips.some(x=>x.url===url)){$("clipStatus").textContent="This link is already saved.";return false}if(clips.length>=20){$("clipStatus").textContent="Clipboard list is full (20 links). Delete a link first.";return false}clips.unshift({url,title:url});clips=clips.slice(0,20);saveStore("nokiaBrowserClips",clips);renderClips();$("clipStatus").textContent="Link saved in Nokia Browser.";return true}
-function renderClips(){const box=$("clipList");box.textContent="";$("clipCount").textContent=clips.length+" / 20";if(!clips.length){const e=document.createElement("div");e.className="empty";e.textContent="No saved links yet.";box.appendChild(e);return}clips.forEach((item,index)=>{const row=document.createElement("div");row.className="clip-item";const open=document.createElement("button");open.className="clip-url";open.type="button";const title=document.createElement("span");title.textContent=item.title||"Saved link";const url=document.createElement("small");url.textContent=item.url;open.append(title,url);open.addEventListener("click",()=>{ $("clipInput").value=item.url;openUrl(item.url)});const actions=document.createElement("div");actions.style.display="flex";actions.style.flexDirection="column";actions.style.gap="3px";const copy=document.createElement("button");copy.className="small-btn";copy.textContent="Copy";copy.addEventListener("click",()=>copyText(item.url));const dl=document.createElement("button");dl.className="small-btn";dl.textContent="Download";dl.addEventListener("click",()=>{$("fileUrl").value=item.url;showPanel("downloads")});const del=document.createElement("button");del.className="delete";del.textContent="×";del.addEventListener("click",()=>{clips.splice(index,1);saveStore("nokiaBrowserClips",clips);renderClips()});actions.append(copy,dl,del);row.append(open,actions);box.appendChild(row)})}
-async function copyText(text){try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text);$("clipStatus").textContent="Copied to phone clipboard.";return}}catch(e){}const field=$("clipInput");field.value=text;field.focus();field.select();$("clipStatus").textContent="Automatic copy is unavailable. The link is selected; use the phone's Copy command if available."}
-async function pastePhoneClipboard(){try{if(navigator.clipboard&&navigator.clipboard.readText){const text=await navigator.clipboard.readText();if(text){$("clipInput").value=text.trim();$("clipStatus").textContent="Pasted from phone clipboard. Press Save Link to keep it.";return} $("clipStatus").textContent="Phone clipboard is empty.";return}}catch(e){}const manual=prompt("Clipboard access is not available here. Paste the link into this box using the phone's Paste command, then press Save Link:");if(manual){$("clipInput").value=manual.trim();$("clipStatus").textContent="Link entered. Press Save Link to keep it."}else $("clipStatus").textContent="Automatic clipboard access is unavailable. You can enter or paste the link manually."}
-$("searchForm").addEventListener("submit",e=>{e.preventDefault();go($("query").value)});
-$("googleBtn").addEventListener("click",()=>go($("query").value||"https://www.google.com"));
+{name:"GitHub",url:"https://github.com",icon:"⌘"},{name:"Google News",url:"https://news.google.com",icon:"▤"}];
+function readStore(key,fallback){try{var v=localStorage.getItem(key);return v?JSON.parse(v):fallback;}catch(e){return fallback;}}
+function saveStore(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch(e){}}
+var sites=readStore("googleHubFavorites",defaultSites),history=readStore("googleHubHistory",[]),dark=readStore("nokiaBrowserDark",false),downloadSupport="unknown";
+if(!Array.isArray(sites))sites=defaultSites.slice();if(!Array.isArray(history))history=[];
+sites=sites.slice(0,10);while(sites.length<10)sites.push(Object.assign({},defaultSites[sites.length]));
+function safeHttpUrl(raw){try{var u=new URL(String(raw).trim());if(u.protocol==="https:"||u.protocol==="http:")return u.href;}catch(e){}return null;}
+function resolveInput(raw){var value=raw.trim();if(!value)return null;if(/\s/.test(value)||!value.includes("."))return "https://www.google.com/search?q="+encodeURIComponent(value);var url=value;if(!/^https?:\/\//i.test(url))url="https://"+url;try{var parsed=new URL(url);if(parsed.protocol==="https:"||parsed.protocol==="http:")return parsed.href;}catch(e){}return "https://www.google.com/search?q="+encodeURIComponent(value);}
+function openUrl(url){var safe=safeHttpUrl(url);if(!safe){alert("Please enter a valid HTTP or HTTPS address.");return;}window.location.href=safe;}
+function addHistory(title,url){history=history.filter(function(item){return item.url!==url;});history.unshift({title:title,url:url});history=history.slice(0,10);saveStore("googleHubHistory",history);renderHistory();}
+function go(raw){var value=raw.trim();if(!value){openUrl("https://www.google.com");return;}var url=resolveInput(value);if(!url){alert("Please enter a valid search or website address.");return;}addHistory(value,url);openUrl(url);}
+function showPanel(name){
+$("home").hidden=name!=="home";$("historyPanel").hidden=name!=="history";$("menuPanel").hidden=name!=="menu";$("downloadsPanel").hidden=name!=="downloads";
+if(name==="history")renderHistory();
+if(name==="downloads"){showDownloadSupport();try{$("fileUrl").focus();}catch(e){}}
+try{window.scrollTo(0,0);}catch(e){}
+}
+function renderSites(){var box=$("shortcuts");box.textContent="";sites.slice(0,10).forEach(function(site){var button=document.createElement("button");button.className="shortcut";button.type="button";var icon=document.createElement("span");icon.className="shortcut-icon";icon.textContent=site.icon||site.name.slice(0,1);var label=document.createElement("span");label.className="shortcut-label";label.textContent=site.name;button.appendChild(icon);button.appendChild(label);button.title=site.url;button.addEventListener("click",function(){openUrl(site.url);});box.appendChild(button);});}
+function renderHistory(){var box=$("historyList");box.textContent="";if(!history.length){var empty=document.createElement("div");empty.className="empty";empty.textContent="Your history is empty.";box.appendChild(empty);return;}history.forEach(function(item,index){var row=document.createElement("div");row.className="history-item";var open=document.createElement("button");open.className="history-open";open.type="button";var title=document.createElement("span");title.textContent=item.title;var url=document.createElement("small");url.textContent=item.url;open.appendChild(title);open.appendChild(url);open.addEventListener("click",function(){openUrl(item.url);});var del=document.createElement("button");del.className="delete";del.type="button";del.textContent="×";del.setAttribute("aria-label","Delete history item");del.addEventListener("click",function(){history.splice(index,1);saveStore("googleHubHistory",history);renderHistory();});row.appendChild(open);row.appendChild(del);box.appendChild(row);});}
+function editSites(){for(var i=0;i<10;i++){var old=sites[i];var name=prompt("Shortcut "+(i+1)+" of 10 — enter a name:",old.name);if(name===null)break;var url=prompt("Enter website URL for "+(name.trim()||old.name)+":",old.url);if(url===null)break;var fixedUrl=safeHttpUrl(/^https?:\/\//i.test(url.trim())?url.trim():"https://"+url.trim());if(!fixedUrl){alert("Invalid URL. This shortcut was not changed.");continue;}sites[i]={name:name.trim()||old.name,url:fixedUrl,icon:(name.trim()||old.name).slice(0,1).toUpperCase()};}saveStore("googleHubFavorites",sites);renderSites();}
+function clearHistory(){if(!history.length){alert("Your history is already empty.");return;}if(confirm("Clear all search history?")){history=[];saveStore("googleHubHistory",history);renderHistory();}}
+function showDownloadSupport(){var status=$("supportStatus");if(typeof navigator.hasFeature!=="function"){downloadSupport="unknown";status.textContent="Cloud Phone download support cannot be confirmed here. You can still try Open File Link.";return;}try{var result=navigator.hasFeature("FileDownload");if(result&&typeof result.then==="function"){result.then(function(supported){downloadSupport=supported===true;status.textContent=downloadSupport?"Cloud Phone reports FileDownload is supported.":"Cloud Phone reports FileDownload is not supported. Try Open File Link.";}).catch(function(){downloadSupport="unknown";status.textContent="Download support could not be checked. You can still try Open File Link.";});}else{downloadSupport=result===true;status.textContent=downloadSupport?"Cloud Phone reports FileDownload is supported.":"Download support is not confirmed. You can still try Open File Link.";}}catch(e){downloadSupport="unknown";status.textContent="Download support could not be checked. You can still try Open File Link.";}}
+function tryDownload(){var url=safeHttpUrl($("fileUrl").value);var status=$("downloadStatus");if(!url){status.textContent="Enter a valid HTTP or HTTPS file URL.";return;}var filename=$("fileName").value.trim();var link=document.createElement("a");link.href=url;if(filename)link.setAttribute("download",filename);link.rel="noopener";link.style.display="none";document.body.appendChild(link);try{link.click();status.textContent="Download was requested. If no file is saved, Cloud Phone or the file server may block it. Try Open File Link."; }catch(e){status.textContent="Could not start the download. Try Open File Link.";}finally{if(link.parentNode)link.parentNode.removeChild(link);}}
+$("searchForm").addEventListener("submit",function(e){e.preventDefault();go($("query").value);});
+$("googleBtn").addEventListener("click",function(){go($("query").value||"https://www.google.com");});
 $("editBtn").addEventListener("click",editSites);$("editMenuBtn").addEventListener("click",editSites);
-$("themeBtn").addEventListener("click",()=>{dark=!dark;document.body.classList.toggle("dark",dark);$("themeBtn").textContent=dark?"☀":"◐";saveStore("nokiaBrowserDark",dark)});
-$("menuBtn").addEventListener("click",()=>showPanel($("menuPanel").hidden?"menu":"home"));
-$("homeBtn").addEventListener("click",()=>showPanel("home"));$("historyHomeBtn").addEventListener("click",()=>showPanel("home"));$("downloadsHomeBtn").addEventListener("click",()=>showPanel("home"));$("clipboardHomeBtn").addEventListener("click",()=>showPanel("home"));
-$("historyBtn").addEventListener("click",()=>showPanel("history"));$("downloadsBtn").addEventListener("click",()=>showPanel("downloads"));$("downloadsMenuBtn").addEventListener("click",()=>showPanel("downloads"));$("clipboardBtn").addEventListener("click",()=>showPanel("clipboard"));$("clipboardMenuBtn").addEventListener("click",()=>showPanel("clipboard"));
-$("clearHistory").addEventListener("click",clearHistory);$(
+$("themeBtn").addEventListener("click",function(){dark=!dark;document.body.classList.toggle("dark",dark);$("themeBtn").textContent=dark?"☀":"◐";saveStore("nokiaBrowserDark",dark);});
+$("menuBtn").addEventListener("click",function(){showPanel($("menuPanel").hidden?"menu":"home");});
+$("homeBtn").addEventListener("click",function(){showPanel("home");});$("historyHomeBtn").addEventListener("click",function(){showPanel("home");});$("downloadsHomeBtn").addEventListener("click",function(){showPanel("home");});
+$("historyBtn").addEventListener("click",function(){showPanel("history");});$("historyQuickBtn").addEventListener("click",function(){showPanel("history");});
+$("downloadsBtn").addEventListener("click",function(){showPanel("downloads");});$("downloadsMenuBtn").addEventListener("click",function(){showPanel("downloads");});
+$("clearHistory").addEventListener("click",clearHistory);$("clearMenuBtn").addEventListener("click",clearHistory);
+$("downloadForm").addEventListener("submit",function(e){e.preventDefault();tryDownload();});
+$("openFileBtn").addEventListener("click",function(){var url=safeHttpUrl($("fileUrl").value);if(!url){$("downloadStatus").textContent="Enter a valid HTTP or HTTPS file URL.";return;}openUrl(url);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){showPanel("home");return;}if(e.key==="Backspace"&&document.activeElement!==$("query")&&!["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){showPanel("home");return;}if(e.key==="/"&&document.activeElement!==$("query")){e.preventDefault();$("query").focus();return;}if(!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key))return;if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;var elements=Array.prototype.slice.call(document.querySelectorAll("button:not([disabled]),input:not([disabled])")).filter(function(el){return el.offsetWidth>0&&el.offsetHeight>0&&!el.closest("[hidden]");});if(!elements.length)return;var current=elements.indexOf(document.activeElement);var forward=e.key==="ArrowRight"||e.key==="ArrowDown";var next=forward?(current<0?0:(current+1)%elements.length):(current<0?elements.length-1:(current-1+elements.length)%elements.length);e.preventDefault();elements[next].focus();});
+function updateClock(){try{$("clock").textContent=new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false});}catch(e){$("clock").textContent="Nokia Browser";}}
+document.body.classList.toggle("dark",dark);$("themeBtn").textContent=dark?"☀":"◐";renderSites();renderHistory();updateClock();setInterval(updateClock,30000);
+})();
+</script>
+</body>
+</html>
