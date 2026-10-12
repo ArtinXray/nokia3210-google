@@ -3,19 +3,19 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#ffffff">
 <title>Nokia Browser</title>
 <style>
 :root{
 --bg:#f8fafd;--card:#fff;--text:#202124;--muted:#5f6368;
---border:#dadce0;--blue:#4285f4;--focus:#d2e3fc
+--border:#dadce0;--blue:#4285f4
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:14px}
+body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
 button,input{font:inherit}
 button{cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
-button:focus-visible,input:focus-visible,.selected{outline:2px solid var(--blue)!important;outline-offset:1px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 header{min-height:36px;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--card)}
 .brand-small{font-size:12px;font-weight:bold;color:var(--blue)}
 .top-btn{border:0;background:transparent;padding:4px 8px;font-size:18px;min-width:30px}
@@ -52,18 +52,15 @@ main{width:100%;max-width:430px;margin:auto;padding:8px 9px 14px}
 .menu{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
 .menu button{min-height:32px;border:1px solid var(--border);border-radius:6px;background:var(--card);font-size:11px;padding:5px}
 .footer{text-align:center;color:var(--muted);font-size:10px;margin:13px 0 4px}
-body.dark{--bg:#202124;--card:#292a2d;--text:#e8eaed;--muted:#bdc1c6;--border:#5f6368;--focus:#394b63}
+body.dark{--bg:#202124;--card:#292a2d;--text:#e8eaed;--muted:#bdc1c6;--border:#5f6368}
 body.dark .primary{background:#303f54;color:#d2e3fc}
 body.dark .shortcut-icon{background:#303f54;color:#a8c7fa}
 body.dark .history-item{border-color:#414347}
 @media(max-height:360px){
-main{padding-top:4px}
-.logo{margin:2px 0 6px}
+main{padding-top:4px}.logo{margin:2px 0 6px}
 .logo-n{font-size:27px;line-height:29px}
-.logo-title{font-size:16px}
-.clock{margin-top:2px}
-.actions{margin-bottom:7px}
-.section-title{margin-top:7px}
+.logo-title{font-size:16px}.clock{margin-top:2px}
+.actions{margin-bottom:7px}.section-title{margin-top:7px}
 }
 </style>
 </head>
@@ -102,15 +99,16 @@ main{padding-top:4px}
 
 <section class="panel" id="downloadsPanel" hidden>
 <div class="section-title"><span>📥 Downloads</span><button id="downloadsHomeBtn">Home</button></div>
-<p class="help">Enter a direct file URL, not a Google search results page.</p>
+<p class="help">Enter a direct file URL. The download support status is checked when this page opens.</p>
+<div class="status" id="supportStatus" role="status">Checking download support...</div>
 <form id="downloadForm">
-<input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off">
+<input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off" required>
 <input class="field" id="fileName" type="text" placeholder="Optional filename, e.g. document.pdf">
 <button class="primary" id="downloadSubmit" type="submit">Download File</button>
 </form>
 <button class="action" id="openFileBtn" style="width:100%;margin-top:7px">Open File Link</button>
 <div class="status" id="downloadStatus" role="status"></div>
-<p class="help">Downloads depend on Cloud Phone support and the file server. This page cannot override restrictions imposed by Cloud Phone.</p>
+<p class="help">If Cloud Phone reports downloads are unsupported, this page cannot enable them. Some external file servers also block downloads.</p>
 </section>
 
 <section class="panel" id="historyPanel" hidden>
@@ -164,11 +162,20 @@ try{localStorage.setItem(key,JSON.stringify(value));}catch(e){}
 let sites=readStore("googleHubFavorites",defaultSites);
 let history=readStore("googleHubHistory",[]);
 let dark=readStore("nokiaBrowserDark",false);
+let downloadSupport="checking";
 
 if(!Array.isArray(sites))sites=defaultSites.slice();
 if(!Array.isArray(history))history=[];
 sites=sites.slice(0,10);
 while(sites.length<10)sites.push({...defaultSites[sites.length]});
+
+function safeHttpUrl(raw){
+try{
+const u=new URL(raw.trim());
+if(u.protocol==="https:"||u.protocol==="http:")return u.href;
+}catch(e){}
+return null;
+}
 
 function resolveInput(raw){
 const value=raw.trim();
@@ -180,19 +187,9 @@ let url=value;
 if(!/^https?:\/\//i.test(url))url="https://"+url;
 try{
 const parsed=new URL(url);
-if(!["https:","http:"].includes(parsed.protocol))return null;
-return parsed.href;
-}catch(e){
-return "https://www.google.com/search?q="+encodeURIComponent(value);
-}
-}
-
-function safeHttpUrl(raw){
-try{
-const u=new URL(raw.trim());
-if(u.protocol==="https:"||u.protocol==="http:")return u.href;
+if(parsed.protocol==="https:"||parsed.protocol==="http:")return parsed.href;
 }catch(e){}
-return null;
+return "https://www.google.com/search?q="+encodeURIComponent(value);
 }
 
 function openUrl(url){
@@ -224,7 +221,10 @@ $("historyPanel").hidden=name!=="history";
 $("menuPanel").hidden=name!=="menu";
 $("downloadsPanel").hidden=name!=="downloads";
 if(name==="history")renderHistory();
-if(name==="downloads")$("fileUrl").focus();
+if(name==="downloads"){
+$("fileUrl").focus();
+showDownloadSupport();
+}
 }
 
 function renderSites(){
@@ -315,56 +315,77 @@ renderHistory();
 }
 }
 
-/* Detect download support and report honest status. */
-async function tryDownload(){
+/* Detect support once when the page loads. */
+async function detectDownloadSupport(){
+const status=$("supportStatus");
+
+try{
+if(typeof navigator.hasFeature!=="function"){
+downloadSupport="unknown";
+status.textContent="Download support could not be checked: this Cloud Phone session does not expose navigator.hasFeature.";
+return;
+}
+
+const supported=await navigator.hasFeature("FileDownload");
+downloadSupport=supported===true;
+
+if(downloadSupport){
+status.textContent="Cloud Phone reports FileDownload is supported.";
+}else{
+status.textContent="Cloud Phone reports FileDownload is NOT supported in this session.";
+}
+}catch(error){
+downloadSupport="unknown";
+status.textContent="Could not check download support in this session.";
+}
+}
+
+function showDownloadSupport(){
+if(downloadSupport==="checking"){
+$("supportStatus").textContent="Checking download support...";
+}else if(downloadSupport===true){
+$("supportStatus").textContent="Cloud Phone reports FileDownload is supported.";
+}else if(downloadSupport===false){
+$("supportStatus").textContent="Cloud Phone reports FileDownload is NOT supported in this session.";
+}else{
+$("supportStatus").textContent="Download support could not be confirmed.";
+}
+}
+
+/* The download click happens directly in the user's submit action. */
+function tryDownload(){
 const url=safeHttpUrl($("fileUrl").value);
 const status=$("downloadStatus");
-const button=$("downloadSubmit");
 
 if(!url){
 status.textContent="Enter a valid HTTP or HTTPS file URL.";
 return;
 }
 
-const filename=$("fileName").value.trim();
-button.disabled=true;
-status.textContent="Checking download support…";
-
-let supported=false;
-let detectionKnown=false;
-
-try{
-if(typeof navigator.hasFeature==="function"){
-const result=await navigator.hasFeature("FileDownload");
-supported=result===true;
-detectionKnown=true;
-}
-}catch(error){
-detectionKnown=false;
-}
-
-button.disabled=false;
-
-if(detectionKnown&&!supported){
-status.textContent="Cloud Phone reports that FileDownload is not supported in this session. Use Open File Link, or try the phone's Internet browser.";
+if(downloadSupport==="checking"){
+status.textContent="Support check is still running. Please try again in a moment.";
 return;
 }
 
+if(downloadSupport===false){
+status.textContent="Download was not started because Cloud Phone reports FileDownload is unsupported.";
+return;
+}
+
+const filename=$("fileName").value.trim();
 const link=document.createElement("a");
 link.href=url;
+link.setAttribute("download",filename||"download");
 link.rel="noopener";
 link.style.display="none";
-if(filename)link.setAttribute("download",filename);
 
 document.body.appendChild(link);
 
 try{
 link.click();
-if(detectionKnown&&supported){
-status.textContent="Download request sent. If a confirmation appears, approve it. If no file is saved, the server may block direct downloads.";
-}else{
-status.textContent="Download request sent, but support could not be confirmed. If no file is saved, Cloud Phone may block downloads or the server may prevent them.";
-}
+status.textContent=downloadSupport===true
+?"Download link clicked. If a confirmation appears, approve it. If no file is saved, the file server may block downloads."
+:"Download link clicked, but support could not be confirmed. If nothing happens, Cloud Phone may not support this operation.";
 }catch(error){
 status.textContent="Could not start the download. Try Open File Link.";
 }finally{
@@ -397,9 +418,9 @@ $("downloadsMenuBtn").addEventListener("click",()=>showPanel("downloads"));
 $("clearHistory").addEventListener("click",clearHistory);
 $("clearMenuBtn").addEventListener("click",clearHistory);
 
-$("downloadForm").addEventListener("submit",async e=>{
+$("downloadForm").addEventListener("submit",e=>{
 e.preventDefault();
-await tryDownload();
+tryDownload();
 });
 
 $("openFileBtn").addEventListener("click",()=>{
@@ -415,13 +436,10 @@ document.addEventListener("keydown",e=>{
 if(e.key==="Escape"){showPanel("home");return;}
 if(e.key==="Backspace"&&document.activeElement!==$("query")&&
 !["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){
-showPanel("home");
-return;
+showPanel("home");return;
 }
 if(e.key==="/"&&document.activeElement!==$("query")){
-e.preventDefault();
-$("query").focus();
-return;
+e.preventDefault();$("query").focus();return;
 }
 if(!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key))return;
 if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;
@@ -432,8 +450,7 @@ const current=elements.indexOf(document.activeElement);
 const forward=e.key==="ArrowRight"||e.key==="ArrowDown";
 const next=forward?(current<0?0:(current+1)%elements.length):
 (current<0?elements.length-1:(current-1+elements.length)%elements.length);
-e.preventDefault();
-elements[next].focus();
+e.preventDefault();elements[next].focus();
 });
 
 function updateClock(){
@@ -447,6 +464,7 @@ $("themeBtn").textContent=dark?"☀":"◐";
 renderSites();
 renderHistory();
 updateClock();
+detectDownloadSupport();
 setInterval(updateClock,30000);
 })();
 </script>
