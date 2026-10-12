@@ -7,10 +7,9 @@
 <meta name="theme-color" content="#ffffff">
 <title>Nokia Browser</title>
 <style>
-:root {
-  --bg:#f8fafd;--card:#fff;--text:#202124;
-  --muted:#5f6368;--border:#dadce0;--blue:#4285f4;
-  --focus:#d2e3fc;
+:root{
+--bg:#f8fafd;--card:#fff;--text:#202124;--muted:#5f6368;
+--border:#dadce0;--blue:#4285f4;--focus:#d2e3fc
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:14px}
@@ -58,78 +57,79 @@ body.dark .primary{background:#303f54;color:#d2e3fc}
 body.dark .shortcut-icon{background:#303f54;color:#a8c7fa}
 body.dark .history-item{border-color:#414347}
 @media(max-height:360px){
- main{padding-top:4px}
- .logo{margin:2px 0 6px}
- .logo-n{font-size:27px;line-height:29px}
- .logo-title{font-size:16px}
- .clock{margin-top:2px}
- .actions{margin-bottom:7px}
- .section-title{margin-top:7px}
+main{padding-top:4px}
+.logo{margin:2px 0 6px}
+.logo-n{font-size:27px;line-height:29px}
+.logo-title{font-size:16px}
+.clock{margin-top:2px}
+.actions{margin-bottom:7px}
+.section-title{margin-top:7px}
 }
 </style>
 </head>
 <body>
 <header>
-  <button class="top-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
-  <span class="brand-small">NOKIA BROWSER</span>
-  <button class="top-btn" id="menuBtn" aria-label="Open menu">⋮</button>
+<button class="top-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
+<span class="brand-small">NOKIA BROWSER</span>
+<button class="top-btn" id="menuBtn" aria-label="Open menu">⋮</button>
 </header>
 
 <main>
 <section id="home">
-  <div class="logo">
-    <div class="logo-n">N</div>
-    <div class="logo-title"><span class="nokia">Nokia</span> Browser</div>
-    <div class="clock" id="clock">Welcome</div>
-  </div>
+<div class="logo">
+<div class="logo-n">N</div>
+<div class="logo-title"><span class="nokia">Nokia</span> Browser</div>
+<div class="clock" id="clock">Welcome</div>
+</div>
 
-  <form id="searchForm">
-    <div class="searchbox">
-      <span class="glass">⌕</span>
-      <input id="query" type="text" placeholder="Search Google or enter URL" autocomplete="off" enterkeyhint="go">
-    </div>
-    <button class="primary" type="submit">Google Search</button>
-  </form>
+<form id="searchForm">
+<div class="searchbox">
+<span class="glass">⌕</span>
+<input id="query" type="text" placeholder="Search Google or enter URL" autocomplete="off" enterkeyhint="go">
+</div>
+<button class="primary" type="submit">Google Search</button>
+</form>
 
-  <div class="actions">
-    <button class="action" id="googleBtn">🌐 Google</button>
-    <button class="action" id="downloadsBtn">📥 Downloads</button>
-    <button class="action" id="editBtn">✎ Edit Shortcuts</button>
-  </div>
+<div class="actions">
+<button class="action" id="googleBtn">🌐 Google</button>
+<button class="action" id="downloadsBtn">📥 Downloads</button>
+<button class="action" id="editBtn">✎ Edit Shortcuts</button>
+</div>
 
-  <div class="section-title"><span>Quick Links</span><span style="font-size:10px;color:var(--muted)">10 sites</span></div>
-  <div class="shortcuts" id="shortcuts"></div>
+<div class="section-title"><span>Quick Links</span><span style="font-size:10px;color:var(--muted)">10 sites</span></div>
+<div class="shortcuts" id="shortcuts"></div>
 </section>
 
 <section class="panel" id="downloadsPanel" hidden>
-  <div class="section-title"><span>📥 Downloads</span><button id="downloadsHomeBtn">Home</button></div>
-  <p class="help">Paste a direct file URL below. The link should point to the file itself, not a Google search results page.</p>
-  <form id="downloadForm">
-    <input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off">
-    <input class="field" id="fileName" type="text" placeholder="Optional filename, e.g. document.pdf">
-    <button class="primary" type="submit">Download File</button>
-  </form>
-  <button class="action" id="openFileBtn" style="width:100%;margin-top:7px">Open File Link</button>
-  <div class="status" id="downloadStatus" role="status"></div>
-  <p class="help">If nothing happens, the Cloud Phone browser may not support downloads. This page cannot override that restriction.</p>
+<div class="section-title"><span>📥 Downloads</span><button id="downloadsHomeBtn">Home</button></div>
+<p class="help">Enter a direct file URL, not a Google search results page.</p>
+<form id="downloadForm">
+<input class="field" id="fileUrl" type="url" placeholder="https://example.com/file.pdf" autocomplete="off">
+<input class="field" id="fileName" type="text" placeholder="Optional filename, e.g. document.pdf">
+<button class="primary" id="downloadSubmit" type="submit">Download File</button>
+</form>
+<button class="action" id="openFileBtn" style="width:100%;margin-top:7px">Open File Link</button>
+<div class="status" id="downloadStatus" role="status"></div>
+<p class="help">Downloads depend on Cloud Phone support and the file server. This page cannot override restrictions imposed by Cloud Phone.</p>
 </section>
 
 <section class="panel" id="historyPanel" hidden>
-  <div class="section-title"><span>🕘 Search History</span><button id="clearHistory">Clear All</button></div>
-  <div id="historyList"></div>
-  <div class="menu"><button id="historyHomeBtn">Home</button></div>
+<div class="section-title"><span>🕘 Search History</span><button id="clearHistory">Clear All</button></div>
+<div id="historyList"></div>
+<div class="menu"><button id="historyHomeBtn">Home</button></div>
 </section>
 
 <section class="panel" id="menuPanel" hidden>
-  <div class="section-title">Menu</div>
-  <div class="menu">
-    <button id="homeBtn">Home</button>
-    <button id="historyBtn">Search History</button>
-    <button id="downloadsMenuBtn">Downloads</button>
-    <button id="editMenuBtn">Edit Shortcuts</button>
-    <button id="clearMenuBtn">Clear History</button>
-  </div>
+<div class="section-title">Menu</div>
+<div class="menu">
+<button id="homeBtn">Home</button>
+<button id="historyBtn">Search History</button>
+<button id="downloadsMenuBtn">Downloads</button>
+<button id="editMenuBtn">Edit Shortcuts</button>
+<button id="clearMenuBtn">Clear History</button>
+</div>
 </section>
+
 <div class="footer">Nokia Browser · Made for small screens</div>
 </main>
 
@@ -152,197 +152,241 @@ const defaultSites=[
 ];
 
 function readStore(key,fallback){
- try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}
- catch(e){return fallback}
+try{
+const v=localStorage.getItem(key);
+return v?JSON.parse(v):fallback;
+}catch(e){return fallback;}
 }
 function saveStore(key,value){
- try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}
+try{localStorage.setItem(key,JSON.stringify(value));}catch(e){}
 }
+
 let sites=readStore("googleHubFavorites",defaultSites);
 let history=readStore("googleHubHistory",[]);
 let dark=readStore("nokiaBrowserDark",false);
+
 if(!Array.isArray(sites))sites=defaultSites.slice();
 if(!Array.isArray(history))history=[];
 sites=sites.slice(0,10);
 while(sites.length<10)sites.push({...defaultSites[sites.length]});
 
 function resolveInput(raw){
- const value=raw.trim();
- if(!value)return null;
- if(/\s/.test(value)||!value.includes(".")){
-  return "https://www.google.com/search?q="+encodeURIComponent(value);
- }
- let url=value;
- if(!/^https?:\/\//i.test(url))url="https://"+url;
- try{
-  const parsed=new URL(url);
-  if(!["https:","http:"].includes(parsed.protocol))return null;
-  return parsed.href;
- }catch(e){
-  return "https://www.google.com/search?q="+encodeURIComponent(value);
- }
+const value=raw.trim();
+if(!value)return null;
+if(/\s/.test(value)||!value.includes(".")){
+return "https://www.google.com/search?q="+encodeURIComponent(value);
+}
+let url=value;
+if(!/^https?:\/\//i.test(url))url="https://"+url;
+try{
+const parsed=new URL(url);
+if(!["https:","http:"].includes(parsed.protocol))return null;
+return parsed.href;
+}catch(e){
+return "https://www.google.com/search?q="+encodeURIComponent(value);
+}
 }
 
 function safeHttpUrl(raw){
- try{
-  const u=new URL(raw.trim());
-  if(u.protocol==="https:"||u.protocol==="http:")return u.href;
- }catch(e){}
- return null;
+try{
+const u=new URL(raw.trim());
+if(u.protocol==="https:"||u.protocol==="http:")return u.href;
+}catch(e){}
+return null;
 }
 
 function openUrl(url){
- const safe=safeHttpUrl(url);
- if(!safe){alert("Please enter a valid HTTP or HTTPS address.");return}
- window.location.href=safe;
+const safe=safeHttpUrl(url);
+if(!safe){alert("Please enter a valid HTTP or HTTPS address.");return;}
+window.location.href=safe;
 }
 
 function addHistory(title,url){
- history=history.filter(item=>item.url!==url);
- history.unshift({title,url});
- history=history.slice(0,10);
- saveStore("googleHubHistory",history);
- renderHistory();
+history=history.filter(item=>item.url!==url);
+history.unshift({title,url});
+history=history.slice(0,10);
+saveStore("googleHubHistory",history);
+renderHistory();
 }
 
 function go(raw){
- const value=raw.trim();
- if(!value){openUrl("https://www.google.com");return}
- const url=resolveInput(value);
- if(!url){alert("Please enter a valid search or website address.");return}
- addHistory(value,url);
- openUrl(url);
+const value=raw.trim();
+if(!value){openUrl("https://www.google.com");return;}
+const url=resolveInput(value);
+if(!url){alert("Please enter a valid search or website address.");return;}
+addHistory(value,url);
+openUrl(url);
 }
 
 function showPanel(name){
- $("home").hidden=name!=="home";
- $("historyPanel").hidden=name!=="history";
- $("menuPanel").hidden=name!=="menu";
- $("downloadsPanel").hidden=name!=="downloads";
- if(name==="history")renderHistory();
- if(name==="downloads")$("fileUrl").focus();
+$("home").hidden=name!=="home";
+$("historyPanel").hidden=name!=="history";
+$("menuPanel").hidden=name!=="menu";
+$("downloadsPanel").hidden=name!=="downloads";
+if(name==="history")renderHistory();
+if(name==="downloads")$("fileUrl").focus();
 }
 
 function renderSites(){
- const box=$("shortcuts");
- box.textContent="";
- sites.slice(0,10).forEach((site,index)=>{
-  const button=document.createElement("button");
-  button.className="shortcut";
-  button.type="button";
-  const icon=document.createElement("span");
-  icon.className="shortcut-icon";
-  icon.textContent=site.icon||site.name.slice(0,1);
-  const label=document.createElement("span");
-  label.className="shortcut-label";
-  label.textContent=site.name;
-  button.append(icon,label);
-  button.title=site.url;
-  button.addEventListener("click",()=>openUrl(site.url));
-  box.appendChild(button);
- });
+const box=$("shortcuts");
+box.textContent="";
+sites.slice(0,10).forEach(site=>{
+const button=document.createElement("button");
+button.className="shortcut";
+button.type="button";
+const icon=document.createElement("span");
+icon.className="shortcut-icon";
+icon.textContent=site.icon||site.name.slice(0,1);
+const label=document.createElement("span");
+label.className="shortcut-label";
+label.textContent=site.name;
+button.append(icon,label);
+button.title=site.url;
+button.addEventListener("click",()=>openUrl(site.url));
+box.appendChild(button);
+});
 }
 
 function renderHistory(){
- const box=$("historyList");
- box.textContent="";
- if(!history.length){
-  const empty=document.createElement("div");
-  empty.className="empty";
-  empty.textContent="Your history is empty.";
-  box.appendChild(empty);
-  return;
- }
- history.forEach((item,index)=>{
-  const row=document.createElement("div");
-  row.className="history-item";
-  const open=document.createElement("button");
-  open.className="history-open";
-  open.type="button";
-  const title=document.createElement("span");
-  title.textContent=item.title;
-  const url=document.createElement("small");
-  url.textContent=item.url;
-  open.append(title,url);
-  open.addEventListener("click",()=>openUrl(item.url));
-  const del=document.createElement("button");
-  del.className="delete";
-  del.type="button";
-  del.textContent="×";
-  del.setAttribute("aria-label","Delete history item");
-  del.addEventListener("click",()=>{
-   history.splice(index,1);
-   saveStore("googleHubHistory",history);
-   renderHistory();
-  });
-  row.append(open,del);
-  box.appendChild(row);
- });
+const box=$("historyList");
+box.textContent="";
+if(!history.length){
+const empty=document.createElement("div");
+empty.className="empty";
+empty.textContent="Your history is empty.";
+box.appendChild(empty);
+return;
+}
+history.forEach((item,index)=>{
+const row=document.createElement("div");
+row.className="history-item";
+const open=document.createElement("button");
+open.className="history-open";
+open.type="button";
+const title=document.createElement("span");
+title.textContent=item.title;
+const url=document.createElement("small");
+url.textContent=item.url;
+open.append(title,url);
+open.addEventListener("click",()=>openUrl(item.url));
+const del=document.createElement("button");
+del.className="delete";
+del.type="button";
+del.textContent="×";
+del.setAttribute("aria-label","Delete history item");
+del.addEventListener("click",()=>{
+history.splice(index,1);
+saveStore("googleHubHistory",history);
+renderHistory();
+});
+row.append(open,del);
+box.appendChild(row);
+});
 }
 
 function editSites(){
- for(let i=0;i<10;i++){
-  const old=sites[i];
-  const name=prompt("Shortcut "+(i+1)+" of 10 — enter a name:",old.name);
-  if(name===null)break;
-  const url=prompt("Enter website URL for "+(name.trim()||old.name)+":",old.url);
-  if(url===null)break;
-  const fixedUrl=safeHttpUrl(/^https?:\/\//i.test(url.trim())?url.trim():"https://"+url.trim());
-  if(!fixedUrl){
-   alert("Invalid URL. This shortcut was not changed.");
-   continue;
-  }
-  sites[i]={name:name.trim()||old.name,url:fixedUrl,icon:(name.trim()||old.name).slice(0,1).toUpperCase()};
- }
- saveStore("googleHubFavorites",sites);
- renderSites();
+for(let i=0;i<10;i++){
+const old=sites[i];
+const name=prompt("Shortcut "+(i+1)+" of 10 — enter a name:",old.name);
+if(name===null)break;
+const url=prompt("Enter website URL for "+(name.trim()||old.name)+":",old.url);
+if(url===null)break;
+const fixedUrl=safeHttpUrl(/^https?:\/\//i.test(url.trim())?url.trim():"https://"+url.trim());
+if(!fixedUrl){
+alert("Invalid URL. This shortcut was not changed.");
+continue;
+}
+sites[i]={
+name:name.trim()||old.name,
+url:fixedUrl,
+icon:(name.trim()||old.name).slice(0,1).toUpperCase()
+};
+}
+saveStore("googleHubFavorites",sites);
+renderSites();
 }
 
 function clearHistory(){
- if(!history.length){alert("Your history is already empty.");return}
- if(confirm("Clear all search history?")){
-  history=[];
-  saveStore("googleHubHistory",history);
-  renderHistory();
- }
+if(!history.length){alert("Your history is already empty.");return;}
+if(confirm("Clear all search history?")){
+history=[];
+saveStore("googleHubHistory",history);
+renderHistory();
+}
 }
 
-/* Download helper: the browser must support file downloads. */
-function tryDownload(){
- const url=safeHttpUrl($("fileUrl").value);
- const status=$("downloadStatus");
- if(!url){
-  status.textContent="Enter a valid direct HTTP or HTTPS file URL.";
-  return;
- }
- const filename=$("fileName").value.trim();
- status.textContent="Sending the download request to the browser…";
+/* Detect download support and report honest status. */
+async function tryDownload(){
+const url=safeHttpUrl($("fileUrl").value);
+const status=$("downloadStatus");
+const button=$("downloadSubmit");
 
- const link=document.createElement("a");
- link.href=url;
- if(filename)link.download=filename;
- link.rel="noopener";
- link.style.display="none";
- document.body.appendChild(link);
- link.click();
- link.remove();
+if(!url){
+status.textContent="Enter a valid HTTP or HTTPS file URL.";
+return;
+}
 
- status.textContent="Request sent. If no download starts, this Cloud Phone browser may block downloads or the file server may not allow them. Try Open File Link.";
+const filename=$("fileName").value.trim();
+button.disabled=true;
+status.textContent="Checking download support…";
+
+let supported=false;
+let detectionKnown=false;
+
+try{
+if(typeof navigator.hasFeature==="function"){
+const result=await navigator.hasFeature("FileDownload");
+supported=result===true;
+detectionKnown=true;
+}
+}catch(error){
+detectionKnown=false;
+}
+
+button.disabled=false;
+
+if(detectionKnown&&!supported){
+status.textContent="Cloud Phone reports that FileDownload is not supported in this session. Use Open File Link, or try the phone's Internet browser.";
+return;
+}
+
+const link=document.createElement("a");
+link.href=url;
+link.rel="noopener";
+link.style.display="none";
+if(filename)link.setAttribute("download",filename);
+
+document.body.appendChild(link);
+
+try{
+link.click();
+if(detectionKnown&&supported){
+status.textContent="Download request sent. If a confirmation appears, approve it. If no file is saved, the server may block direct downloads.";
+}else{
+status.textContent="Download request sent, but support could not be confirmed. If no file is saved, Cloud Phone may block downloads or the server may prevent them.";
+}
+}catch(error){
+status.textContent="Could not start the download. Try Open File Link.";
+}finally{
+link.remove();
+}
 }
 
 $("searchForm").addEventListener("submit",e=>{
- e.preventDefault();
- go($("query").value);
+e.preventDefault();
+go($("query").value);
 });
 $("googleBtn").addEventListener("click",()=>go($("query").value||"https://www.google.com"));
 $("editBtn").addEventListener("click",editSites);
 $("editMenuBtn").addEventListener("click",editSites);
+
 $("themeBtn").addEventListener("click",()=>{
- dark=!dark;
- document.body.classList.toggle("dark",dark);
- $("themeBtn").textContent=dark?"☀":"◐";
- saveStore("nokiaBrowserDark",dark);
+dark=!dark;
+document.body.classList.toggle("dark",dark);
+$("themeBtn").textContent=dark?"☀":"◐";
+saveStore("nokiaBrowserDark",dark);
 });
+
 $("menuBtn").addEventListener("click",()=>showPanel($("menuPanel").hidden?"menu":"home"));
 $("homeBtn").addEventListener("click",()=>showPanel("home"));
 $("historyHomeBtn").addEventListener("click",()=>showPanel("home"));
@@ -353,43 +397,51 @@ $("downloadsMenuBtn").addEventListener("click",()=>showPanel("downloads"));
 $("clearHistory").addEventListener("click",clearHistory);
 $("clearMenuBtn").addEventListener("click",clearHistory);
 
-$("downloadForm").addEventListener("submit",e=>{
- e.preventDefault();
- tryDownload();
+$("downloadForm").addEventListener("submit",async e=>{
+e.preventDefault();
+await tryDownload();
 });
+
 $("openFileBtn").addEventListener("click",()=>{
- const url=safeHttpUrl($("fileUrl").value);
- if(!url){
-  $("downloadStatus").textContent="Enter a valid HTTP or HTTPS file URL.";
-  return;
- }
- openUrl(url);
+const url=safeHttpUrl($("fileUrl").value);
+if(!url){
+$("downloadStatus").textContent="Enter a valid HTTP or HTTPS file URL.";
+return;
+}
+openUrl(url);
 });
 
 document.addEventListener("keydown",e=>{
- if(e.key==="Escape"){showPanel("home");return}
- if(e.key==="Backspace"&&document.activeElement!==$("query")&&
- !["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){
-  showPanel("home");return;
- }
- if(e.key==="/"&&document.activeElement!==$("query")){
-  e.preventDefault();$("query").focus();return;
- }
- if(!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key))return;
- if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;
- const elements=Array.from(document.querySelectorAll("button:not([disabled]),input:not([disabled])"))
- .filter(el=>el.offsetWidth>0&&el.offsetHeight>0&&!el.closest("[hidden]"));
- if(!elements.length)return;
- const current=elements.indexOf(document.activeElement);
- const forward=e.key==="ArrowRight"||e.key==="ArrowDown";
- const next=forward?(current<0?0:(current+1)%elements.length):
- (current<0?elements.length-1:(current-1+elements.length)%elements.length);
- e.preventDefault();elements[next].focus();
+if(e.key==="Escape"){showPanel("home");return;}
+if(e.key==="Backspace"&&document.activeElement!==$("query")&&
+!["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){
+showPanel("home");
+return;
+}
+if(e.key==="/"&&document.activeElement!==$("query")){
+e.preventDefault();
+$("query").focus();
+return;
+}
+if(!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key))return;
+if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;
+const elements=Array.from(document.querySelectorAll("button:not([disabled]),input:not([disabled])"))
+.filter(el=>el.offsetWidth>0&&el.offsetHeight>0&&!el.closest("[hidden]"));
+if(!elements.length)return;
+const current=elements.indexOf(document.activeElement);
+const forward=e.key==="ArrowRight"||e.key==="ArrowDown";
+const next=forward?(current<0?0:(current+1)%elements.length):
+(current<0?elements.length-1:(current-1+elements.length)%elements.length);
+e.preventDefault();
+elements[next].focus();
 });
 
 function updateClock(){
- $("clock").textContent=new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false});
+$("clock").textContent=new Date().toLocaleTimeString("en-GB",{
+hour:"2-digit",minute:"2-digit",hour12:false
+});
 }
+
 document.body.classList.toggle("dark",dark);
 $("themeBtn").textContent=dark?"☀":"◐";
 renderSites();
