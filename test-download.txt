@@ -1,0 +1,3 @@
+Nokia Browser Download Test
+
+If you can read this file, the test file is working.
