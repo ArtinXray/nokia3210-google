@@ -1,113 +1,193 @@
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Nokia Browser</title>
 <style>
-:root{--bg:#f8fafd;--card:#fff;--fg:#202124;--line:#dadce0;--blue:#4285f4;--soft:#e8f0fe}
-body.dark{--bg:#17191c;--card:#24272b;--fg:#f1f3f4;--line:#41464d;--blue:#8ab4f8;--soft:#303b50}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px Arial}
-header{display:flex;justify-content:space-between;align-items:center;padding:12px;font-size:19px;font-weight:bold}
-button,input{font:inherit;color:var(--fg)}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:var(--card);padding:9px}
-main{padding:10px 12px 85px}.page{display:none}.page.on{display:block}
-.logo{text-align:center;font-size:30px;font-weight:bold;margin:25px 0}
-.g1{color:#4285f4}.g2{color:#ea4335}.g3{color:#fbbc05}.g4{color:#34a853}
-form{display:flex;border:1px solid var(--line);border-radius:25px;background:var(--card);padding:4px}
-input{min-width:0;width:100%;padding:10px;border:0;outline:0;background:transparent}
-.primary{background:var(--blue);color:white;border:0}
-h3{font-size:16px;margin-top:22px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 4px}
-.site{text-align:center;border:0;background:transparent;padding:3px;min-width:0}
-.circle{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);margin:auto auto 5px;font-weight:bold}
-.site small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}
-.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;overflow-wrap:anywhere}
-.muted{color:#77808a;font-size:12px;line-height:1.5}
-.row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.row button{flex:1}
-.field{display:block;border:1px solid var(--line);background:var(--card);border-radius:9px;margin:8px 0;width:100%}
-.status{background:var(--soft);padding:10px;border-radius:9px;overflow-wrap:anywhere;line-height:1.5}
-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 2px}
-nav button{border:0;background:transparent;font-size:10px;padding:8px 0}
-nav button.on{background:var(--soft)}nav span{display:block;font-size:17px;margin-bottom:3px}
+:root{--bg:#f8fafd;--card:#fff;--ink:#202124;--muted:#5f6368;--line:#dadce0;--blue:#1a73e8}
+body.dark{--bg:#202124;--card:#303134;--ink:#e8eaed;--muted:#bdc1c6;--line:#5f6368;--blue:#8ab4f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:9px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:10px}
+.brand{font-size:18px;font-weight:bold}
+.g{color:#4285f4}.r{color:#ea4335}.y{color:#fbbc04}.gr{color:#34a853}
+.tools{display:flex;gap:6px}
+.round{width:34px;height:34px;padding:0;border-radius:50%;font-size:17px}
+.wrap{padding:8px 10px;max-width:440px;margin:auto}
+.logo{text-align:center;font-size:25px;font-weight:bold;margin:17px 0}
+.search{display:flex;gap:6px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:5px 6px 5px 12px}
+.search input,.address input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--ink);padding:9px 0}
+.search button{background:var(--blue);color:white;border:0;border-radius:50%;width:34px;height:34px;padding:0}
+.address{display:flex;gap:6px;margin:9px 0}
+.address input,.row input{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 12px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px 3px;margin:22px 0}
+.shortcut{text-align:center;border:0;background:transparent;padding:0 1px;font-size:11px;overflow:hidden}
+.bubble{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;background:var(--card);border:1px solid var(--line);font-size:15px;font-weight:bold}
+.shortcut span:last-child{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.section{display:none}.section.active{display:block}
+.heading{font-size:16px;font-weight:bold;margin:7px 0 12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px;margin:10px 0}
+.item{padding:10px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.item:last-child{border-bottom:0}
+.item small{display:block;color:var(--muted);margin-top:4px}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.actions button{font-size:12px;padding:7px 9px}
+.primary{background:var(--blue);color:white;border-color:var(--blue)}
+.row{display:flex;gap:6px}.row input{min-width:0;flex:1;color:var(--ink)}
+.hint,.status{font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.status{margin:10px 2px}.bad{color:#ea4335}
+.nav{position:sticky;bottom:0;display:flex;gap:3px;padding:7px 4px;background:var(--bg);border-top:1px solid var(--line)}
+.nav button{flex:1;font-size:11px;padding:9px 1px;border-radius:12px}
+.nav button.active{background:var(--blue);color:white;border-color:var(--blue)}
 </style>
 </head>
 <body>
-<header><span>NOKIA <span class="g1">B</span><span class="g2">r</span><span class="g3">o</span><span class="g1">w</span><span class="g4">s</span><span class="g2">e</span><span class="g1">r</span></span><button id="theme">☀</button></header>
-<main>
-<section id="home" class="page on">
-<div class="logo"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g1">g</span><span class="g4">l</span><span class="g2">e</span></div>
-<form id="search"><input id="q" placeholder="Search or enter URL"><button class="primary">Go</button></form>
-<h3>Quick access <button id="addSite">+ Add</button></h3><div id="sites" class="grid"></div>
-<h3>Recent history</h3><div id="recent"></div>
+<header class="top">
+ <div class="brand"><span class="g">N</span><span class="r">o</span><span class="y">k</span><span class="g">i</span><span class="gr">a</span> Browser</div>
+ <div class="tools"><button class="round" id="theme">☼</button><button class="round" id="menu">⋮</button></div>
+</header>
+<main class="wrap">
+<section id="home" class="section active">
+ <div class="logo"><span class="g">G</span><span class="r">o</span><span class="y">o</span><span class="g">g</span><span class="gr">l</span><span class="r">e</span></div>
+ <form id="searchForm" class="search"><input id="q" placeholder="Search Google"><button>⌕</button></form>
+ <form id="addressForm" class="address"><input id="url" placeholder="Website address"><button class="round">➜</button></form>
+ <div class="grid" id="shortcuts"></div>
+ <div class="panel"><b>Quick access</b><p class="hint">Search Google or enter a website address.</p></div>
+ <div class="status" id="status">Ready</div>
 </section>
-<section id="bookmarks" class="page"><h3>Bookmarks <button id="addBookmark">+ Add URL</button></h3><div id="saved"></div></section>
-<section id="history" class="page"><h3>History <button id="clearHistory">Clear all</button></h3><div id="hist"></div></section>
-<section id="downloads" class="page">
-<h3>Downloads</h3><p class="muted">Enter a direct file link and try to save it.</p>
-<input id="file" class="field" placeholder="https://example.com/file.pdf">
-<div class="row"><button class="primary" id="download">Download file</button><button id="open">Open link</button></div>
-<p id="status" class="status">Ready.</p><p class="muted">Saving depends on Cloud Phone and browser permissions. Opening a PDF does not mean it was downloaded.</p>
-<h3>Recent links <button id="clearDownloads">Clear</button></h3><div id="downloadsList"></div>
+<section id="bookmarks" class="section">
+ <div class="heading">★ Bookmarks</div><div id="bookmarkList" class="panel"></div>
+ <div class="row"><input id="bookmarkUrl" placeholder="https://example.com"><button id="addBookmark" class="primary">Add</button></div>
 </section>
-<section id="settings" class="page"><h3>Settings</h3><div class="item">Nokia Browser<br><p class="muted">Lightweight browser web app for small screens.</p><button id="theme2">Toggle theme</button></div><div class="item">Copy URL<input id="copyText" class="field" placeholder="Enter text to copy"><button id="copy">Copy</button><p id="copyStatus" class="muted"></p></div></section>
+<section id="history" class="section">
+ <div class="heading">◷ History</div><button id="clearHistory">Clear history</button><div id="historyList" class="panel"></div>
+</section>
+<section id="downloads" class="section">
+ <div class="heading">↓ Downloads</div>
+ <div class="panel">
+  <p class="hint">Enter a direct file URL. Cloud Phone must support saving files for a real download to work.</p>
+  <div class="row"><input id="downloadUrl" placeholder="https://example.com/file.pdf"></div>
+  <div class="actions"><button id="downloadBtn" class="primary">Open / Download</button><button id="copyDownload">Copy link</button></div>
+  <div id="downloadStatus" class="status">No download started.</div>
+ </div>
+ <div id="downloadList" class="panel"></div>
+</section>
+<section id="settings" class="section">
+ <div class="heading">More</div>
+ <div class="panel"><b>Nokia Browser</b><p class="hint">Simple browser interface for the Nokia 3210 display.</p>
+ <div class="actions"><button id="themeSetting">Toggle theme</button><button id="clearAll">Clear saved data</button></div></div>
+</section>
 </main>
-<nav>
-<button data-p="home" class="on"><span>⌂</span>Home</button>
-<button data-p="bookmarks"><span>★</span>Saved</button>
-<button data-p="history"><span>◷</span>History</button>
-<button data-p="downloads"><span>↓</span>Downloads</button>
-<button data-p="settings"><span>⚙</span>Settings</button>
+<nav class="nav">
+ <button class="active" data-page="home">⌂ Home</button>
+ <button data-page="bookmarks">★ Saved</button>
+ <button data-page="history">◷ History</button>
+ <button data-page="downloads">↓ Files</button>
+ <button data-page="settings">⋮ More</button>
 </nav>
 <script>
 const $=id=>document.getElementById(id);
-const defaults=[
-["Google","https://www.google.com/"],["YouTube","https://m.youtube.com/"],
-["Wikipedia","https://www.wikipedia.org/"],["Bing","https://www.bing.com/"],
-["DuckDuckGo","https://duckduckgo.com/"],["Gmail","https://mail.google.com/"],
-["GitHub","https://github.com/"],["Reddit","https://www.reddit.com/"],
-["W3C","https://www.w3.org/"],["Example","https://example.com/"]];
-function load(k,d){try{return JSON.parse(localStorage.getItem("nb_"+k))??d}catch(e){return d}}
+function get(k,d){try{return JSON.parse(localStorage.getItem("nb_"+k))??d}catch(e){return d}}
 function put(k,v){try{localStorage.setItem("nb_"+k,JSON.stringify(v))}catch(e){}}
-let sites=load("sites",defaults),saved=load("saved",[]),hist=load("hist",[]),files=load("files",[]),dark=load("dark",false);
-function urlOf(s){s=s.trim();if(!s)return"";if(/^https?:\/\//i.test(s))return s;if(/^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(s))return"https://"+s;return"https://www.google.com/search?q="+encodeURIComponent(s)}
-function valid(u){try{return["http:","https:"].includes(new URL(u).protocol)}catch(e){return false}}
-function go(u){if(!valid(u))return alert("Invalid URL");hist.unshift({u,t:Date.now()});hist=hist.slice(0,100);put("hist",hist);render();location.href=u}
-$("search").onsubmit=e=>{e.preventDefault();let u=urlOf($("q").value);if(u)go(u)};
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>page(b.dataset.p));
-function page(p){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("on",x.id===p));document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x.dataset.p===p))}
-function btn(t,fn,cls=""){let b=document.createElement("button");b.textContent=t;if(cls)b.className=cls;b.onclick=fn;return b}
-function item(title,u,actions){let d=document.createElement("div");d.className="item";let a=document.createElement("b");a.textContent=title||u;let p=document.createElement("p");p.className="muted";p.textContent=u;let r=document.createElement("div");r.className="row";actions.forEach(x=>r.append(x));d.append(a,p,r);return d}
-function addSave(u){if(!valid(u))return alert("Invalid URL");if(saved.some(x=>x.u===u))return alert("Already saved");saved.unshift({u});put("saved",saved);render()}
-$("addSite").onclick=()=>{if(sites.length>=10)return alert("Maximum 10 shortcuts");let n=prompt("Website name");if(!n)return;let u=urlOf(prompt("Website URL")||"");if(!valid(u))return alert("Invalid URL");sites.push([n,u]);put("sites",sites);render()};
-$("addBookmark").onclick=()=>{let u=urlOf(prompt("Website URL")||"");addSave(u)};
-$("clearHistory").onclick=()=>{if(confirm("Clear history?")){hist=[];put("hist",hist);render()}};
-function render(){
-$("sites").replaceChildren();sites.slice(0,10).forEach(s=>{let b=btn("",()=>go(s[1]));b.className="site";let c=document.createElement("span");c.className="circle";c.textContent=s[0][0].toUpperCase();let t=document.createElement("small");t.textContent=s[0];b.append(c,t);$("sites").append(b)});
-function list(id,arr,historyMode=false){$(id).replaceChildren();if(!arr.length){$(id).textContent="Nothing here yet.";return}arr.forEach((x,i)=>{let u=x.u;let acts=[btn("Open",()=>go(u),"primary"),btn("Save",()=>addSave(u))];if(historyMode||id==="downloadsList")acts.push(btn("Delete",()=>{arr.splice(i,1);put(historyMode?"hist":"files",arr);render()}));$(id).append(item(u,u,acts))})}
-list("saved",saved);list("hist",hist,true);list("recent",hist.slice(0,3),true);list("downloadsList",files);
+let bookmarks=get("bookmarks",[]),history=get("history",[]),downloads=get("downloads",[]);
+const sites=[
+["Google","https://www.google.com/"],["YouTube","https://m.youtube.com/"],
+["Wikipedia","https://www.wikipedia.org/"],["Gmail","https://mail.google.com/"],
+["Bing","https://www.bing.com/"],["DuckDuckGo","https://duckduckgo.com/"],
+["BBC","https://www.bbc.com/"],["GitHub","https://github.com/"],
+["Archive","https://archive.org/"],["Sample PDF","https://samplepdf.org/files/sample.pdf"]
+];
+function valid(u){try{return ["http:","https:"].includes(new URL(u).protocol)}catch(e){return false}}
+function normalize(s){
+ s=s.trim();if(!s)return "";
+ if(!/^https?:\/\//i.test(s)&&s.includes(".")&&!s.includes(" "))s="https://"+s;
+ return s;
 }
-async function downloadFile(u){
-if(!valid(u))return $("status").textContent="Enter a valid HTTP/HTTPS URL.";
-files=files.filter(x=>x.u!==u);files.unshift({u});files=files.slice(0,20);put("files",files);render();
-$("status").textContent="Trying download...";
-try{
-let r=await fetch(u,{mode:"cors",credentials:"omit"});
-if(!r.ok)throw Error("HTTP "+r.status);
-let blob=await r.blob();if(!blob.size)throw Error("Empty file");
-let obj=URL.createObjectURL(blob),a=document.createElement("a");
-let name=new URL(u).pathname.split("/").pop()||"download";
-a.href=obj;a.download=name;a.style.display="none";document.body.append(a);a.click();a.remove();
-setTimeout(()=>URL.revokeObjectURL(obj),30000);
-$("status").textContent="Download requested. Check the phone's Downloads folder to confirm the file was saved.";
-}catch(e){$("status").textContent="Download failed or was blocked. Cloud Phone may not support saving, or the server may block access. The file was not confirmed saved."}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function setStatus(t){$("status").textContent=t}
+function record(u){
+ history=history.filter(x=>x.u!==u);history.unshift({u,t:Date.now()});
+ history=history.slice(0,30);put("history",history);renderLists();
 }
-$("download").onclick=()=>downloadFile($("file").value.trim());
-$("open").onclick=()=>{let u=$("file").value.trim();if(!valid(u))return $("status").textContent="Enter a valid URL.";files.unshift({u});files=files.slice(0,20);put("files",files);render();window.open(u,"_blank");$("status").textContent="Link opened; saving is not confirmed."};
-$("clearDownloads").onclick=()=>{if(confirm("Clear recent links?")){files=[];put("files",files);render()}};
-function applyTheme(){document.body.classList.toggle("dark",dark);$("theme").textContent=dark?"☾":"☀";put("dark",dark)}
-$("theme").onclick=$("theme2").onclick=()=>{dark=!dark;applyTheme()};
-$("copy").onclick=async()=>{try{await navigator.clipboard.writeText($("copyText").value);$("copyStatus").textContent="Copied."}catch(e){$("copyStatus").textContent="Clipboard unavailable. Copy the text manually."}};
-render();applyTheme();
+function openUrl(raw){
+ let u=normalize(raw);if(!u)return;
+ if(!valid(u)){searchGoogle(raw);return}
+ record(u);location.href=u;
+}
+function searchGoogle(q){
+ if(!q.trim())return;
+ let u="https://www.google.com/search?q="+encodeURIComponent(q.trim());
+ record(u);location.href=u;
+}
+function showPage(p){
+ document.querySelectorAll(".section").forEach(e=>e.classList.toggle("active",e.id===p));
+ document.querySelectorAll(".nav button").forEach(e=>e.classList.toggle("active",e.dataset.page===p));
+ if(["bookmarks","history","downloads"].includes(p))renderLists();
+}
+function renderShortcuts(){
+ $("shortcuts").innerHTML=sites.map((s,i)=>`<button class="shortcut" data-site="${i}"><span class="bubble" style="color:${["#4285f4","#ea4335","#34a853","#ea4335","#4285f4","#34a853","#4285f4","#202124","#fbbc04","#ea4335"][i]}">${s[0][0]}</span><span>${s[0]}</span></button>`).join("");
+ document.querySelectorAll("[data-site]").forEach(b=>b.onclick=()=>openUrl(sites[+b.dataset.site][1]));
+}
+async function copyText(s){
+ try{
+  if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(s);setStatus("Link copied.");return}
+  let t=document.createElement("textarea");t.value=s;document.body.append(t);t.select();
+  let ok=document.execCommand("copy");t.remove();setStatus(ok?"Link copied.":"Copy not supported here.");
+ }catch(e){setStatus("Copy not supported in this environment.")}
+}
+function renderLists(){
+ $("bookmarkList").innerHTML=bookmarks.length?bookmarks.map((x,i)=>`<div class="item">${esc(x)}<div class="actions"><button data-ob="${i}">Open</button><button data-cb="${i}">Copy</button><button data-db="${i}">Delete</button></div></div>`).join(""):'<div class="hint">No bookmarks yet.</div>';
+ $("historyList").innerHTML=history.length?history.map((x,i)=>`<div class="item">${esc(x.u)}<small>${new Date(x.t).toLocaleString()}</small><div class="actions"><button data-oh="${i}">Open</button><button data-ch="${i}">Copy</button></div></div>`).join(""):'<div class="hint">No history yet.</div>';
+ $("downloadList").innerHTML=downloads.length?downloads.map((x,i)=>`<div class="item">${esc(x)}<div class="actions"><button data-cd="${i}">Copy link</button><button data-od="${i}">Open link</button><button data-dd="${i}">Remove</button></div></div>`).join(""):'<div class="hint">No download attempts yet.</div>';
+ document.querySelectorAll("[data-ob]").forEach(b=>b.onclick=()=>openUrl(bookmarks[+b.dataset.ob]));
+ document.querySelectorAll("[data-cb]").forEach(b=>b.onclick=()=>copyText(bookmarks[+b.dataset.cb]));
+ document.querySelectorAll("[data-db]").forEach(b=>b.onclick=()=>{bookmarks.splice(+b.dataset.db,1);put("bookmarks",bookmarks);renderLists()});
+ document.querySelectorAll("[data-oh]").forEach(b=>b.onclick=()=>openUrl(history[+b.dataset.oh].u));
+ document.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>copyText(history[+b.dataset.ch].u));
+ document.querySelectorAll("[data-cd]").forEach(b=>b.onclick=()=>copyText(downloads[+b.dataset.cd]));
+ document.querySelectorAll("[data-od]").forEach(b=>b.onclick=()=>openUrl(downloads[+b.dataset.od]));
+ document.querySelectorAll("[data-dd]").forEach(b=>b.onclick=()=>{downloads.splice(+b.dataset.dd,1);put("downloads",downloads);renderLists()});
+}
+function directDownload(raw){
+ let u=normalize(raw);
+ if(!valid(u)){$("downloadStatus").textContent="Enter a valid HTTP/HTTPS URL.";return}
+ downloads=downloads.filter(x=>x!==u);downloads.unshift(u);downloads=downloads.slice(0,20);put("downloads",downloads);renderLists();
+ $("downloadStatus").textContent="Opening file link. It may display instead of saving. Check File Manager to confirm.";
+ // Direct navigation avoids fetch/CORS, but Cloud Phone controls whether the file is saved.
+ location.href=u;
+}
+$("searchForm").onsubmit=e=>{e.preventDefault();searchGoogle($("q").value)};
+$("addressForm").onsubmit=e=>{
+ e.preventDefault();let s=$("url").value.trim();if(!s)return;
+ if(!s.includes(" ")&&(s.includes(".")||/^https?:\/\//i.test(s)))openUrl(s);else searchGoogle(s);
+};
+$("addBookmark").onclick=()=>{
+ let u=normalize($("bookmarkUrl").value);
+ if(!valid(u)){setStatus("Enter a valid website URL.");return}
+ if(!bookmarks.includes(u))bookmarks.unshift(u);
+ bookmarks=bookmarks.slice(0,30);put("bookmarks",bookmarks);$("bookmarkUrl").value="";renderLists();
+};
+$("clearHistory").onclick=()=>{history=[];put("history",history);renderLists()};
+$("downloadBtn").onclick=()=>directDownload($("downloadUrl").value);
+$("copyDownload").onclick=()=>copyText(normalize($("downloadUrl").value));
+function toggleTheme(){
+ document.body.classList.toggle("dark");let dark=document.body.classList.contains("dark");
+ put("dark",dark);$("theme").textContent=dark?"☾":"☼";
+}
+$("theme").onclick=$("themeSetting").onclick=toggleTheme;
+$("menu").onclick=()=>showPage("settings");
+$("clearAll").onclick=()=>{
+ if(confirm("Clear bookmarks, history and download list?")){
+ bookmarks=[];history=[];downloads=[];
+ put("bookmarks",bookmarks);put("history",history);put("downloads",downloads);renderLists();
+ }
+};
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+if(get("dark",false)){document.body.classList.add("dark");$("theme").textContent="☾"}
+renderShortcuts();renderLists();
 </script>
 </body>
 </html>
