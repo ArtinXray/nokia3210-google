@@ -1,650 +1,113 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#101827">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Nokia Browser</title>
-
 <style>
-:root {
-  --bg:#101827;
-  --panel:#1b2639;
-  --field:#111c2d;
-  --text:#f5f7fb;
-  --muted:#a8b5c8;
-  --line:#304058;
-  --blue:#4285f4;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  font-size:14px;
-}
-body.light {
-  --bg:#f2f5fa;
-  --panel:#ffffff;
-  --field:#f5f7fb;
-  --text:#172033;
-  --muted:#65738a;
-  --line:#d8e0eb;
-}
-button,input { font:inherit; }
-button { cursor:pointer; }
-button:focus,input:focus { outline:1px solid var(--blue); }
-.app { max-width:500px; margin:auto; padding:12px 12px 76px; }
-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:16px;
-}
-.brand { display:flex; align-items:center; gap:10px; }
-.logo {
-  width:39px;height:39px;border-radius:12px;
-  background:var(--panel);display:grid;place-items:center;
-  font-size:29px;font-weight:bold;
-  color:#4285f4;border:1px solid var(--line);
-}
-.logo span {
-  background:linear-gradient(135deg,#4285f4 25%,#34a853 25% 48%,#fbbc05 48% 72%,#ea4335 72%);
-  color:transparent;background-clip:text;
-  -webkit-background-clip:text;
-}
-h1 { font-size:17px;margin:0; }
-.subtitle { font-size:10px;color:var(--muted);margin-top:4px; }
-.icon {
-  width:38px;height:38px;border-radius:12px;
-  background:var(--panel);color:var(--text);
-  border:1px solid var(--line);font-size:18px;
-}
-.search {
-  display:flex;gap:6px;padding:6px;
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;
-}
-input {
-  min-width:0;width:100%;padding:12px 10px;
-  border:1px solid var(--line);border-radius:10px;
-  background:var(--field);color:var(--text);
-}
-.search input { border:0; }
-.go {
-  min-width:43px;border:0;border-radius:10px;
-  background:var(--blue);color:white;font-size:19px;
-}
-.tools { display:flex;gap:6px;margin-top:8px; }
-.tool {
-  flex:1;padding:10px 2px;border-radius:10px;
-  background:var(--panel);color:var(--text);
-  border:1px solid var(--line);font-size:11px;
-}
-.heading {
-  display:flex;justify-content:space-between;
-  align-items:center;margin:20px 2px 10px;
-}
-.heading strong { font-size:13px; }
-.heading button {
-  color:var(--blue);background:transparent;border:0;font-size:12px;
-}
-.shortcuts {
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;
-}
-.shortcut {
-  min-width:0;min-height:75px;padding:8px 2px;
-  background:var(--panel);color:var(--text);
-  border:1px solid var(--line);border-radius:12px;
-}
-.shortcut .symbol {
-  display:grid;place-items:center;width:32px;height:32px;
-  margin:0 auto 6px;border-radius:10px;
-  background:var(--field);font-size:16px;font-weight:bold;
-}
-.shortcut .name {
-  display:block;font-size:10px;white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis;
-}
-.card {
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:13px;padding:10px;
-}
-.page { display:none; }
-.page.active { display:block; }
-.item {
-  display:flex;align-items:center;gap:8px;
-  padding:10px 0;border-bottom:1px solid var(--line);
-}
-.item:last-child { border-bottom:0; }
-.iteminfo { flex:1;min-width:0; }
-.itemtitle { overflow-wrap:anywhere;font-size:12px; }
-.itemurl {
-  color:var(--muted);font-size:10px;
-  overflow-wrap:anywhere;margin-top:4px;
-}
-.itemactions { display:flex;gap:4px; }
-.mini {
-  padding:7px;border:1px solid var(--line);
-  background:var(--field);color:var(--text);
-  border-radius:8px;font-size:11px;
-}
-.danger { color:#ea4335; }
-.primary { background:var(--blue);color:white;border-color:var(--blue); }
-.empty { padding:20px 5px;text-align:center;color:var(--muted);font-size:12px; }
-.label { display:block;color:var(--muted);font-size:12px;margin:12px 0 6px; }
-.row { display:flex;gap:7px;margin-top:8px; }
-.row button { flex:1; }
-.note {
-  padding:10px;margin-top:12px;border-radius:9px;
-  background:var(--field);color:var(--muted);
-  font-size:11px;line-height:1.6;
-}
-.bottom {
-  position:fixed;bottom:0;left:0;right:0;
-  display:flex;justify-content:center;
-  background:var(--panel);border-top:1px solid var(--line);
-  padding:7px 3px;
-}
-.nav {
-  flex:1;max-width:110px;padding:5px 0;
-  border:0;border-radius:9px;background:transparent;
-  color:var(--muted);font-size:10px;
-}
-.nav b { display:block;font-size:19px;font-weight:normal;margin-bottom:3px; }
-.nav.active { color:var(--blue);background:var(--field); }
-.toast {
-  display:none;position:fixed;bottom:67px;left:10%;
-  width:80%;padding:10px;border-radius:10px;
-  background:#26354c;color:white;text-align:center;font-size:12px;
-}
-@media(max-width:280px) {
-  .app { padding-left:7px;padding-right:7px; }
-  .shortcuts { gap:4px; }
-  .shortcut .symbol { width:27px;height:27px; }
-}
+:root{--bg:#f8fafd;--card:#fff;--fg:#202124;--line:#dadce0;--blue:#4285f4;--soft:#e8f0fe}
+body.dark{--bg:#17191c;--card:#24272b;--fg:#f1f3f4;--line:#41464d;--blue:#8ab4f8;--soft:#303b50}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px Arial}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px;font-size:19px;font-weight:bold}
+button,input{font:inherit;color:var(--fg)}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:var(--card);padding:9px}
+main{padding:10px 12px 85px}.page{display:none}.page.on{display:block}
+.logo{text-align:center;font-size:30px;font-weight:bold;margin:25px 0}
+.g1{color:#4285f4}.g2{color:#ea4335}.g3{color:#fbbc05}.g4{color:#34a853}
+form{display:flex;border:1px solid var(--line);border-radius:25px;background:var(--card);padding:4px}
+input{min-width:0;width:100%;padding:10px;border:0;outline:0;background:transparent}
+.primary{background:var(--blue);color:white;border:0}
+h3{font-size:16px;margin-top:22px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 4px}
+.site{text-align:center;border:0;background:transparent;padding:3px;min-width:0}
+.circle{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);margin:auto auto 5px;font-weight:bold}
+.site small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;overflow-wrap:anywhere}
+.muted{color:#77808a;font-size:12px;line-height:1.5}
+.row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.row button{flex:1}
+.field{display:block;border:1px solid var(--line);background:var(--card);border-radius:9px;margin:8px 0;width:100%}
+.status{background:var(--soft);padding:10px;border-radius:9px;overflow-wrap:anywhere;line-height:1.5}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 2px}
+nav button{border:0;background:transparent;font-size:10px;padding:8px 0}
+nav button.on{background:var(--soft)}nav span{display:block;font-size:17px;margin-bottom:3px}
 </style>
 </head>
-
 <body>
-<div class="app">
-
-<header>
-  <div class="brand">
-    <div class="logo"><span>N</span></div>
-    <div>
-      <h1>Nokia Browser</h1>
-      <div class="subtitle">SIMPLE. FAST. YOURS.</div>
-    </div>
-  </div>
-  <button class="icon" id="theme">☀</button>
-</header>
-
-<div class="search">
-  <input id="address" type="text"
-    placeholder="Search or enter website"
-    autocomplete="off" autocapitalize="off">
-  <button class="go" id="go">➜</button>
-</div>
-
-<div class="tools">
-  <button class="tool" id="paste">▣ Paste</button>
-  <button class="tool" id="save">☆ Bookmark</button>
-  <button class="tool" id="copy">▢ Copy link</button>
-</div>
-
-<section class="page active" id="home">
-  <div class="heading">
-    <strong>QUICK ACCESS</strong>
-    <button id="addShortcut">+ Add site</button>
-  </div>
-  <div class="shortcuts" id="shortcuts"></div>
-
-  <div class="heading">
-    <strong>RECENT HISTORY</strong>
-    <button id="allHistory">View all →</button>
-  </div>
-  <div class="card" id="recent"></div>
-
-  <div class="note">
-    Type a website address or search with Google.
-    Your bookmarks and history are stored on this device
-    when local storage is supported.
-  </div>
+<header><span>NOKIA <span class="g1">B</span><span class="g2">r</span><span class="g3">o</span><span class="g1">w</span><span class="g4">s</span><span class="g2">e</span><span class="g1">r</span></span><button id="theme">☀</button></header>
+<main>
+<section id="home" class="page on">
+<div class="logo"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g1">g</span><span class="g4">l</span><span class="g2">e</span></div>
+<form id="search"><input id="q" placeholder="Search or enter URL"><button class="primary">Go</button></form>
+<h3>Quick access <button id="addSite">+ Add</button></h3><div id="sites" class="grid"></div>
+<h3>Recent history</h3><div id="recent"></div>
 </section>
-
-<section class="page" id="bookmarks">
-  <div class="heading">
-    <strong>BOOKMARKS</strong>
-    <button id="addCurrent">+ Save current</button>
-  </div>
-  <div class="card" id="bookmarkList"></div>
+<section id="bookmarks" class="page"><h3>Bookmarks <button id="addBookmark">+ Add URL</button></h3><div id="saved"></div></section>
+<section id="history" class="page"><h3>History <button id="clearHistory">Clear all</button></h3><div id="hist"></div></section>
+<section id="downloads" class="page">
+<h3>Downloads</h3><p class="muted">Enter a direct file link and try to save it.</p>
+<input id="file" class="field" placeholder="https://example.com/file.pdf">
+<div class="row"><button class="primary" id="download">Download file</button><button id="open">Open link</button></div>
+<p id="status" class="status">Ready.</p><p class="muted">Saving depends on Cloud Phone and browser permissions. Opening a PDF does not mean it was downloaded.</p>
+<h3>Recent links <button id="clearDownloads">Clear</button></h3><div id="downloadsList"></div>
 </section>
-
-<section class="page" id="history">
-  <div class="heading">
-    <strong>BROWSING HISTORY</strong>
-    <button id="clearHistory">Clear all</button>
-  </div>
-  <div class="card" id="historyList"></div>
-</section>
-
-<section class="page" id="downloads">
-  <div class="heading"><strong>DOWNLOAD HELPER</strong></div>
-  <div class="card">
-    <div class="note">
-      Enter a direct file link and open it. Actual downloading
-      depends on Cloud Phone and its browser capabilities.
-    </div>
-    <label class="label" for="fileUrl">File URL</label>
-    <input id="fileUrl" placeholder="https://example.com/file.pdf"
-      autocapitalize="off">
-    <div class="row">
-      <button class="mini" id="pasteFile">Paste link</button>
-      <button class="mini primary" id="openFile">Open file ↗</button>
-    </div>
-  </div>
-
-  <div class="heading">
-    <strong>RECENT FILE LINKS</strong>
-    <button id="clearFiles">Clear all</button>
-  </div>
-  <div class="card" id="fileList"></div>
-</section>
-
-</div>
-
-<nav class="bottom">
-  <button class="nav active" data-page="home"><b>⌂</b>Home</button>
-  <button class="nav" data-page="bookmarks"><b>☆</b>Saved</button>
-  <button class="nav" data-page="history"><b>◷</b>History</button>
-  <button class="nav" data-page="downloads"><b>⇩</b>Downloads</button>
+<section id="settings" class="page"><h3>Settings</h3><div class="item">Nokia Browser<br><p class="muted">Lightweight browser web app for small screens.</p><button id="theme2">Toggle theme</button></div><div class="item">Copy URL<input id="copyText" class="field" placeholder="Enter text to copy"><button id="copy">Copy</button><p id="copyStatus" class="muted"></p></div></section>
+</main>
+<nav>
+<button data-p="home" class="on"><span>⌂</span>Home</button>
+<button data-p="bookmarks"><span>★</span>Saved</button>
+<button data-p="history"><span>◷</span>History</button>
+<button data-p="downloads"><span>↓</span>Downloads</button>
+<button data-p="settings"><span>⚙</span>Settings</button>
 </nav>
-
-<div class="toast" id="toast"></div>
-
 <script>
-(function() {
-  function load(key, fallback) {
-    try {
-      var value = localStorage.getItem(key);
-      return value ? JSON.parse(value) : fallback;
-    } catch(e) { return fallback; }
-  }
-
-  function store(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); }
-    catch(e) {}
-  }
-
-  var defaultSites = [
-    ["Google","https://www.google.com","G","#4285f4"],
-    ["YouTube","https://m.youtube.com","▶","#ea4335"],
-    ["Wikipedia","https://www.wikipedia.org","W","#7b8794"],
-    ["Gmail","https://mail.google.com","M","#ea4335"],
-    ["Maps","https://maps.google.com","⌖","#34a853"],
-    ["Translate","https://translate.google.com","文","#4285f4"],
-    ["GitHub","https://github.com","⌘","#a8b5c8"],
-    ["DuckDuckGo","https://duckduckgo.com","D","#ea7b22"],
-    ["BBC","https://www.bbc.com","B","#4285f4"],
-    ["Archive","https://archive.org","A","#34a853"]
-  ];
-
-  function initialSites() {
-    var a = [];
-    for (var i=0;i<defaultSites.length;i++) {
-      a.push({
-        name:defaultSites[i][0],
-        url:defaultSites[i][1],
-        icon:defaultSites[i][2],
-        color:defaultSites[i][3]
-      });
-    }
-    return a;
-  }
-
-  var sites = load("nb_sites", initialSites());
-  var history = load("nb_history", []);
-  var bookmarks = load("nb_bookmarks", []);
-  var files = load("nb_files", []);
-  var current = "";
-
-  function byId(id) { return document.getElementById(id); }
-
-  function escapeHTML(value) {
-    return String(value).replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;").replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-  }
-
-  function message(text) {
-    var el = byId("toast");
-    el.innerHTML = escapeHTML(text);
-    el.style.display = "block";
-    window.setTimeout(function(){el.style.display="none";},2200);
-  }
-
-  function makeURL(value) {
-    value = (value || "").replace(/^\s+|\s+$/g,"");
-    if (!value) return "";
-    if (/^https?:\/\//i.test(value)) return value;
-
-    if (/^[a-z0-9.-]+\.[a-z]{2,}([\/?#].*)?$/i.test(value)
-        && value.indexOf(" ") === -1) {
-      return "https://" + value;
-    }
-
-    return "https://www.google.com/search?q=" +
-      encodeURIComponent(value);
-  }
-
-  function domain(url) {
-    return String(url || "").replace(/^https?:\/\//i,"")
-      .split("/")[0];
-  }
-
-  function navigate(url, record) {
-    url = makeURL(url);
-    if (!url) {
-      message("Enter a website or search term");
-      return;
-    }
-
-    current = url;
-    if (record !== false) {
-      history = history.filter(function(x){return x.url !== url;});
-      history.unshift({
-        url:url,
-        title:domain(url),
-        time:new Date().toLocaleString()
-      });
-      history = history.slice(0,50);
-      store("nb_history",history);
-      renderHistory();
-      renderRecent();
-    }
-
-    window.location.href = url;
-  }
-
-  function addBookmark(url) {
-    url = makeURL(url || current || byId("address").value);
-    if (!url) {
-      message("Enter a link first");
-      return;
-    }
-
-    for (var i=0;i<bookmarks.length;i++) {
-      if (bookmarks[i].url === url) {
-        message("Already saved");
-        return;
-      }
-    }
-
-    bookmarks.unshift({url:url,title:domain(url)});
-    store("nb_bookmarks",bookmarks);
-    renderBookmarks();
-    message("Bookmark saved");
-  }
-
-  function openClipboard(input) {
-    if (navigator.clipboard && navigator.clipboard.readText) {
-      navigator.clipboard.readText().then(function(value) {
-        input.value = value;
-        message("Pasted");
-      }).catch(function() {
-        var value = window.prompt("Paste your link:");
-        if (value !== null) input.value = value;
-      });
-    } else {
-      var value = window.prompt("Paste your link:");
-      if (value !== null) input.value = value;
-    }
-  }
-
-  function copyText(value) {
-    if (!value) {
-      message("No link to copy");
-      return;
-    }
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(value).then(function() {
-        message("Link copied");
-      }).catch(function() {
-        window.prompt("Copy this link:",value);
-      });
-    } else {
-      window.prompt("Copy this link:",value);
-    }
-  }
-
-  function renderSites() {
-    var el = byId("shortcuts");
-    el.innerHTML = "";
-
-    sites.slice(0,10).forEach(function(site) {
-      var b = document.createElement("button");
-      b.className = "shortcut";
-      b.innerHTML =
-        '<span class="symbol" style="color:' +
-        escapeHTML(site.color || "#4285f4") + '">' +
-        escapeHTML(site.icon || site.name.charAt(0)) +
-        '</span><span class="name">' +
-        escapeHTML(site.name) + '</span>';
-
-      b.onclick = function(){navigate(site.url);};
-      el.appendChild(b);
-    });
-  }
-
-  function renderList(id, data, type) {
-    var el = byId(id);
-    el.innerHTML = "";
-
-    if (!data.length) {
-      el.innerHTML = '<div class="empty">Nothing here yet.</div>';
-      return;
-    }
-
-    data.forEach(function(item,index) {
-      var row = document.createElement("div");
-      row.className = "item";
-      row.innerHTML =
-        '<div class="iteminfo">' +
-          '<div class="itemtitle">' +
-            escapeHTML(item.title || domain(item.url)) +
-          '</div>' +
-          '<div class="itemurl">' + escapeHTML(item.url) + '</div>' +
-          (item.time ? '<div class="itemurl">' +
-            escapeHTML(item.time) + '</div>' : '') +
-        '</div>' +
-        '<div class="itemactions">' +
-          '<button class="mini open">Open</button>' +
-          '<button class="mini danger delete">×</button>' +
-        '</div>';
-
-      row.querySelector(".open").onclick = function() {
-        navigate(item.url);
-      };
-
-      row.querySelector(".delete").onclick = function() {
-        if (type === "history") {
-          history.splice(index,1);
-          store("nb_history",history);
-          renderHistory();
-          renderRecent();
-        } else if (type === "bookmarks") {
-          bookmarks.splice(index,1);
-          store("nb_bookmarks",bookmarks);
-          renderBookmarks();
-        } else if (type === "files") {
-          files.splice(index,1);
-          store("nb_files",files);
-          renderFiles();
-        }
-      };
-
-      el.appendChild(row);
-    });
-  }
-
-  function renderHistory() {
-    renderList("historyList",history,"history");
-  }
-
-  function renderBookmarks() {
-    renderList("bookmarkList",bookmarks,"bookmarks");
-  }
-
-  function renderFiles() {
-    renderList("fileList",files,"files");
-  }
-
-  function renderRecent() {
-    renderList("recent",history.slice(0,3),"history");
-  }
-
-  function showPage(id) {
-    var pages = document.querySelectorAll(".page");
-    var navs = document.querySelectorAll(".nav");
-
-    for (var i=0;i<pages.length;i++) {
-      pages[i].className = "page" +
-        (pages[i].id === id ? " active" : "");
-    }
-
-    for (var j=0;j<navs.length;j++) {
-      navs[j].className = "nav" +
-        (navs[j].getAttribute("data-page") === id ? " active" : "");
-    }
-  }
-
-  byId("go").onclick = function() {
-    navigate(byId("address").value);
-  };
-
-  byId("address").onkeydown = function(e) {
-    e = e || window.event;
-    if (e.key === "Enter" || e.keyCode === 13) {
-      navigate(this.value);
-    }
-  };
-
-  byId("theme").onclick = function() {
-    var light = document.body.className !== "light";
-    document.body.className = light ? "light" : "";
-    this.innerHTML = light ? "☾" : "☀";
-    store("nb_theme",light ? "light" : "dark");
-  };
-
-  if (load("nb_theme","dark") === "light") {
-    document.body.className = "light";
-    byId("theme").innerHTML = "☾";
-  }
-
-  byId("paste").onclick = function() {
-    openClipboard(byId("address"));
-  };
-
-  byId("save").onclick = function() {
-    addBookmark(current || byId("address").value);
-  };
-
-  byId("copy").onclick = function() {
-    copyText(current || byId("address").value);
-  };
-
-  byId("addCurrent").onclick = function() {
-    addBookmark(current || byId("address").value);
-  };
-
-  byId("clearHistory").onclick = function() {
-    if (window.confirm("Clear all browsing history?")) {
-      history = [];
-      store("nb_history",history);
-      renderHistory();
-      renderRecent();
-    }
-  };
-
-  byId("allHistory").onclick = function() {
-    showPage("history");
-  };
-
-  byId("addShortcut").onclick = function() {
-    var name = window.prompt("Website name:");
-    if (!name) return;
-
-    var raw = window.prompt("Website address:");
-    if (!raw) return;
-
-    var url = makeURL(raw);
-    if (!/^https?:\/\//i.test(url)) return;
-
-    sites = sites.filter(function(site){return site.url !== url;});
-    sites.unshift({
-      name:name,
-      url:url,
-      icon:name.charAt(0).toUpperCase(),
-      color:"#4285f4"
-    });
-
-    sites = sites.slice(0,10);
-    store("nb_sites",sites);
-    renderSites();
-    message("Shortcut saved");
-  };
-
-  byId("pasteFile").onclick = function() {
-    openClipboard(byId("fileUrl"));
-  };
-
-  byId("openFile").onclick = function() {
-    var raw = byId("fileUrl").value;
-    var url = makeURL(raw);
-
-    if (!url || url.indexOf("google.com/search?q=") !== -1) {
-      message("Enter a valid direct file link");
-      return;
-    }
-
-    files = files.filter(function(x){return x.url !== url;});
-    files.unshift({
-      url:url,
-      title:domain(url),
-      time:new Date().toLocaleString()
-    });
-
-    files = files.slice(0,30);
-    store("nb_files",files);
-    renderFiles();
-    navigate(url);
-  };
-
-  byId("clearFiles").onclick = function() {
-    if (window.confirm("Clear recent file links?")) {
-      files = [];
-      store("nb_files",files);
-      renderFiles();
-    }
-  };
-
-  var navs = document.querySelectorAll(".nav");
-  for (var i=0;i<navs.length;i++) {
-    navs[i].onclick = function() {
-      showPage(this.getAttribute("data-page"));
-    };
-  }
-
-  renderSites();
-  renderHistory();
-  renderBookmarks();
-  renderFiles();
-  renderRecent();
-})();
+const $=id=>document.getElementById(id);
+const defaults=[
+["Google","https://www.google.com/"],["YouTube","https://m.youtube.com/"],
+["Wikipedia","https://www.wikipedia.org/"],["Bing","https://www.bing.com/"],
+["DuckDuckGo","https://duckduckgo.com/"],["Gmail","https://mail.google.com/"],
+["GitHub","https://github.com/"],["Reddit","https://www.reddit.com/"],
+["W3C","https://www.w3.org/"],["Example","https://example.com/"]];
+function load(k,d){try{return JSON.parse(localStorage.getItem("nb_"+k))??d}catch(e){return d}}
+function put(k,v){try{localStorage.setItem("nb_"+k,JSON.stringify(v))}catch(e){}}
+let sites=load("sites",defaults),saved=load("saved",[]),hist=load("hist",[]),files=load("files",[]),dark=load("dark",false);
+function urlOf(s){s=s.trim();if(!s)return"";if(/^https?:\/\//i.test(s))return s;if(/^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(s))return"https://"+s;return"https://www.google.com/search?q="+encodeURIComponent(s)}
+function valid(u){try{return["http:","https:"].includes(new URL(u).protocol)}catch(e){return false}}
+function go(u){if(!valid(u))return alert("Invalid URL");hist.unshift({u,t:Date.now()});hist=hist.slice(0,100);put("hist",hist);render();location.href=u}
+$("search").onsubmit=e=>{e.preventDefault();let u=urlOf($("q").value);if(u)go(u)};
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>page(b.dataset.p));
+function page(p){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("on",x.id===p));document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x.dataset.p===p))}
+function btn(t,fn,cls=""){let b=document.createElement("button");b.textContent=t;if(cls)b.className=cls;b.onclick=fn;return b}
+function item(title,u,actions){let d=document.createElement("div");d.className="item";let a=document.createElement("b");a.textContent=title||u;let p=document.createElement("p");p.className="muted";p.textContent=u;let r=document.createElement("div");r.className="row";actions.forEach(x=>r.append(x));d.append(a,p,r);return d}
+function addSave(u){if(!valid(u))return alert("Invalid URL");if(saved.some(x=>x.u===u))return alert("Already saved");saved.unshift({u});put("saved",saved);render()}
+$("addSite").onclick=()=>{if(sites.length>=10)return alert("Maximum 10 shortcuts");let n=prompt("Website name");if(!n)return;let u=urlOf(prompt("Website URL")||"");if(!valid(u))return alert("Invalid URL");sites.push([n,u]);put("sites",sites);render()};
+$("addBookmark").onclick=()=>{let u=urlOf(prompt("Website URL")||"");addSave(u)};
+$("clearHistory").onclick=()=>{if(confirm("Clear history?")){hist=[];put("hist",hist);render()}};
+function render(){
+$("sites").replaceChildren();sites.slice(0,10).forEach(s=>{let b=btn("",()=>go(s[1]));b.className="site";let c=document.createElement("span");c.className="circle";c.textContent=s[0][0].toUpperCase();let t=document.createElement("small");t.textContent=s[0];b.append(c,t);$("sites").append(b)});
+function list(id,arr,historyMode=false){$(id).replaceChildren();if(!arr.length){$(id).textContent="Nothing here yet.";return}arr.forEach((x,i)=>{let u=x.u;let acts=[btn("Open",()=>go(u),"primary"),btn("Save",()=>addSave(u))];if(historyMode||id==="downloadsList")acts.push(btn("Delete",()=>{arr.splice(i,1);put(historyMode?"hist":"files",arr);render()}));$(id).append(item(u,u,acts))})}
+list("saved",saved);list("hist",hist,true);list("recent",hist.slice(0,3),true);list("downloadsList",files);
+}
+async function downloadFile(u){
+if(!valid(u))return $("status").textContent="Enter a valid HTTP/HTTPS URL.";
+files=files.filter(x=>x.u!==u);files.unshift({u});files=files.slice(0,20);put("files",files);render();
+$("status").textContent="Trying download...";
+try{
+let r=await fetch(u,{mode:"cors",credentials:"omit"});
+if(!r.ok)throw Error("HTTP "+r.status);
+let blob=await r.blob();if(!blob.size)throw Error("Empty file");
+let obj=URL.createObjectURL(blob),a=document.createElement("a");
+let name=new URL(u).pathname.split("/").pop()||"download";
+a.href=obj;a.download=name;a.style.display="none";document.body.append(a);a.click();a.remove();
+setTimeout(()=>URL.revokeObjectURL(obj),30000);
+$("status").textContent="Download requested. Check the phone's Downloads folder to confirm the file was saved.";
+}catch(e){$("status").textContent="Download failed or was blocked. Cloud Phone may not support saving, or the server may block access. The file was not confirmed saved."}
+}
+$("download").onclick=()=>downloadFile($("file").value.trim());
+$("open").onclick=()=>{let u=$("file").value.trim();if(!valid(u))return $("status").textContent="Enter a valid URL.";files.unshift({u});files=files.slice(0,20);put("files",files);render();window.open(u,"_blank");$("status").textContent="Link opened; saving is not confirmed."};
+$("clearDownloads").onclick=()=>{if(confirm("Clear recent links?")){files=[];put("files",files);render()}};
+function applyTheme(){document.body.classList.toggle("dark",dark);$("theme").textContent=dark?"☾":"☀";put("dark",dark)}
+$("theme").onclick=$("theme2").onclick=()=>{dark=!dark;applyTheme()};
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText($("copyText").value);$("copyStatus").textContent="Copied."}catch(e){$("copyStatus").textContent="Clipboard unavailable. Copy the text manually."}};
+render();applyTheme();
 </script>
 </body>
 </html>
