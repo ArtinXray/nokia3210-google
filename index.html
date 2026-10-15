@@ -6,39 +6,45 @@
 <title>Nokia Browser</title>
 <style>
 body{
-  margin:0;
-  padding:20px 10px;
+  margin:0;padding:25px 10px;
   font-family:Arial,sans-serif;
-  background:#fff;
-  text-align:center;
+  text-align:center;background:white;
 }
 h2{color:#4285f4}
 input{
-  width:90%;
-  box-sizing:border-box;
-  padding:12px 8px;
-  border:1px solid #ccc;
-  border-radius:20px;
-  font-size:16px;
+  width:95%;box-sizing:border-box;
+  padding:12px;border:1px solid #ccc;
+  border-radius:20px;font-size:15px;
 }
 button{
-  margin-top:12px;
-  padding:10px 25px;
-  border:0;
-  border-radius:20px;
-  background:#4285f4;
-  color:white;
+  margin-top:12px;padding:10px 28px;
+  border:0;border-radius:20px;
+  background:#4285f4;color:white;
   font-size:15px;
 }
 </style>
 </head>
 <body>
 <h2>Nokia Browser</h2>
-<form action="https://www.google.com/search" method="get">
-<input name="q" type="text"
-placeholder="Search Google..." required>
+<form id="search">
+<input id="q" placeholder="Search or enter website"
+autocomplete="off" required>
 <br>
-<button type="submit">Search</button>
+<button type="submit">Go</button>
 </form>
+<script>
+document.getElementById('search').onsubmit=function(e){
+  e.preventDefault();
+  var q=document.getElementById('q').value.trim();
+  if(!q)return;
+  if(/^https?:\/\//i.test(q)){
+    location.href=q;
+  }else if(/^[\w-]+(\.[\w-]+)+([\/?#].*)?$/i.test(q)){
+    location.href='https://'+q;
+  }else{
+    location.href='https://www.google.com/search?q='+encodeURIComponent(q);
+  }
+};
+</script>
 </body>
 </html>
