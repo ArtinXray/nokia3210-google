@@ -1,193 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nokia Browser</title>
 <style>
-:root{--bg:#f8fafd;--card:#fff;--ink:#202124;--muted:#5f6368;--line:#dadce0;--blue:#1a73e8}
-body.dark{--bg:#202124;--card:#303134;--ink:#e8eaed;--muted:#bdc1c6;--line:#5f6368;--blue:#8ab4f8}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:9px}
-.top{display:flex;align-items:center;justify-content:space-between;padding:10px}
-.brand{font-size:18px;font-weight:bold}
-.g{color:#4285f4}.r{color:#ea4335}.y{color:#fbbc04}.gr{color:#34a853}
-.tools{display:flex;gap:6px}
-.round{width:34px;height:34px;padding:0;border-radius:50%;font-size:17px}
-.wrap{padding:8px 10px;max-width:440px;margin:auto}
-.logo{text-align:center;font-size:25px;font-weight:bold;margin:17px 0}
-.search{display:flex;gap:6px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:5px 6px 5px 12px}
-.search input,.address input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--ink);padding:9px 0}
-.search button{background:var(--blue);color:white;border:0;border-radius:50%;width:34px;height:34px;padding:0}
-.address{display:flex;gap:6px;margin:9px 0}
-.address input,.row input{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 12px}
-.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px 3px;margin:22px 0}
-.shortcut{text-align:center;border:0;background:transparent;padding:0 1px;font-size:11px;overflow:hidden}
-.bubble{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;background:var(--card);border:1px solid var(--line);font-size:15px;font-weight:bold}
-.shortcut span:last-child{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
-.section{display:none}.section.active{display:block}
-.heading{font-size:16px;font-weight:bold;margin:7px 0 12px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px;margin:10px 0}
-.item{padding:10px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
-.item:last-child{border-bottom:0}
-.item small{display:block;color:var(--muted);margin-top:4px}
-.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.actions button{font-size:12px;padding:7px 9px}
-.primary{background:var(--blue);color:white;border-color:var(--blue)}
-.row{display:flex;gap:6px}.row input{min-width:0;flex:1;color:var(--ink)}
-.hint,.status{font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
-.status{margin:10px 2px}.bad{color:#ea4335}
-.nav{position:sticky;bottom:0;display:flex;gap:3px;padding:7px 4px;background:var(--bg);border-top:1px solid var(--line)}
-.nav button{flex:1;font-size:11px;padding:9px 1px;border-radius:12px}
-.nav button.active{background:var(--blue);color:white;border-color:var(--blue)}
+body{
+  margin:0;
+  padding:20px 10px;
+  font-family:Arial,sans-serif;
+  background:#fff;
+  text-align:center;
+}
+h2{color:#4285f4}
+input{
+  width:90%;
+  box-sizing:border-box;
+  padding:12px 8px;
+  border:1px solid #ccc;
+  border-radius:20px;
+  font-size:16px;
+}
+button{
+  margin-top:12px;
+  padding:10px 25px;
+  border:0;
+  border-radius:20px;
+  background:#4285f4;
+  color:white;
+  font-size:15px;
+}
 </style>
 </head>
 <body>
-<header class="top">
- <div class="brand"><span class="g">N</span><span class="r">o</span><span class="y">k</span><span class="g">i</span><span class="gr">a</span> Browser</div>
- <div class="tools"><button class="round" id="theme">☼</button><button class="round" id="menu">⋮</button></div>
-</header>
-<main class="wrap">
-<section id="home" class="section active">
- <div class="logo"><span class="g">G</span><span class="r">o</span><span class="y">o</span><span class="g">g</span><span class="gr">l</span><span class="r">e</span></div>
- <form id="searchForm" class="search"><input id="q" placeholder="Search Google"><button>⌕</button></form>
- <form id="addressForm" class="address"><input id="url" placeholder="Website address"><button class="round">➜</button></form>
- <div class="grid" id="shortcuts"></div>
- <div class="panel"><b>Quick access</b><p class="hint">Search Google or enter a website address.</p></div>
- <div class="status" id="status">Ready</div>
-</section>
-<section id="bookmarks" class="section">
- <div class="heading">★ Bookmarks</div><div id="bookmarkList" class="panel"></div>
- <div class="row"><input id="bookmarkUrl" placeholder="https://example.com"><button id="addBookmark" class="primary">Add</button></div>
-</section>
-<section id="history" class="section">
- <div class="heading">◷ History</div><button id="clearHistory">Clear history</button><div id="historyList" class="panel"></div>
-</section>
-<section id="downloads" class="section">
- <div class="heading">↓ Downloads</div>
- <div class="panel">
-  <p class="hint">Enter a direct file URL. Cloud Phone must support saving files for a real download to work.</p>
-  <div class="row"><input id="downloadUrl" placeholder="https://example.com/file.pdf"></div>
-  <div class="actions"><button id="downloadBtn" class="primary">Open / Download</button><button id="copyDownload">Copy link</button></div>
-  <div id="downloadStatus" class="status">No download started.</div>
- </div>
- <div id="downloadList" class="panel"></div>
-</section>
-<section id="settings" class="section">
- <div class="heading">More</div>
- <div class="panel"><b>Nokia Browser</b><p class="hint">Simple browser interface for the Nokia 3210 display.</p>
- <div class="actions"><button id="themeSetting">Toggle theme</button><button id="clearAll">Clear saved data</button></div></div>
-</section>
-</main>
-<nav class="nav">
- <button class="active" data-page="home">⌂ Home</button>
- <button data-page="bookmarks">★ Saved</button>
- <button data-page="history">◷ History</button>
- <button data-page="downloads">↓ Files</button>
- <button data-page="settings">⋮ More</button>
-</nav>
-<script>
-const $=id=>document.getElementById(id);
-function get(k,d){try{return JSON.parse(localStorage.getItem("nb_"+k))??d}catch(e){return d}}
-function put(k,v){try{localStorage.setItem("nb_"+k,JSON.stringify(v))}catch(e){}}
-let bookmarks=get("bookmarks",[]),history=get("history",[]),downloads=get("downloads",[]);
-const sites=[
-["Google","https://www.google.com/"],["YouTube","https://m.youtube.com/"],
-["Wikipedia","https://www.wikipedia.org/"],["Gmail","https://mail.google.com/"],
-["Bing","https://www.bing.com/"],["DuckDuckGo","https://duckduckgo.com/"],
-["BBC","https://www.bbc.com/"],["GitHub","https://github.com/"],
-["Archive","https://archive.org/"],["Sample PDF","https://samplepdf.org/files/sample.pdf"]
-];
-function valid(u){try{return ["http:","https:"].includes(new URL(u).protocol)}catch(e){return false}}
-function normalize(s){
- s=s.trim();if(!s)return "";
- if(!/^https?:\/\//i.test(s)&&s.includes(".")&&!s.includes(" "))s="https://"+s;
- return s;
-}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function setStatus(t){$("status").textContent=t}
-function record(u){
- history=history.filter(x=>x.u!==u);history.unshift({u,t:Date.now()});
- history=history.slice(0,30);put("history",history);renderLists();
-}
-function openUrl(raw){
- let u=normalize(raw);if(!u)return;
- if(!valid(u)){searchGoogle(raw);return}
- record(u);location.href=u;
-}
-function searchGoogle(q){
- if(!q.trim())return;
- let u="https://www.google.com/search?q="+encodeURIComponent(q.trim());
- record(u);location.href=u;
-}
-function showPage(p){
- document.querySelectorAll(".section").forEach(e=>e.classList.toggle("active",e.id===p));
- document.querySelectorAll(".nav button").forEach(e=>e.classList.toggle("active",e.dataset.page===p));
- if(["bookmarks","history","downloads"].includes(p))renderLists();
-}
-function renderShortcuts(){
- $("shortcuts").innerHTML=sites.map((s,i)=>`<button class="shortcut" data-site="${i}"><span class="bubble" style="color:${["#4285f4","#ea4335","#34a853","#ea4335","#4285f4","#34a853","#4285f4","#202124","#fbbc04","#ea4335"][i]}">${s[0][0]}</span><span>${s[0]}</span></button>`).join("");
- document.querySelectorAll("[data-site]").forEach(b=>b.onclick=()=>openUrl(sites[+b.dataset.site][1]));
-}
-async function copyText(s){
- try{
-  if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(s);setStatus("Link copied.");return}
-  let t=document.createElement("textarea");t.value=s;document.body.append(t);t.select();
-  let ok=document.execCommand("copy");t.remove();setStatus(ok?"Link copied.":"Copy not supported here.");
- }catch(e){setStatus("Copy not supported in this environment.")}
-}
-function renderLists(){
- $("bookmarkList").innerHTML=bookmarks.length?bookmarks.map((x,i)=>`<div class="item">${esc(x)}<div class="actions"><button data-ob="${i}">Open</button><button data-cb="${i}">Copy</button><button data-db="${i}">Delete</button></div></div>`).join(""):'<div class="hint">No bookmarks yet.</div>';
- $("historyList").innerHTML=history.length?history.map((x,i)=>`<div class="item">${esc(x.u)}<small>${new Date(x.t).toLocaleString()}</small><div class="actions"><button data-oh="${i}">Open</button><button data-ch="${i}">Copy</button></div></div>`).join(""):'<div class="hint">No history yet.</div>';
- $("downloadList").innerHTML=downloads.length?downloads.map((x,i)=>`<div class="item">${esc(x)}<div class="actions"><button data-cd="${i}">Copy link</button><button data-od="${i}">Open link</button><button data-dd="${i}">Remove</button></div></div>`).join(""):'<div class="hint">No download attempts yet.</div>';
- document.querySelectorAll("[data-ob]").forEach(b=>b.onclick=()=>openUrl(bookmarks[+b.dataset.ob]));
- document.querySelectorAll("[data-cb]").forEach(b=>b.onclick=()=>copyText(bookmarks[+b.dataset.cb]));
- document.querySelectorAll("[data-db]").forEach(b=>b.onclick=()=>{bookmarks.splice(+b.dataset.db,1);put("bookmarks",bookmarks);renderLists()});
- document.querySelectorAll("[data-oh]").forEach(b=>b.onclick=()=>openUrl(history[+b.dataset.oh].u));
- document.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>copyText(history[+b.dataset.ch].u));
- document.querySelectorAll("[data-cd]").forEach(b=>b.onclick=()=>copyText(downloads[+b.dataset.cd]));
- document.querySelectorAll("[data-od]").forEach(b=>b.onclick=()=>openUrl(downloads[+b.dataset.od]));
- document.querySelectorAll("[data-dd]").forEach(b=>b.onclick=()=>{downloads.splice(+b.dataset.dd,1);put("downloads",downloads);renderLists()});
-}
-function directDownload(raw){
- let u=normalize(raw);
- if(!valid(u)){$("downloadStatus").textContent="Enter a valid HTTP/HTTPS URL.";return}
- downloads=downloads.filter(x=>x!==u);downloads.unshift(u);downloads=downloads.slice(0,20);put("downloads",downloads);renderLists();
- $("downloadStatus").textContent="Opening file link. It may display instead of saving. Check File Manager to confirm.";
- // Direct navigation avoids fetch/CORS, but Cloud Phone controls whether the file is saved.
- location.href=u;
-}
-$("searchForm").onsubmit=e=>{e.preventDefault();searchGoogle($("q").value)};
-$("addressForm").onsubmit=e=>{
- e.preventDefault();let s=$("url").value.trim();if(!s)return;
- if(!s.includes(" ")&&(s.includes(".")||/^https?:\/\//i.test(s)))openUrl(s);else searchGoogle(s);
-};
-$("addBookmark").onclick=()=>{
- let u=normalize($("bookmarkUrl").value);
- if(!valid(u)){setStatus("Enter a valid website URL.");return}
- if(!bookmarks.includes(u))bookmarks.unshift(u);
- bookmarks=bookmarks.slice(0,30);put("bookmarks",bookmarks);$("bookmarkUrl").value="";renderLists();
-};
-$("clearHistory").onclick=()=>{history=[];put("history",history);renderLists()};
-$("downloadBtn").onclick=()=>directDownload($("downloadUrl").value);
-$("copyDownload").onclick=()=>copyText(normalize($("downloadUrl").value));
-function toggleTheme(){
- document.body.classList.toggle("dark");let dark=document.body.classList.contains("dark");
- put("dark",dark);$("theme").textContent=dark?"☾":"☼";
-}
-$("theme").onclick=$("themeSetting").onclick=toggleTheme;
-$("menu").onclick=()=>showPage("settings");
-$("clearAll").onclick=()=>{
- if(confirm("Clear bookmarks, history and download list?")){
- bookmarks=[];history=[];downloads=[];
- put("bookmarks",bookmarks);put("history",history);put("downloads",downloads);renderLists();
- }
-};
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
-if(get("dark",false)){document.body.classList.add("dark");$("theme").textContent="☾"}
-renderShortcuts();renderLists();
-</script>
+<h2>Nokia Browser</h2>
+<form action="https://www.google.com/search" method="get">
+<input name="q" type="text"
+placeholder="Search Google..." required>
+<br>
+<button type="submit">Search</button>
+</form>
 </body>
 </html>
